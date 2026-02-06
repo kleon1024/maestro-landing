@@ -159,7 +159,8 @@ export const CONTACT = {
 };
 
 export const NAV_LINKS = [
-  { href: "#products", label: "Products" },
-  { href: "#services", label: "Services" },
-  { href: "#about", label: "About" },
+  { href: "/#products", label: "Products" },
+  { href: "/#services", label: "Services" },
+  { href: "/#about", label: "About" },
+  { href: "/blog", label: "Insights" },
 ];

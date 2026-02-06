@@ -35,10 +35,17 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Copyright */}
-          <p className="text-zinc-500 text-sm">
-            &copy; {currentYear} Maestro. All rights reserved.
-          </p>
+          {/* Links */}
+          <div className="flex items-center gap-6 text-sm text-zinc-500">
+            <a
+              href="/blog"
+              className="hover:text-zinc-300 transition-colors"
+            >
+              Insights
+            </a>
+            <span className="text-zinc-800">|</span>
+            <p>&copy; {currentYear} Maestro</p>
+          </div>
 
           {/* Social links */}
           <div className="flex items-center gap-4">

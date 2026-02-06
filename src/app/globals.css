@@ -130,3 +130,15 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 80px;
   }
 }
+
+/* Blog prose: heading anchors get IDs for TOC scroll targeting */
+.prose-maestro h2,
+.prose-maestro h3 {
+  scroll-margin-top: 5rem;
+}
+
+/* Blog prose: image styling */
+.prose-maestro img {
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+}

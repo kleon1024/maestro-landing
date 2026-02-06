@@ -102,7 +102,7 @@ export function Navigation() {
           {/* Contact Button */}
           <div className="hidden md:block">
             <a
-              href="#contact"
+              href="/#contact"
               className="inline-flex items-center px-5 py-2 rounded-full bg-blue-500 text-white text-sm font-medium hover:bg-blue-400 transition-colors duration-200 cursor-pointer"
             >
               Contact Us
@@ -162,7 +162,7 @@ export function Navigation() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href="/#contact"
                 className="mt-2 mx-4 inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-blue-500 text-white text-sm font-medium cursor-pointer"
                 onClick={() => setMobileMenuOpen(false)}
               >
