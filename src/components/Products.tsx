@@ -84,10 +84,13 @@ function CornerMarkers() {
 
 function ProductCard({ product }: { product: Product }) {
   const isLive = product.status === "live";
+  const isFeatured = product.featured === true;
   const gradient = productGradients[product.id] || "from-blue-500/40 via-blue-500/20 to-transparent";
 
   return (
-    <div className="group relative bg-zinc-900/50 border border-zinc-800 overflow-hidden cursor-pointer hover:border-zinc-600 transition-all duration-300 flex flex-col h-full">
+    <div className={`group relative bg-zinc-900/50 border overflow-hidden cursor-pointer hover:border-zinc-600 transition-all duration-300 flex flex-col h-full ${
+      isFeatured ? "border-blue-500/40 ring-1 ring-blue-500/10" : "border-zinc-800"
+    }`}>
       <CornerMarkers />
 
       {/* Gradient header with product branding */}
@@ -101,15 +104,21 @@ function ProductCard({ product }: { product: Product }) {
           }}
         />
 
-        {/* Year badge */}
+        {/* Year / Featured badge */}
         <div className="absolute top-3 right-3">
-          <span className={`text-xs font-mono px-2 py-1 ${
-            isLive
-              ? "bg-zinc-800 text-zinc-300"
-              : "bg-zinc-800/50 text-zinc-500"
-          }`}>
-            {isLive ? "2025" : "Soon"}
-          </span>
+          {isFeatured ? (
+            <span className="text-xs font-mono px-2 py-1 bg-blue-600 text-white tracking-wider">
+              FLAGSHIP
+            </span>
+          ) : (
+            <span className={`text-xs font-mono px-2 py-1 ${
+              isLive
+                ? "bg-zinc-800 text-zinc-300"
+                : "bg-zinc-800/50 text-zinc-500"
+            }`}>
+              {isLive ? "2025" : "Soon"}
+            </span>
+          )}
         </div>
 
         {/* Product icon and name in header */}

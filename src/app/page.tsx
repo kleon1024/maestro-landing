@@ -1,6 +1,7 @@
 import {
   Navigation,
   Hero,
+  FlagshipRA,
   Products,
   Services,
   About,
@@ -14,6 +15,7 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
+        <FlagshipRA />
         <Products />
         <Services />
         <About />

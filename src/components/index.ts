@@ -1,5 +1,6 @@
 export { Navigation } from "./Navigation";
 export { Hero } from "./Hero";
+export { FlagshipRA } from "./FlagshipRA";
 export { Products } from "./Products";
 export { Services } from "./Services";
 export { About } from "./About";

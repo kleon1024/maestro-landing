@@ -15,6 +15,7 @@ export interface Product {
   url?: string;
   icon: string;
   category: string;
+  featured?: boolean;
 }
 
 export const PRODUCTS: Product[] = [
@@ -50,13 +51,14 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "ra",
-    name: "RA",
+    name: "RA Suite",
     description:
-      "End-to-end research assistant. Turn messy public data sources into paper-ready datasets, tables, and LaTeX sections in minutes.",
+      "Professional research infrastructure: data processing, lab platforms, and collaborative LaTeX editing. Trusted by 50+ research labs worldwide.",
     status: "live",
     url: "https://ra.maestro.onl",
     icon: "microscope",
     category: "Research",
+    featured: true,
   },
   {
     id: "growth",
