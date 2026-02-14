@@ -20,7 +20,6 @@ const productGradients: Record<string, string> = {
   econ: "from-emerald-500/40 via-teal-500/20 to-transparent",
   printpic: "from-pink-500/40 via-rose-500/20 to-transparent",
   kairos: "from-blue-500/40 via-indigo-500/20 to-transparent",
-  ra: "from-purple-500/40 via-violet-500/20 to-transparent",
   growth: "from-amber-500/40 via-orange-500/20 to-transparent",
   layout: "from-cyan-500/40 via-sky-500/20 to-transparent",
   rehearse: "from-lime-500/40 via-green-500/20 to-transparent",
@@ -173,7 +172,7 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export function Products() {
-  const liveProducts = PRODUCTS.filter((p) => p.status === "live");
+  const liveProducts = PRODUCTS.filter((p) => p.status === "live" && p.id !== "ra");
   const upcomingProducts = PRODUCTS.filter((p) => p.status === "coming-soon");
   const allProducts = [...liveProducts, ...upcomingProducts];
 
@@ -196,12 +195,12 @@ export function Products() {
         <div className="mb-12">
           <div className="flex items-baseline gap-4 mb-2">
             <h2 className="text-4xl md:text-5xl font-bold text-zinc-50 tracking-tight">
-              THE MAESTRO
-              <span className="text-blue-500 ml-3">SUITE</span>
+              AI
+              <span className="text-blue-500 ml-3">PRODUCTS</span>
             </h2>
           </div>
           <p className="text-xs font-mono tracking-[0.2em] text-zinc-600 uppercase">
-            /// Our Products ///
+            /// Tools that empower individuals ///
           </p>
         </div>
 

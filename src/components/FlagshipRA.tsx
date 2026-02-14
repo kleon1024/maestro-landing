@@ -100,7 +100,7 @@ export function FlagshipRA() {
           <div className="flex items-center gap-3 mb-6">
             <span className="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
             <span className="text-xs font-mono tracking-[0.2em] text-blue-400 uppercase">
-              Flagship Product
+              Enterprise Case Study
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-50 tracking-tight mb-6">

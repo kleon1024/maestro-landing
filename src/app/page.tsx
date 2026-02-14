@@ -15,9 +15,9 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
+        <Services />
         <FlagshipRA />
         <Products />
-        <Services />
         <About />
         <Contact />
       </main>

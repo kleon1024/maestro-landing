@@ -94,35 +94,55 @@ export const PRODUCTS: Product[] = [
 
 export interface Service {
   id: string;
+  number: string;
   title: string;
   description: string;
   features: string[];
+  icon: string;
 }
 
 export const SERVICES: Service[] = [
   {
-    id: "product-dev",
-    title: "AI Product Development",
+    id: "custom-ai",
+    number: "/01",
+    title: "Custom AI Solutions",
     description:
-      "End-to-end development of AI-powered products, from concept to deployment.",
-    features: [
-      "Strategy & Design",
-      "AI/ML Integration",
-      "Full-stack Development",
-      "Launch & Support",
-    ],
-  },
-  {
-    id: "custom-dev",
-    title: "Custom Development",
-    description:
-      "Bespoke AI solutions tailored to your specific business needs and workflows.",
+      "End-to-end AI product development tailored to your business.",
     features: [
       "Requirements Analysis",
-      "Custom Model Training",
-      "Integration & Deployment",
-      "Ongoing Optimization",
+      "AI/ML Integration",
+      "Full-stack Development",
+      "Deployment & Support",
     ],
+    icon: "cpu",
+  },
+  {
+    id: "ai-tools",
+    number: "/02",
+    title: "AI Tools & Integration",
+    description:
+      "Pre-built AI tools and custom integrations for your workflows.",
+    features: [
+      "Workflow Automation",
+      "Data Pipeline",
+      "API Integration",
+      "Analytics Dashboard",
+    ],
+    icon: "wrench",
+  },
+  {
+    id: "ai-training",
+    number: "/03",
+    title: "AI Training & Upskilling",
+    description:
+      "Equip your team with AI skills for the new economy.",
+    features: [
+      "Hands-on Workshops",
+      "AI Literacy Programs",
+      "Custom Curriculum",
+      "Certification Support",
+    ],
+    icon: "graduation",
   },
 ];
 
@@ -138,7 +158,7 @@ export const VALUES: Value[] = [
     id: "precision",
     icon: "zap",
     title: "Precision",
-    description: "Our AI doesn't guess — it delivers accurate, reliable results.",
+    description: "Our AI doesn't guess -- it delivers accurate, reliable results.",
   },
   {
     id: "harmony",
@@ -166,8 +186,8 @@ export const CONTACT = {
 };
 
 export const NAV_LINKS = [
+  { href: "/#enterprise", label: "Enterprise" },
   { href: "/#products", label: "Products" },
-  { href: "/#services", label: "Services" },
   { href: "/#about", label: "About" },
   { href: "/blog", label: "Insights" },
 ];

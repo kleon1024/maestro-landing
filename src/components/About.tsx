@@ -40,11 +40,12 @@ export function About() {
             /// About Us ///
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-50 mb-8 tracking-tight">
-            Orchestrating Intelligence
+            Orchestrating AI for Business and Individuals
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 leading-relaxed">
-            We build AI tools that amplify human expertise, automate routine
-            complexity, and free professionals to focus on what truly matters.
+            We partner with enterprises to build custom AI solutions, and
+            create consumer AI products that empower individuals. From
+            Singapore to the world.
           </p>
         </div>
 

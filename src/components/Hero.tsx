@@ -26,32 +26,32 @@ export function Hero() {
         <div className="max-w-5xl">
           {/* Pre-heading */}
           <p className="text-xs font-mono tracking-[0.3em] text-zinc-600 uppercase mb-8">
-            /// Building the future of AI ///
+            /// AI-Powered Enterprise Solutions ///
           </p>
 
           {/* Main headline - Exaggerated typography */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-10">
-            <span className="text-zinc-50">We build, </span>
-            <span className="text-gradient">iterate</span>
+            <span className="text-zinc-50">We build </span>
+            <span className="text-gradient">AI solutions</span>
             <br className="hidden sm:block" />
-            <span className="text-zinc-50">&amp; scale </span>
-            <span className="text-blue-400">AI</span>
-            <span className="text-zinc-50"> products.</span>
+            <span className="text-zinc-50"> that transform how</span>
+            <br className="hidden sm:block" />
+            <span className="text-zinc-50">businesses operate.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl lg:text-2xl text-zinc-500 max-w-2xl leading-relaxed mb-16">
-            A technology company focused on building AI-powered tools that
-            amplify human expertise.
+            Enterprise AI customization and deployment. Individual-empowering AI
+            products. Singapore-based, globally delivered.
           </p>
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#products"
+              href="#enterprise"
               className="inline-flex items-center justify-center px-8 py-4 bg-zinc-50 text-zinc-900 text-sm font-semibold hover:bg-zinc-200 transition-colors duration-200 cursor-pointer"
             >
-              Explore Products
+              Enterprise Solutions
               <svg
                 className="ml-3 w-4 h-4"
                 fill="none"
@@ -67,11 +67,18 @@ export function Hero() {
               </svg>
             </a>
             <a
-              href="#contact"
+              href="#products"
               className="inline-flex items-center justify-center px-8 py-4 border border-zinc-800 text-zinc-400 text-sm font-semibold hover:bg-zinc-900 hover:text-zinc-200 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
             >
-              Contact Sales
+              Explore Products
             </a>
+          </div>
+
+          {/* Trust badge row */}
+          <div className="mt-12 flex flex-wrap items-center gap-6 text-xs font-mono tracking-wider text-zinc-600">
+            <span>Trusted by 50+ research labs</span>
+            <span className="w-1 h-1 rounded-full bg-zinc-700" />
+            <span>Aligned with SG Budget 2026 AI initiatives</span>
           </div>
         </div>
       </div>
