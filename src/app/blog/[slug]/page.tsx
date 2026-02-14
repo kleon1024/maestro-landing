@@ -87,6 +87,9 @@ export default async function BlogPostPage({
     source: post.content,
     components: mdxComponents,
     options: {
+      // blockJS: false -- our MDX content is trusted (authored internally),
+      // and uses JS expressions for component props (e.g. FAQAccordion items={[...]})
+      blockJS: false,
       mdxOptions: {
         remarkPlugins: [remarkGfm],
       },
