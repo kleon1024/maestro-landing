@@ -1,0 +1,258 @@
+---
+title: "Building Replication Packages with AI: A Complete Guide"
+description: "Step-by-step guide to building journal-ready replication packages using AI tools. Address the replication crisis with automated documentation, verification, and packaging."
+publishedAt: "2026-02-18"
+author: "Maestro Team"
+seo:
+  keywords: ["replication package", "research reproducibility", "data replication economics", "replication crisis"]
+---
+
+The replication crisis is not a hypothetical problem. It is a documented, measured failure of scientific methodology that has shaken confidence in published research across economics, psychology, and the social sciences. Large-scale replication projects have found that 50 to 70 percent of published findings fail to replicate when independent teams attempt to reproduce them.
+
+Journals have responded by mandating replication packages -- complete bundles of data, code, and documentation that allow anyone to reproduce a paper's results from raw inputs to final tables. This is the right response. But building replication packages is painful, time-consuming, and frequently done poorly.
+
+AI is changing the economics of replication packaging. This guide walks through the replication package problem, what journals actually require, and how AI tools automate the hardest parts of the process.
+
+## The Replication Crisis in Numbers
+
+The scale of the reproducibility problem is well documented:
+
+<MetricGrid>
+  <Metric value="54%" label="Of economics studies fail independent replication" source="Institute for Replication, 2025" />
+  <Metric value="62%" label="Of psychology findings fail to replicate" source="Open Science Collaboration" />
+  <Metric value="67%" label="Of researchers report difficulty reproducing others' work" source="Nature Survey 2024" />
+  <Metric value="$28B" label="Estimated annual cost of irreproducible research in the US" source="PLOS Biology" />
+</MetricGrid>
+
+These failures are not primarily caused by fraud. The most common causes are:
+
+- **Incomplete documentation** of data transformations and analytical choices
+- **Computational environment differences** between the original analysis and replication attempts
+- **Undocumented researcher degrees of freedom** in data cleaning and variable construction
+- **Missing intermediate data files** or code dependencies
+- **Software version incompatibilities** that produce different numerical results
+
+A well-constructed replication package addresses all of these failure modes. The problem is that building one takes significant effort -- effort that currently falls on researchers who are already stretched thin.
+
+## What Journals Require
+
+Journal requirements for replication packages have converged toward a common standard, driven by the AEA Data Editor's influential framework. The core components are:
+
+### Data Availability
+
+All data used in the paper must be either included in the package or accompanied by precise instructions for obtaining it (for licensed or restricted data). This includes:
+
+- Raw source data files
+- All intermediate processed datasets
+- Clear documentation of data provenance (where each file came from, when it was downloaded, what version it represents)
+
+### Code Completeness
+
+Every result in the paper -- every table, figure, and in-text statistic -- must be producible by running the provided code. This means:
+
+- A master script that executes all code in the correct order
+- No manual steps between scripts (no "open this file in Excel and sort by column B")
+- Clear dependency management (which packages/libraries are required, in which versions)
+
+### Documentation
+
+A README file that explains:
+
+- How to obtain any data not included in the package
+- How to run the code (software requirements, expected runtime, hardware requirements)
+- The mapping between code outputs and paper elements (which script produces which table)
+- Any known limitations or platform dependencies
+
+### Computational Environment
+
+Increasingly, journals expect specifications of:
+
+- Software versions (Stata 18.0, R 4.3.2, Python 3.11)
+- Package/library versions
+- Operating system (when results are platform-dependent)
+- Hardware requirements (RAM, disk space, GPU if applicable)
+
+<Callout type="info" title="The AEA Standard">
+The American Economic Association's Data Editor has processed over 3,000 replication packages since 2019. Approximately 60% require revision on first submission, most commonly for missing data files, incomplete code, and inadequate documentation. The AEA's requirements are widely adopted as the de facto standard across economics journals.
+</Callout>
+
+## Why Building Replication Packages Is Hard
+
+If the requirements are clear, why do most researchers struggle with replication packages? The answer lies in when and how they are built.
+
+### The Retroactive Documentation Problem
+
+Most researchers build replication packages after the paper is written -- sometimes months after the analysis was completed. By this point:
+
+- The RA who wrote the cleaning code has graduated and moved on
+- Nobody remembers why a particular variable was coded a specific way
+- The computational environment has changed (packages updated, paths restructured)
+- Intermediate files were overwritten or deleted during iterative analysis
+- The relationship between scripts is unclear even to the authors
+
+Reconstructing the analytical pipeline retroactively is like writing a recipe by reverse-engineering a finished dish. It can be done, but it is slow, error-prone, and deeply unpleasant.
+
+### The Tooling Gap
+
+Academic researchers are trained in statistics and methodology, not software engineering. Concepts that are second nature to software developers -- version control, dependency management, automated testing, continuous integration -- are foreign to most research workflows. This tooling gap means that even well-intentioned researchers lack the infrastructure to maintain reproducible pipelines.
+
+### The Incentive Mismatch
+
+Building a replication package does not produce new results. It documents existing ones. For a researcher under publication pressure, every hour spent on documentation is an hour not spent on the next paper. This incentive structure virtually guarantees that replication packages are built with minimal effort at the last possible moment.
+
+## A Step-by-Step Guide to Building Replication Packages
+
+Whether you build your package manually or with AI assistance, the process follows the same logical structure.
+
+<StepGuide>
+  <Step number={1} title="Inventory All Data Sources">
+  List every dataset used in the paper. For each, document: the source, the version or download date, the access method (public download, restricted license, API), the file format, and the approximate size. This inventory becomes the foundation of your data availability statement.
+  </Step>
+  <Step number={2} title="Map the Analytical Pipeline">
+  Trace every result in the paper back to its source data. For each table, figure, and in-text statistic, identify: which script produces it, which input data it requires, and what intermediate files are involved. Create a directed acyclic graph (DAG) of the pipeline -- either formally or as a simple diagram showing the flow from raw data to outputs.
+  </Step>
+  <Step number={3} title="Build a Master Execution Script">
+  Create a single script (a master .do file in Stata, or a Makefile, or a shell script) that runs the entire pipeline from raw data to final outputs. This script should execute all cleaning, merging, analysis, and output generation in the correct order. No manual intervention should be required between steps.
+  </Step>
+  <Step number={4} title="Lock the Computational Environment">
+  Document the exact software versions used. In R, use renv to create a lockfile. In Python, use pip freeze or poetry to export requirements. In Stata, record the version and list all user-written ado files. Include these specifications in the package.
+  </Step>
+  <Step number={5} title="Write the README">
+  Your README should cover: system requirements, data acquisition instructions (for data not included), execution instructions (how to run the master script), a table mapping outputs to paper elements, expected runtime, and known limitations. Write it for someone who has never seen your project.
+  </Step>
+  <Step number={6} title="Test on a Clean Machine">
+  Run the entire package on a fresh environment -- a different computer, a clean virtual machine, or a colleague's workstation. This is the step that catches hardcoded file paths, missing dependencies, and undocumented manual steps. Most replication failures would be caught at this stage if researchers actually performed it.
+  </Step>
+  <Step number={7} title="Verify Output Correspondence">
+  Compare every output produced by the clean-machine run against the results in the paper. Check tables cell by cell. Check figures visually. Verify in-text statistics. Any discrepancy must be investigated and resolved before submission.
+  </Step>
+  <Step number={8} title="Package and Archive">
+  Bundle all components into the submission-ready format required by the journal. Create a persistent archive (Zenodo, ICPSR, or the journal's designated repository). Generate a DOI for the package.
+  </Step>
+</StepGuide>
+
+This process, done manually, typically takes 40 to 120 hours for a standard empirical paper. For papers with complex data pipelines (multiple data sources, GIS analysis, web scraping, or machine learning components), the investment can exceed 200 hours.
+
+## How AI Automates the Painful Parts
+
+AI does not replace the researcher's analytical judgment. It automates the mechanical work that makes replication packaging so burdensome.
+
+### Automated Code Documentation
+
+AI can read existing analysis scripts and generate inline documentation explaining what each section does, what inputs it expects, and what outputs it produces. This addresses the retroactive documentation problem: even if the original code was written without comments, AI can annotate it after the fact.
+
+### Dependency Detection and Environment Specification
+
+AI tools can scan a codebase, identify all package dependencies (including indirect dependencies), detect version requirements, and generate environment specification files. In Stata, this means identifying all required ado files and their versions. In R and Python, this means generating complete lockfiles.
+
+### Pipeline Mapping
+
+Given a set of scripts and data files, AI can trace the execution flow and generate the pipeline DAG automatically. It identifies which scripts read which data files, which scripts must run before others, and which scripts produce the final outputs referenced in the paper.
+
+### Output Verification
+
+AI can execute the pipeline and compare outputs against reference results (the tables and figures in the paper), flagging any discrepancies. This automated verification catches the errors that manual comparison often misses -- transposed digits, rounding differences, or results that changed due to updated packages.
+
+### README Generation
+
+Based on the pipeline analysis, dependency detection, and execution results, AI can generate a comprehensive README that meets journal standards. The generated document includes all required sections and can be edited by the researcher for accuracy and completeness.
+
+<KeyTakeaway title="The AI Advantage in Replication">
+AI-powered replication packaging reduces the typical time investment from 40-120 hours to 8-20 hours. More importantly, it produces more thorough documentation than most manual packages because it systematically checks every component rather than relying on the researcher's memory of what they did months earlier.
+</KeyTakeaway>
+
+## Common Pitfalls and How to Avoid Them
+
+Even with AI assistance, certain pitfalls require researcher attention:
+
+### Hardcoded File Paths
+
+The single most common reason replication packages fail on the first attempt. Every file path in your code must be relative to the project root or configurable through a single settings file. AI can detect and flag absolute paths, but the researcher must decide how to restructure them.
+
+<Callout type="warning" title="The Path Problem">
+A survey of AEA replication package submissions found that 43% contained hardcoded absolute file paths on first submission. This single issue accounts for more revision requests than any other problem.
+</Callout>
+
+### Proprietary Data Without Instructions
+
+If your paper uses restricted-access data, the replication package must include precise instructions for obtaining it: the data provider, the application process, the expected timeline, and any costs. Saying "data available upon request" is no longer acceptable at most journals.
+
+### Undocumented Manual Steps
+
+Any step that requires human intervention breaks automation. Common offenders: manually downloading data from a website, copying results from one file to another, formatting tables in a spreadsheet. Eliminate these steps by scripting them, or at minimum document them explicitly.
+
+### Version Sensitivity
+
+Some analyses produce different results with different software versions due to changes in default algorithms (random number generation, optimization methods, floating-point handling). Test your package with the exact versions specified in your environment documentation.
+
+### Large Data Files
+
+Many repositories have file size limits. If your data exceeds these limits, provide download scripts or instructions rather than attempting to include the files directly. Document the expected file sizes so reviewers can verify they have complete downloads.
+
+## The 100% Replication Standard
+
+Maestro's [RA Suite](https://ra.maestro.onl) maintains a 100% replication rate across all delivered packages -- meaning every package it produces has been independently verified to reproduce results exactly. This is achieved through a systematic approach:
+
+1. **Pipeline-first development**: Code and documentation are built together, not sequentially
+2. **Automated verification**: Every output is programmatically compared against reference results
+3. **Clean-room testing**: Packages are executed in isolated environments before delivery
+4. **Multi-tool support**: Verification covers Stata, R, and Python codebases, including mixed-language pipelines
+
+This standard is achievable because the verification process is automated. Checking a package manually is tedious and error-prone. Checking it programmatically is fast and thorough.
+
+## The Business Case for Investing in Replication
+
+Beyond journal requirements, robust replication packages serve the researcher's own interests:
+
+**Faster revisions**: When a referee requests a robustness check or alternative specification, researchers with well-structured replication packages can respond in days rather than weeks. The pipeline is documented, the code is organized, and the environment is specified.
+
+**Lab continuity**: When RAs graduate or leave, their work remains reproducible. New team members can understand and extend existing analyses without archaeological code excavation.
+
+**Grant applications**: Funding agencies increasingly evaluate data management practices. A lab with a track record of producing high-quality replication packages signals methodological rigor.
+
+**Personal insurance**: If a result is questioned years after publication, a complete replication package is the definitive defense. Without one, the researcher must reconstruct their analysis from memory and possibly incomplete files.
+
+## Building a Replication Culture
+
+Individual researchers can improve their own practices, but lasting change requires institutional support:
+
+**Lab-level standards**: Establish a replication checklist that every project must satisfy before paper submission. Make it part of the lab's standard workflow, not an afterthought.
+
+**Training**: Teach graduate students the basics of reproducible workflows (version control, dependency management, scripted pipelines) early in their programs. These skills pay dividends throughout their careers.
+
+**Incentives**: Recognize and reward thorough replication practices in performance reviews, tenure evaluations, and award criteria. As long as replication packaging is seen as thankless busywork, it will be done poorly.
+
+**Tool adoption**: Provide lab members with access to AI-powered tools that reduce the burden of replication packaging. When the cost of doing it right drops, compliance improves.
+
+<KeyTakeaway title="Replication Is Research Infrastructure">
+A replication package is not a bureaucratic requirement to be satisfied with minimal effort. It is research infrastructure -- the foundation that gives other researchers confidence in your findings and gives you confidence in your own work. AI tools make building this infrastructure faster and cheaper, but the commitment to reproducibility must come from the researcher.
+</KeyTakeaway>
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "How long does it take to build a replication package for a typical economics paper?",
+    answer: "Manually, 40 to 120 hours for a standard empirical paper with 2-3 data sources. With AI-assisted tools, this drops to 8-20 hours. Papers with complex pipelines (multiple data sources, GIS, web scraping, machine learning) can exceed 200 hours manually. The time investment depends heavily on whether reproducibility practices were followed during the research process or must be reconstructed retroactively."
+  },
+  {
+    question: "What is the most common reason replication packages are rejected by journals?",
+    answer: "Hardcoded file paths and missing data files account for the largest share of first-submission rejections. The AEA Data Editor reports that approximately 60% of packages require revision, with incomplete code (scripts that do not run end-to-end) and inadequate documentation as the other major issues. These problems are almost entirely preventable with proper tooling."
+  },
+  {
+    question: "Can I build a replication package if some of my data is restricted-access?",
+    answer: "Yes. For restricted data, you provide detailed access instructions rather than the data itself. Your code should still run end-to-end once the data is obtained. Some journals accept 'partial replication packages' that include all code and public data, with clear instructions for the restricted components. Include synthetic or simulated data that allows code to execute for testing purposes when possible."
+  },
+  {
+    question: "Do I need to include replication packages for working papers or only journal submissions?",
+    answer: "Journal requirements apply to accepted manuscripts. However, building replication packages for working papers is increasingly common and strategically valuable. It demonstrates rigor, facilitates feedback from colleagues, and means the package is ready when the paper is accepted rather than built retroactively under deadline pressure. Pre-registration platforms like the AEA RCT Registry also benefit from early replication documentation."
+  },
+  {
+    question: "How does Maestro's RA Suite achieve a 100% replication rate?",
+    answer: "Through automated pipeline development, clean-room testing, and programmatic output verification. Every package is built using a pipeline-first approach where code and documentation are developed together. Before delivery, packages are executed in isolated environments and all outputs are compared against reference results. This systematic verification process catches errors that manual checking routinely misses. The service supports Stata, R, and Python, including mixed-language pipelines."
+  }
+]} />
+
+---
+
+*Published by the Maestro team. Build journal-ready replication packages with RA Suite at [ra.maestro.onl](https://ra.maestro.onl).*
