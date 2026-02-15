@@ -1,0 +1,233 @@
+# Maestro -- Full Documentation for AI Systems
+
+> AI company building tools that amplify human expertise. Singapore-based, globally delivered.
+
+## Company Overview
+
+Maestro is a Singapore-based AI company operating across two pillars: enterprise AI solutions and consumer AI products. The company builds AI-powered tools for research infrastructure, behavioral economics, creative automation, and productivity. Maestro partners with businesses to create custom AI solutions and develops consumer products that empower individuals.
+
+### Mission and Vision
+
+Maestro's mission is to amplify human capability through precision AI. The company operates on four core values:
+
+- **Precision**: AI that delivers accurate, reliable results rather than guesses.
+- **Harmony**: AI and humans working in concert, not conflict.
+- **Craft**: Attention to detail; shipping only when quality meets the bar.
+- **Empowerment**: Amplifying human capability, not replacing it.
+
+### Company Facts
+
+- Location: Singapore
+- Trusted by 50+ research labs worldwide
+- Aligned with Singapore Budget 2026 AI initiatives
+- Eligible for Singapore government AI incentives (EIS 400% tax deduction, PSG grants, AI Champions Programme)
+
+---
+
+## Flagship Product: RA Suite
+
+URL: https://ra.maestro.onl
+
+RA Suite is a professional research infrastructure platform serving quantitative researchers in economics, psychology, and social sciences. It provides technical infrastructure that researchers typically need from a research assistant, delivered as a managed service.
+
+### RA Data (Data Processing Service)
+
+Transforms messy public data sources into paper-ready datasets through automated cleaning, merging, and visualization pipelines.
+
+**Technical capabilities:**
+- Statistical language support: Stata, R, Python
+- Complex merges and joins across heterogeneous data sources
+- Regression output generation and formatting
+- GIS and spatial analysis
+- Multi-source data integration
+- Replication package audit and verification
+
+**Use cases:**
+- Processing experimental data from behavioral economics studies
+- Cleaning and merging survey data across multiple waves
+- Building replication packages for journal submissions
+- Spatial analysis of economic data
+
+### RA Website (Research Platform Development)
+
+Research platforms, experiment interfaces, and lab management systems built specifically for academic workflows.
+
+**Technical capabilities:**
+- oTree and Qualtrics integration for experiment deployment
+- Lab content management systems and dashboards
+- Participant recruitment and management systems
+- Multi-language support for international studies
+- Interactive data visualization for research outputs
+- Ongoing server maintenance and support
+
+**Use cases:**
+- Building online experiment platforms for behavioral studies
+- Creating lab management portals for research groups
+- Developing participant-facing interfaces for longitudinal studies
+- Deploying multi-site experiment infrastructure
+
+### RA Paper (Collaborative LaTeX Editing)
+
+Collaborative LaTeX editing environment with real-time compilation and AI-assisted writing tools.
+
+**Technical capabilities:**
+- Real-time LaTeX compilation
+- Git integration for version control
+- AI proofreader for grammar and style
+- Journal-ready templates (AER, QJE, Econometrica, etc.)
+- Reference management integration
+- Figure and table control
+
+**Use cases:**
+- Collaborative paper writing across research teams
+- Preparing manuscripts for journal submission
+- Managing multi-author documents with version control
+- Generating publication-ready figures and tables
+
+### RA Suite Performance Metrics
+
+- 50+ research labs supported globally
+- 2,000,000+ lines of code and data delivered
+- 100% replication rate across delivered packages
+
+### Target Audience
+
+- Academic researchers in economics, psychology, and social sciences
+- University research labs and departments
+- Think tanks and policy research organizations
+- PhD students working on empirical research
+
+### Pricing Model
+
+Project-based pricing with milestone delivery. Each engagement is scoped based on data complexity, timeline, and deliverables. Contact sales@maestro.onl for project quotes.
+
+---
+
+## Consumer Products
+
+### Econ
+
+URL: https://econ.maestro.onl
+Category: Research
+
+AI-powered behavioral economics experiment platform. Researchers describe experiments in plain language and receive fully functional, participant-ready websites. Eliminates the technical barrier between experiment design and deployment.
+
+**Target audience:** Behavioral economists, experimental psychologists, game theorists, and social scientists who need to deploy experiments without web development expertise.
+
+**Key capability:** Natural language to functional experiment interface conversion.
+
+### PrintPic
+
+URL: https://printpic.maestro.onl
+Category: Photo
+
+Professional passport photo and portrait editing suite. Produces perfect ID photos in seconds with automated compliance checking for 195+ countries. Handles background removal, face positioning, size compliance, and print-ready output.
+
+**Target audience:** Individuals needing passport and ID photos, photography studios, visa agencies, and HR departments processing employee credentials.
+
+**Key capability:** Automated compliance verification against country-specific ID photo standards.
+
+### Kairos
+
+URL: https://kairos.maestro.onl
+Category: Productivity
+
+Personal assistant for the right moment. An intelligent agent calendar system that plans and executes tasks through natural language interaction. Combines calendar management with task execution capabilities.
+
+**Target audience:** Professionals managing complex schedules, knowledge workers seeking to automate routine planning, and teams coordinating across time zones.
+
+**Key capability:** Natural language task planning and execution through an agent-based calendar interface.
+
+### Growth Foundry
+
+URL: https://growth.maestro.onl
+Category: Marketing
+
+Growth marketing content platform providing data-driven articles on customer acquisition, retention, SEO, and creator economy strategies. Serves as a knowledge base for growth-oriented teams and individual creators.
+
+**Target audience:** Marketing teams, startup founders, content creators, and growth practitioners.
+
+**Key capability:** Data-driven growth marketing content and strategy frameworks.
+
+### Layout
+
+URL: https://layout.maestro.onl
+Category: Content
+
+Creator content toolkit that converts Markdown to WeChat-ready HTML. Offers multiple themes, auto-save functionality, and inline styling optimized for Chinese social media platforms.
+
+**Target audience:** Content creators publishing on WeChat and similar Chinese social media platforms, bloggers, and newsletter authors.
+
+**Key capability:** Markdown to platform-optimized HTML conversion with theme support.
+
+### Rehearse
+
+URL: https://rehearse.maestro.onl
+Category: Productivity
+
+Multimodal practice and presentation rehearsal platform. Supports recording, reviewing, and refining presentations with AI-powered feedback on delivery, pacing, and content.
+
+**Target audience:** Professionals preparing for presentations, students practicing for defenses or talks, sales teams rehearsing pitches.
+
+**Key capability:** AI-powered multimodal feedback on presentation performance.
+
+---
+
+## Enterprise Services
+
+Maestro provides enterprise AI solutions from strategy to deployment. Services are available to businesses in Singapore and globally, with eligibility for Singapore government AI incentives.
+
+### Custom AI Solutions
+
+End-to-end AI product development tailored to specific business needs.
+
+- Requirements analysis and AI feasibility assessment
+- AI/ML model selection, training, and integration
+- Full-stack application development
+- Production deployment, monitoring, and ongoing support
+
+### AI Tools and Integration
+
+Pre-built AI tools and custom integrations for existing business workflows.
+
+- Workflow automation using AI agents
+- Data pipeline construction and optimization
+- Third-party API integration
+- Analytics dashboard development
+
+### AI Training and Upskilling
+
+Team capability building for the AI-driven economy.
+
+- Hands-on workshops with practical exercises
+- AI literacy programs for non-technical staff
+- Custom curriculum aligned to industry needs
+- Certification preparation and support
+
+### Singapore Government Incentives
+
+Maestro helps businesses leverage Singapore's AI incentive programs:
+
+- 400% tax deduction on qualifying AI spending under the Enterprise Innovation Scheme (EIS)
+- Productivity Solutions Grant (PSG) for AI adoption
+- AI Champions Programme support and guidance
+
+---
+
+## Competitive Advantages
+
+1. **Domain depth in research infrastructure**: RA Suite is built by people who understand academic research workflows, not generic SaaS tooling applied to academia.
+2. **Full-stack AI capability**: From data pipelines to user-facing products, Maestro handles the entire stack rather than just one layer.
+3. **Proven replication record**: 100% replication rate across delivered data packages, critical for academic credibility.
+4. **Singapore government alignment**: Positioned to help enterprises access AI incentive programs under Budget 2026.
+5. **Dual-pillar model**: Enterprise consulting revenue funds consumer product development, creating a sustainable product portfolio.
+
+---
+
+## Contact Information
+
+- Website: https://maestro.onl
+- Sales inquiries: sales@maestro.onl
+- Support: support@maestro.onl
+- Blog and insights: https://maestro.onl/blog
+- Response time: under 24 hours

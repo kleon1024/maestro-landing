@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // [Sitemap] Responsibility: Generate sitemap.xml for search engine crawlers
 //
-// Static routes + dynamic blog posts from MDX files
+// Static routes + product subdomain URLs + dynamic blog posts from MDX files
 // Next.js App Router calls this at build time, outputs /sitemap.xml
 // Invariants: all URLs use https://maestro.onl as base
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,15 +15,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
-      lastModified: new Date(),
+      lastModified: "2025-02-15",
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
+      lastModified: "2025-02-15",
       changeFrequency: "weekly",
       priority: 0.8,
+    },
+  ];
+
+  const productRoutes: MetadataRoute.Sitemap = [
+    {
+      url: "https://econ.maestro.onl",
+      lastModified: "2025-02-15",
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: "https://printpic.maestro.onl",
+      lastModified: "2025-02-15",
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
   ];
 
@@ -37,5 +52,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...blogRoutes];
+  return [...staticRoutes, ...productRoutes, ...blogRoutes];
 }

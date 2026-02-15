@@ -26,7 +26,14 @@ export function BlogJsonLd({ frontmatter, slug }: BlogJsonLdProps) {
     publisher: {
       "@type": "Organization",
       name: "Maestro",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://maestro.onl/logo.png",
+      },
     },
+    ...(frontmatter.seo?.keywords
+      ? { keywords: frontmatter.seo.keywords }
+      : {}),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `https://maestro.onl/blog/${slug}`,

@@ -23,6 +23,7 @@ import { ShareButtons } from "@/components/blog/ShareButtons";
 import { BlogJsonLd } from "@/components/blog/BlogJsonLd";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 
 type Params = Promise<{ slug: string }>;
 
@@ -60,6 +61,9 @@ export async function generateMetadata({
         card: "summary_large_image",
         title: post.frontmatter.title,
         description: post.frontmatter.description,
+      },
+      alternates: {
+        canonical: `https://maestro.onl/blog/${slug}`,
       },
     };
   } catch {
@@ -99,6 +103,13 @@ export default async function BlogPostPage({
   return (
     <>
       <Navigation />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "https://maestro.onl" },
+          { name: "Blog", url: "https://maestro.onl/blog" },
+          { name: post.frontmatter.title, url: `https://maestro.onl/blog/${slug}` },
+        ]}
+      />
       <BlogJsonLd frontmatter={post.frontmatter} slug={slug} />
 
       <main className="min-h-screen pt-32 pb-20">

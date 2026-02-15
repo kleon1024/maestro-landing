@@ -11,11 +11,15 @@ import { getAllBlogPosts } from "@/lib/blog";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Maestro Insights | AI Orchestration, Research & Strategy",
   description:
     "Deep dives into AI orchestration, multi-agent systems, behavioral economics, and autonomous task management from the Maestro team.",
+  alternates: {
+    canonical: "https://maestro.onl/blog",
+  },
   openGraph: {
     title: "Maestro Insights",
     description:
@@ -34,6 +38,12 @@ export default function BlogIndexPage() {
   return (
     <>
       <Navigation />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "https://maestro.onl" },
+          { name: "Blog", url: "https://maestro.onl/blog" },
+        ]}
+      />
       <main className="min-h-screen pt-32 pb-20">
         <div className="max-w-5xl mx-auto px-6">
           {/* Hero */}

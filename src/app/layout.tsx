@@ -19,19 +19,22 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://maestro.onl"),
   title: "Maestro | AI, Orchestrated",
   description:
     "We build AI tools that amplify human expertise. From behavioral economics to intelligent calendars, our products transform how professionals work.",
   keywords: [
-    "AI",
-    "artificial intelligence",
-    "machine learning",
-    "behavioral economics",
-    "calendar",
-    "productivity",
-    "automation",
+    "Maestro AI",
+    "AI research assistant",
+    "RA data service",
+    "AI behavioral economics",
+    "research data processing",
+    "AI orchestration",
+    "data automation",
   ],
   authors: [{ name: "Maestro" }],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "https://maestro.onl" },
   openGraph: {
     title: "Maestro | AI, Orchestrated",
     description:

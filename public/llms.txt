@@ -1,0 +1,57 @@
+# Maestro
+
+> AI company building tools that amplify human expertise.
+
+Maestro builds AI-powered products across research infrastructure, behavioral economics, creative automation, and productivity. Based in Singapore, globally delivered. Website at maestro.onl.
+
+## Flagship Product
+
+### RA Suite
+Professional research infrastructure for quantitative research. Trusted by 50+ research labs worldwide.
+
+Three integrated services:
+- **RA Data**: Turn messy public data sources into paper-ready datasets. Automated cleaning, merging, and visualization pipelines. Supports Stata, R, Python, complex merges, regression output, GIS and spatial analysis, multi-source integration, and replication package audits.
+- **RA Website**: Research platforms, experiment interfaces, and lab management systems built for academic workflows. Supports oTree and Qualtrics integration, lab CMS and dashboards, participant management, multi-language support, and interactive data visualization.
+- **RA Paper**: Collaborative LaTeX editing with real-time compilation, AI proofreading, Git integration, journal-ready templates, reference management, and figure control.
+
+Stats: 50+ labs supported, 2M+ lines delivered, 100% replication rate.
+- URL: https://ra.maestro.onl
+
+## Consumer Products
+
+### Econ
+AI-powered behavioral economics experiment platform. Describe experiments in plain language, get fully functional participant-ready websites.
+- URL: https://econ.maestro.onl
+
+### PrintPic
+Professional passport photo and portrait editing suite. Perfect ID photos in seconds, with automated compliance for 195+ countries.
+- URL: https://printpic.maestro.onl
+
+### Kairos
+Personal assistant for the right moment. Intelligent agent calendar system that plans and executes tasks through natural language.
+- URL: https://kairos.maestro.onl
+
+### Growth Foundry
+Growth marketing content platform. Data-driven articles on customer acquisition, retention, SEO, and creator economy strategies.
+- URL: https://growth.maestro.onl
+
+### Layout
+Creator content toolkit. Convert Markdown to WeChat-ready HTML with multiple themes, auto-save, and inline styling.
+- URL: https://layout.maestro.onl
+
+### Rehearse
+Multimodal practice and presentation rehearsal platform. Record, review, and refine talks with AI-powered feedback.
+- URL: https://rehearse.maestro.onl
+
+## Enterprise Services
+
+- Custom AI Solutions: end-to-end AI product development, requirements analysis, ML integration, full-stack development, deployment and support.
+- AI Tools and Integration: workflow automation, data pipelines, API integration, analytics dashboards.
+- AI Training and Upskilling: hands-on workshops, AI literacy programs, custom curriculum, certification support.
+
+## Contact
+
+- Website: https://maestro.onl
+- Sales: sales@maestro.onl
+- Support: support@maestro.onl
+- Blog: https://maestro.onl/blog

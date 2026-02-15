@@ -8,10 +8,12 @@ import {
   Contact,
   Footer,
 } from "@/components";
+import { OrganizationJsonLd } from "@/components/OrganizationJsonLd";
 
 export default function Home() {
   return (
     <>
+      <OrganizationJsonLd />
       <Navigation />
       <main>
         <Hero />
