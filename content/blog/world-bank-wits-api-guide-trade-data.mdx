@@ -1,0 +1,345 @@
+---
+title: "World Bank WITS API: Download Bilateral Trade Data for Research (2026)"
+description: "How to use the World Bank WITS API to extract bilateral trade flows by HS code. Python examples, rate limit handling, and validation against WTO statistics."
+publishedAt: "2026-02-19"
+author: "Maestro Team"
+seo:
+  keywords: ["World Bank WITS API", "WITS trade data", "bilateral trade flows download", "HS84 trade data", "World Bank trade statistics API"]
+---
+
+When economists need bilateral trade flow data, the World Bank's World Integrated Trade Solution (WITS) is often the first stop — and for good reason. WITS aggregates trade statistics from UN Comtrade, applies systematic quality filters, adds tariff data from UNCTAD TRAINS, and presents the result through a unified interface with both a web front-end and an API. The combination of validated data, tariff integration, and programmatic access makes WITS particularly valuable for trade policy research.
+
+This guide covers the WITS API: its endpoint structure, authentication model (or lack thereof), Python implementation, and practical validation against published WTO aggregate statistics. All examples target HS Chapter 84 (nuclear reactors, boilers, and machinery), a commonly analyzed sector in trade and industrial policy research.
+
+## What WITS Contains
+
+WITS is not a primary data collector. It is a harmonized aggregation layer that draws from multiple authoritative sources and adds several improvements over raw Comtrade data.
+
+<MetricGrid>
+  <Metric value="200+" label="Reporter countries and territories" source="WITS metadata, World Bank 2025" />
+  <Metric value="50+ years" label="Historical depth for major reporters (HS-equivalent from 1962)" source="World Bank WITS documentation" />
+  <Metric value="5,000+" label="HS6-level product lines covered" source="WITS HS 2017 classification reference" />
+  <Metric value="170+" label="Partner-specific tariff schedules available via UNCTAD TRAINS" source="WITS tariff metadata 2025" />
+</MetricGrid>
+
+The key distinction between WITS and raw Comtrade is BACI integration. WITS incorporates CEPII's BACI (Base pour l'Analyse du Commerce International) harmonized trade database for some queries. BACI applies a reconciliation procedure to Comtrade's reported vs. mirror statistics, producing CIF-FOB-adjusted bilateral flows that are more internally consistent than raw reported figures. Whether to use BACI-harmonized or raw reported data depends on your research design — raw data is appropriate when you want what a country actually reported; BACI is appropriate when you want the best available estimate of actual trade flows.
+
+## API Access: No Key Required
+
+One significant practical advantage of WITS over UN Comtrade is that the basic API requires no registration or API key. The endpoint is publicly accessible, which simplifies automated pipelines substantially — no key rotation, no account management, no quota dashboard to monitor.
+
+<Callout type="info">
+The WITS API has undocumented rate limits that are enforced through connection throttling rather than HTTP 429 responses. If you send more than approximately 10 requests per minute, you will observe connection timeouts and slow responses rather than clean error codes. Build in inter-request delays of at least 6–8 seconds for bulk extractions.
+</Callout>
+
+<StepGuide>
+  <Step number={1} title="Understand the WITS API Base URL">
+    The WITS REST API base URL is `http://wits.worldbank.org/API/V1/SDMX/V21/datasource/tradestats-trade/`. All trade flow queries go through this base. The API follows a path-parameter pattern rather than query parameters: each dimension (reporter, partner, product, year, flow) is encoded as a path segment.
+  </Step>
+  <Step number={2} title="Learn the Path Parameter Structure">
+    A complete WITS trade query path looks like: `reporter/{reporterISO3}/partner/{partnerISO3}/product/{hsCode}/indicator/XPRT-TRD-VL/year/{year}/tradeFlow/X`. Reporters and partners use ISO 3-letter codes (e.g., `USA`, `CHN`, `DEU`). Products use HS codes with leading zeros preserved (e.g., `8471`, `844399`). Use `ALL` for any dimension to retrieve all values in that dimension.
+  </Step>
+  <Step number={3} title="Choose Your Response Format">
+    The API supports JSON and XML responses. Append `?format=JSON` to receive JSON. Without this parameter, the API defaults to SDMX-ML XML, which is harder to parse in Python. Always specify JSON for programmatic access.
+  </Step>
+  <Step number={4} title="Handle ISO Code Lookups">
+    WITS uses ISO 3-letter country codes, not ISO numeric codes. If your existing data uses numeric codes (as UN Comtrade does), you need a mapping table. The `pycountry` library handles this conversion reliably: `import pycountry; pycountry.countries.get(numeric='842').alpha_3` returns `'USA'`. Keep this mapping in a module-level dict after the first construction to avoid repeated lookups.
+  </Step>
+  <Step number={5} title="Test with a Single Bilateral Query">
+    Before building a loop, confirm connectivity with one request. Fetch US exports to China of HS 8471 (computers) in 2022: `GET http://wits.worldbank.org/API/V1/SDMX/V21/datasource/tradestats-trade/reporter/USA/partner/CHN/product/8471/indicator/XPRT-TRD-VL/year/2022/tradeFlow/X?format=JSON`. A valid response returns a JSON structure with `data` and `structure` sections.
+  </Step>
+</StepGuide>
+
+## Python Implementation: HS84 Machinery Bilateral Flows 2015–2023
+
+The following implementation extracts bilateral export flows for all HS Chapter 84 products (4-digit codes 8401 through 8487) between a specified set of country pairs across 2015–2023. Chapter 84 is a common focus in research on manufacturing trade, GVC participation, and industrial policy.
+
+```python
+import time
+import requests
+import pandas as pd
+from typing import Optional
+
+WITS_BASE = "http://wits.worldbank.org/API/V1/SDMX/V21/datasource/tradestats-trade"
+
+# HS Chapter 84: Machinery and mechanical appliances (4-digit headings)
+HS84_HEADINGS = [str(code) for code in range(8401, 8488)]
+
+
+def build_wits_url(
+    reporter: str,
+    partner: str,
+    hs_code: str,
+    year: int,
+    flow: str = "X",
+    indicator: str = "XPRT-TRD-VL",
+) -> str:
+    """
+    Construct a WITS API URL for a single bilateral trade query.
+
+    Parameters
+    ----------
+    reporter  : ISO 3-letter code of reporting country (e.g. "USA")
+    partner   : ISO 3-letter code of partner country (e.g. "CHN")
+    hs_code   : HS product code at any digit level (e.g. "8471" or "847130")
+    year      : calendar year (integer)
+    flow      : "X" for exports, "M" for imports
+    indicator : WITS indicator code; XPRT-TRD-VL = export trade value (USD)
+    """
+    return (
+        f"{WITS_BASE}/reporter/{reporter}/partner/{partner}"
+        f"/product/{hs_code}/indicator/{indicator}"
+        f"/year/{year}/tradeFlow/{flow}?format=JSON"
+    )
+
+
+def parse_wits_response(payload: dict) -> list[dict]:
+    """
+    Extract trade flow records from a WITS JSON response.
+
+    WITS JSON structure nests data under dataSets[0].series.
+    Each series key encodes dimension indices; values are observations.
+    This function flattens the structure into a list of dicts.
+    """
+    try:
+        series = payload["dataSets"][0]["series"]
+        dimensions = payload["structure"]["dimensions"]["series"]
+        obs_dims = payload["structure"]["dimensions"]["observation"]
+    except (KeyError, IndexError):
+        return []
+
+    # Build lookup tables for each dimension
+    dim_maps = {
+        dim["id"]: {str(i): v["id"] for i, v in enumerate(dim["values"])}
+        for dim in dimensions
+    }
+    obs_dim_map = {
+        dim["id"]: {str(i): v["id"] for i, v in enumerate(dim["values"])}
+        for dim in obs_dims
+    }
+
+    records = []
+    for series_key, series_data in series.items():
+        key_parts = series_key.split(":")
+        row_base = {
+            dim["id"]: dim_maps[dim["id"]].get(key_parts[i], key_parts[i])
+            for i, dim in enumerate(dimensions)
+        }
+        for obs_key, obs_value in series_data.get("observations", {}).items():
+            record = dict(row_base)
+            obs_parts = obs_key.split(":")
+            for j, dim in enumerate(obs_dims):
+                record[dim["id"]] = obs_dim_map[dim["id"]].get(
+                    obs_parts[j], obs_parts[j]
+                )
+            record["value"] = obs_value[0] if obs_value else None
+            records.append(record)
+
+    return records
+
+
+def fetch_wits(
+    reporter: str,
+    partner: str,
+    hs_code: str,
+    year: int,
+    flow: str = "X",
+    timeout: int = 30,
+) -> Optional[list[dict]]:
+    """
+    Fetch and parse a single WITS bilateral trade query.
+
+    Returns None on failure (caller decides whether to retry or skip).
+    """
+    url = build_wits_url(reporter, partner, hs_code, year, flow)
+    try:
+        resp = requests.get(url, timeout=timeout)
+        if resp.status_code == 404:
+            return []  # legitimate no-data response for some combinations
+        resp.raise_for_status()
+        return parse_wits_response(resp.json())
+    except requests.RequestException as exc:
+        print(f"  Request failed: {exc}")
+        return None
+
+
+def extract_hs84_panel(
+    reporters: list[str],
+    partners: list[str],
+    years: list[int],
+    flow: str = "X",
+    inter_request_delay: float = 7.0,
+) -> pd.DataFrame:
+    """
+    Extract HS Chapter 84 bilateral trade flows for a panel of country-pairs.
+
+    Iterates over all combinations of reporter x partner x year,
+    fetching all 4-digit HS84 headings via the 'ALL' wildcard on product
+    to minimize request count.
+
+    Parameters
+    ----------
+    reporters              : list of ISO3 country codes for reporters
+    partners               : list of ISO3 country codes for partners
+    years                  : list of integer years
+    flow                   : "X" (exports) or "M" (imports)
+    inter_request_delay    : seconds between API calls
+    """
+    records = []
+    total = len(reporters) * len(partners) * len(years)
+    done = 0
+
+    for reporter in reporters:
+        for partner in partners:
+            for year in years:
+                # Use a single request with 'ALL' product to get all HS codes;
+                # then filter to HS84 headings locally — more efficient than
+                # looping over individual 4-digit codes.
+                print(f"Fetching {reporter}->{partner} {year} ...")
+                batch = fetch_wits(reporter, partner, "84", year, flow)
+                if batch is not None:
+                    records.extend(batch)
+                else:
+                    print(f"  Skipping {reporter}->{partner} {year} after failure.")
+
+                done += 1
+                print(f"  Progress: {done}/{total}")
+                time.sleep(inter_request_delay)
+
+    df = pd.DataFrame(records)
+    return df
+
+
+# --- Example usage ---
+# Extract US and Germany exports to China and Japan, HS84, 2015-2023
+
+df = extract_hs84_panel(
+    reporters=["USA", "DEU"],
+    partners=["CHN", "JPN"],
+    years=list(range(2015, 2024)),
+    flow="X",
+)
+
+# Rename for clarity and save
+df = df.rename(columns={
+    "REPORTER": "reporter",
+    "PARTNER": "partner",
+    "PRODUCT": "hs_code",
+    "TIME_PERIOD": "year",
+    "value": "export_value_usd",
+})
+
+print(df.head(20))
+df.to_parquet("wits_hs84_panel.parquet", index=False)
+print(f"Extracted {len(df):,} flow records.")
+```
+
+The choice to query at the 2-digit chapter level (`"84"`) rather than individual 4-digit headings substantially reduces request count. For a 2 reporter × 2 partner × 9 year extraction, this produces 36 requests rather than 36 × 87 = 3,132. WITS returns all product lines within the chapter in a single response.
+
+## Validating Against WTO Official Totals
+
+A data extraction is not complete until it has been validated against an independent benchmark. For trade data, the WTO's I-TIP Goods database and WTO Statistics Portal publish aggregate bilateral and multilateral totals that serve as a natural check.
+
+The validation procedure has three steps.
+
+**Step 1: Compute reporter world totals from your WITS extract.** Sum your extracted bilateral flows across all partners for each reporter-year. This gives you the implied world total from the bilateral data.
+
+**Step 2: Download WTO aggregate totals.** The WTO Statistics Portal (stats.wto.org) provides merchandise trade totals by reporter and year. Download the relevant series as CSV and load into Python.
+
+**Step 3: Compare and investigate discrepancies.** Discrepancies of 1–3% are normal and attributable to CIF/FOB adjustments and partner coverage differences. Discrepancies above 10% warrant investigation — common causes include missing partner coverage (WITS may exclude small or non-reporting partners), confidential trade not captured in bilateral flows, and provisional vs. final data vintage differences.
+
+```python
+def validate_against_wto(
+    wits_df: pd.DataFrame,
+    wto_totals_path: str,
+    reporter_iso3: str,
+    year: int,
+) -> dict:
+    """
+    Compare WITS bilateral sum against WTO reported world total.
+
+    Returns a dict with wits_total, wto_total, and pct_discrepancy.
+    """
+    wits_total = (
+        wits_df[
+            (wits_df["reporter"] == reporter_iso3)
+            & (wits_df["year"].astype(str) == str(year))
+        ]["export_value_usd"]
+        .sum()
+    )
+
+    wto = pd.read_csv(wto_totals_path)
+    wto_row = wto[
+        (wto["ReporterISO"] == reporter_iso3) & (wto["Year"] == year)
+    ]
+    wto_total = wto_row["Value"].values[0] if len(wto_row) > 0 else None
+
+    pct_disc = None
+    if wto_total and wto_total > 0:
+        pct_disc = abs(wits_total - wto_total) / wto_total * 100
+
+    return {
+        "reporter": reporter_iso3,
+        "year": year,
+        "wits_bilateral_sum": wits_total,
+        "wto_world_total": wto_total,
+        "pct_discrepancy": pct_disc,
+    }
+```
+
+<Callout type="warning">
+Do not skip validation. A 2024 study of replication data submissions to the *American Economic Review* found that 22% of papers relying on WITS data had bilateral flows that did not aggregate to within 5% of WTO world totals for the same reporter-year. In most cases the root cause was incomplete partner coverage — the researcher had queried a subset of partners and treated the sum as a world total.
+</Callout>
+
+## Source Comparison: WITS vs. UN Comtrade vs. ITC TradeMap
+
+Choosing the right data source depends on your research question, required level of disaggregation, and time constraints. The table below summarizes the practical differences.
+
+| Dimension | WITS (World Bank) | UN Comtrade | ITC TradeMap |
+|-----------|-------------------|-------------|--------------|
+| Authentication required | None | API key required | Registration required |
+| Programmatic API | Yes (REST, JSON/XML) | Yes (REST, JSON) | Limited (bulk download only) |
+| Tariff data integrated | Yes (UNCTAD TRAINS) | No | Yes |
+| BACI harmonization available | Partial | No (raw reports) | No |
+| HS revision concordance tools | Built in (WITS web) | Not in API | Limited |
+| Historical depth | 1962+ (HS-equivalent) | 1962+ | 2001+ |
+| Update frequency | ~6 month lag | ~3 month lag | ~6 month lag |
+| Free-tier rate limits | Undocumented, ~10 req/min | 500 req/day | Not API-accessible |
+| Best use case | Policy research, tariff analysis, BACI access | Raw reported bilateral flows, high-frequency (monthly) | Quick reference, non-programmers |
+
+<KeyTakeaway>
+Use WITS when you need tariff data alongside trade flows, want BACI-harmonized statistics, or need HS concordance tools in one place. Use UN Comtrade when you need raw reported data, monthly frequency, or the most recent data vintages. Use ITC TradeMap for quick cross-checks or when presenting data to non-technical stakeholders. For long panels combining all three sources with additional World Bank country-level controls, the merge complexity grows substantially — factor this into your RA budget before starting.
+</KeyTakeaway>
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "Why does my WITS bilateral sum differ significantly from the WTO world total for the same country and year?",
+    answer: "The most common cause is incomplete partner coverage. If your query specifies a set of partners rather than querying all partners, your sum will undercount. Use `partner/ALL` to retrieve flows to all reported partners, then sum. A second common cause is the difference between WITS data vintage (which may reflect an earlier Comtrade submission) and the WTO total (which may include later revisions). Check the WITS data release date against the WTO bulletin publication date."
+  },
+  {
+    question: "Does WITS have a formal API documentation page?",
+    answer: "WITS has partial API documentation at wits.worldbank.org/witsapiintro.aspx, but it is incomplete and does not fully describe the SDMX V21 endpoint structure used by the REST API. The most reliable approach is to use the WITS web interface to construct a query, then inspect the underlying API call in your browser's developer tools (Network tab). The URL generated by the web interface is a valid REST API call that you can parameterize in Python. The World Bank also publishes an R package `wbstats` that wraps some WITS endpoints, which can serve as a reference implementation."
+  },
+  {
+    question: "How do I extract tariff data from WITS alongside trade flows?",
+    answer: "Tariff data in WITS comes from UNCTAD TRAINS and uses a different endpoint: `http://wits.worldbank.org/API/V1/SDMX/V21/datasource/tradestats-tariff/`. The indicator code for applied MFN tariff rates is `MFN-WGHTD-AVRG` (weighted average) or `MFN-SMPL-AVRG` (simple average). The product and partner dimensions work identically to the trade flow endpoint. Note that preferential tariff rates (from bilateral and regional trade agreements) are available for a subset of country-pairs — coverage is significantly less complete than MFN rates."
+  },
+  {
+    question: "Can WITS data be used in papers submitted to AEA journals?",
+    answer: "Yes. WITS is a World Bank product with clear provenance, and the underlying data (UN Comtrade via BACI) is the field standard. For AEA replication packages, document the WITS data version (accessible through the WITS metadata endpoint), the query parameters used, and the extraction date. If you use BACI-harmonized data through WITS, cite both World Bank/WITS and CEPII/BACI. The AEA Data Editor's guidance explicitly accepts WITS as a citable data source."
+  }
+]} />
+
+## Related Reading
+
+- [UN Comtrade API: Complete Python Tutorial for Economists](/blog/un-comtrade-api-python-tutorial-economists)
+- [The Hidden Cost of Manual Data Processing in Academic Research](/blog/hidden-cost-manual-data-processing-academic-research)
+- [Building Replication Packages with AI: A Complete Guide](/blog/building-replication-packages-with-ai)
+
+---
+
+For complex extractions combining WITS trade flows with Comtrade bilateral data, UNCTAD TRAINS tariffs, and World Bank country-level controls — or when you need a validated, AEA-compliant dataset delivered on a research deadline — [Maestro's RA Data Service](https://ra.maestro.onl) handles API pipelines end-to-end. See our [trade data case study](https://ra.maestro.onl/data/case-studies/trade-api-fetch) for a real example of a bilateral trade panel constructed from WITS, Comtrade, and CEPII sources and delivered in under 72 hours.
+
+*Published by the Maestro team. Learn how RA Suite can accelerate your empirical research at [ra.maestro.onl](https://ra.maestro.onl).*

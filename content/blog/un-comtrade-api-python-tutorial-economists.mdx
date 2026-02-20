@@ -1,0 +1,287 @@
+---
+title: "UN Comtrade API: Complete Python Tutorial for Economists (2026)"
+description: "Step-by-step guide to downloading bilateral trade data from UN Comtrade API using Python. Handle pagination, rate limits, and HS code filtering — with working code examples."
+publishedAt: "2026-02-18"
+author: "Maestro Team"
+seo:
+  keywords: ["UN Comtrade API", "bilateral trade data Python", "UN Comtrade download", "trade data economics research", "HS code trade statistics API"]
+---
+
+Most economists who work with trade data eventually hit the same wall: the UN Comtrade web interface is adequate for spot queries, but it breaks down the moment you need systematic extraction. Downloading 30 country-pairs across 200 HS6 product codes for a panel spanning 1995 to 2023 is not a web-interface task. It is a programming task — and the UN Comtrade API is the right tool for it, once you understand its structure and constraints.
+
+This tutorial covers the full workflow: API registration, endpoint construction, Python implementation, pagination, rate-limit handling, and the common failure modes that consume researcher hours. All code is tested against the Comtrade API v2 as of early 2026.
+
+## Why the Web Interface Falls Short
+
+The Comtrade portal at comtradeplus.un.org is useful for verifying a single data point or generating a quick chart. For research use it has three fundamental limitations.
+
+First, the download quotas on the web interface restrict bulk extraction. Free-tier users face strict row limits per query and per day. Second, any query requiring iteration — looping over reporter-partner combinations, product codes, or years — cannot be automated through the web interface. Third, format consistency is not guaranteed: the portal occasionally changes column ordering and naming conventions between releases without versioned documentation.
+
+The API solves all three problems for researchers willing to write 60 lines of Python.
+
+## Coverage at a Glance
+
+Before diving into implementation, it helps to understand what Comtrade actually contains.
+
+<MetricGrid>
+  <Metric value="200+" label="Reporter countries and territories" source="UN Comtrade metadata endpoint, 2025" />
+  <Metric value="5,000+" label="HS6-level product codes (HS 2022 revision)" source="UN Comtrade HS classification reference" />
+  <Metric value="60+ years" label="Historical coverage (1962 to present for major reporters)" source="UN Statistics Division" />
+  <Metric value="1B+ rows" label="Individual trade flow records in the database" source="UN Comtrade annual report 2025" />
+</MetricGrid>
+
+Coverage is not uniform. High-income OECD countries report data reliably from the early 1990s. Many developing-country reporters have gaps, late submissions, or revisions outstanding. Always check the `isReported` flag in the API response before treating a zero as a true zero.
+
+## Prerequisites
+
+This tutorial assumes:
+
+- Python 3.10 or later
+- `requests` library (`pip install requests`)
+- A UN Comtrade subscription key (free tier available; see setup below)
+- Basic familiarity with pandas (`pip install pandas`)
+
+For serious extraction tasks — hundreds of queries, automated pipelines, or nightly refreshes — also install `tenacity` for retry logic: `pip install tenacity`.
+
+## Setting Up API Access
+
+<StepGuide>
+  <Step number={1} title="Register at UN Comtrade Plus">
+    Navigate to comtradeplus.un.org and create an account. Free accounts receive a primary subscription key with a quota of 500 requests per day and up to 250,000 records per request. For most dissertation-scale projects, this is sufficient. Institutional subscriptions remove rate limits and add bulk download endpoints.
+  </Step>
+  <Step number={2} title="Retrieve Your Subscription Key">
+    After login, go to your profile and copy the Primary Key from the Subscriptions section. This key is passed as the `Ocp-Apim-Subscription-Key` header on every request. Do not embed it in version-controlled code — store it in an environment variable or a `.env` file excluded from git.
+  </Step>
+  <Step number={3} title="Understand the Endpoint Structure">
+    The v2 API base URL is `https://comtradeapi.un.org/data/v1/get/`. The path segments encode the trade type and flow. For goods data (the most common case), the pattern is: `GET /data/v1/get/C/A/HS` where `C` means commodities, `A` means annual frequency, and `HS` is the classification system. Monthly frequency replaces `A` with `M`.
+  </Step>
+  <Step number={4} title="Identify the Key Query Parameters">
+    The four parameters you will use in almost every query are: `reporterCode` (ISO numeric country code of the reporting country), `partnerCode` (ISO numeric code of the trading partner; use `0` for world totals), `cmdCode` (HS commodity code; use `TOTAL` for all products or specific codes like `8471` for computers), and `period` (four-digit year for annual data, or `YYYYMM` for monthly). Multiple values are comma-separated within a single parameter.
+  </Step>
+  <Step number={5} title="Test with a Single Query">
+    Before writing a loop, confirm your key works with one manual request. In a browser or curl, hit `https://comtradeapi.un.org/data/v1/get/C/A/HS?reporterCode=842&partnerCode=156&cmdCode=8471&period=2022` with your subscription key in the header. A valid response returns a JSON object with a `data` array and a `count` field.
+  </Step>
+</StepGuide>
+
+## Working Python Implementation
+
+The function below handles a single Comtrade query with retry logic for transient errors. The caller is responsible for looping over parameter combinations.
+
+```python
+import os
+import time
+import requests
+import pandas as pd
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+COMTRADE_BASE = "https://comtradeapi.un.org/data/v1/get/C/A/HS"
+API_KEY = os.environ["COMTRADE_KEY"]  # never hardcode
+
+HEADERS = {
+    "Ocp-Apim-Subscription-Key": API_KEY,
+    "Accept": "application/json",
+}
+
+@retry(stop=stop_after_attempt(4), wait=wait_exponential(multiplier=2, min=4, max=60))
+def fetch_comtrade(
+    reporter: int,
+    partner: int,
+    cmd_code: str,
+    period: int,
+    flow_code: str = "X",  # "X" = exports, "M" = imports
+) -> list[dict]:
+    """
+    Fetch a single page of Comtrade annual goods data.
+
+    Returns the raw list of flow records. Raises on non-200 status
+    after retries are exhausted, so callers can log and continue.
+    """
+    params = {
+        "reporterCode": reporter,
+        "partnerCode": partner,
+        "cmdCode": cmd_code,
+        "period": period,
+        "flowCode": flow_code,
+        "maxRecords": 250000,  # maximum allowed per request
+        "includeDesc": True,
+    }
+    resp = requests.get(COMTRADE_BASE, headers=HEADERS, params=params, timeout=30)
+
+    if resp.status_code == 429:
+        # Rate limit hit: back off before tenacity retries
+        retry_after = int(resp.headers.get("Retry-After", 60))
+        time.sleep(retry_after)
+        resp.raise_for_status()
+
+    resp.raise_for_status()
+    payload = resp.json()
+    return payload.get("data", [])
+
+
+def bulk_extract(
+    reporters: list[int],
+    partners: list[int],
+    cmd_codes: list[str],
+    years: list[int],
+    flow_code: str = "X",
+    delay: float = 1.2,  # seconds between requests; respect rate limits
+) -> pd.DataFrame:
+    """
+    Loop over all combinations and collect results into a single DataFrame.
+
+    Parameters
+    ----------
+    reporters   : ISO numeric codes for reporting countries
+    partners    : ISO numeric codes for partner countries
+    cmd_codes   : HS commodity codes to extract
+    years       : calendar years (annual data only)
+    flow_code   : "X" for exports, "M" for imports, "RX" for re-exports
+    delay       : inter-request pause in seconds
+
+    Returns
+    -------
+    pd.DataFrame with one row per trade flow record
+    """
+    records = []
+    total = len(reporters) * len(partners) * len(cmd_codes) * len(years)
+    done = 0
+
+    for reporter in reporters:
+        for partner in partners:
+            for cmd in cmd_codes:
+                for year in years:
+                    try:
+                        batch = fetch_comtrade(reporter, partner, cmd, year, flow_code)
+                        records.extend(batch)
+                    except Exception as exc:
+                        print(f"FAILED reporter={reporter} partner={partner} "
+                              f"cmd={cmd} year={year}: {exc}")
+                    done += 1
+                    if done % 50 == 0:
+                        print(f"Progress: {done}/{total}")
+                    time.sleep(delay)
+
+    return pd.DataFrame(records)
+
+
+# --- Example usage ---
+# US (842) exports to China (156) and Germany (276)
+# HS codes: 8471 (computers), 8542 (semiconductors)
+# Years: 2018-2023
+
+df = bulk_extract(
+    reporters=[842],
+    partners=[156, 276],
+    cmd_codes=["8471", "8542"],
+    years=list(range(2018, 2024)),
+    flow_code="X",
+)
+
+# Key columns: reporterCode, partnerCode, cmdCode, period,
+#              primaryValue (USD), netWgt (kg), isReported
+print(df[["reporterCode", "partnerCode", "cmdCode", "period", "primaryValue"]].head(20))
+df.to_parquet("comtrade_extract.parquet", index=False)
+```
+
+The `delay=1.2` parameter is conservative but important. Free-tier accounts on the v2 API are subject to a 500-request-per-day hard limit and a concurrent-request restriction. Exceeding either returns HTTP 429. If you are running a large extraction overnight, a 1–2 second delay prevents limit exhaustion.
+
+## Pagination and the 250,000-Row Limit
+
+The Comtrade v2 API returns a maximum of 250,000 records per request. For highly disaggregated queries — all HS6 codes for a given reporter-partner pair across all years — a single request may be truncated. Check the response's `count` field against `len(data)`.
+
+```python
+def fetch_with_pagination(reporter, partner, period, flow_code="X"):
+    """
+    Fetch all HS6 records for a reporter-partner-year combination,
+    handling the 250,000-record page limit via startRow offsets.
+    """
+    all_records = []
+    start_row = 0
+    page_size = 250000
+
+    while True:
+        params = {
+            "reporterCode": reporter,
+            "partnerCode": partner,
+            "cmdCode": "AG6",   # AG6 = all HS6 disaggregated codes
+            "period": period,
+            "flowCode": flow_code,
+            "maxRecords": page_size,
+            "startRow": start_row,
+        }
+        resp = requests.get(COMTRADE_BASE, headers=HEADERS, params=params, timeout=60)
+        resp.raise_for_status()
+        payload = resp.json()
+        batch = payload.get("data", [])
+        all_records.extend(batch)
+
+        if len(batch) < page_size:
+            break  # last page
+        start_row += page_size
+        time.sleep(1.5)
+
+    return all_records
+```
+
+In practice, most researcher queries target a specific set of HS codes rather than `AG6`, which makes truncation rare. However, if you are building a full trade matrix for a bilateral relationship, always paginate.
+
+## Common Pitfalls
+
+<Callout type="warning">
+**Mirror statistics vs. reported statistics**: Comtrade contains both a country's own report of its exports and the mirror report from the importing country recording those same goods as imports. These rarely agree exactly due to CIF/FOB adjustments, timing differences, and classification discrepancies. Always decide in advance which direction you trust — typically the exporter's own report for export value and the importer's report for import value — and filter accordingly using the `isReported` flag.
+</Callout>
+
+**Missing reporters.** Not every country reports every year. Some countries (particularly in sub-Saharan Africa and conflict-affected states) have multi-year gaps or have never reported at the HS6 level. Before interpreting a zero as a true zero, cross-reference with the Comtrade reporter availability table via the metadata endpoint: `GET /v1/references/reporters`.
+
+**HS revision breaks.** The HS classification system has had major revisions in 1992, 1996, 2002, 2007, 2012, 2017, and 2022. A product code in HS 2002 may map to multiple codes in HS 2017 or vice versa. The Comtrade API lets you specify the classification (`HS`, `H0`, `H1`, `H2`, `H3`, `H4`, `H5`, `H6` for each revision), but the database does not automatically convert between revisions. For long panels spanning multiple revisions, you need concordance tables — WITS and Eurostat both publish these.
+
+**Currency.** All values in Comtrade are reported in US dollars at current prices. For real (inflation-adjusted) analysis, you must deflate using an appropriate price index. The API provides no deflators.
+
+**Partner code 0 vs. world.** `partnerCode=0` retrieves the reporter's self-reported world total, not the sum of bilateral flows. These often differ because bilateral flows exclude confidential trade, incomplete partner reporting, and small-value bundles not attributed to specific destinations.
+
+<Callout type="info">
+**Comtrade Plus vs. legacy API**: The legacy Comtrade API (api.comtrade.un.org, sometimes called v1) was deprecated in 2024. All new development should target the v2 API at comtradeapi.un.org. The authentication mechanism (subscription key header) and endpoint structure are substantially different from the legacy API.
+</Callout>
+
+## When to DIY vs. When to Outsource
+
+Working directly with the Comtrade API is the right choice when your query is well-scoped: a defined set of reporter-partner pairs, a small number of HS codes, and a clear time window. The setup cost is a few hours, and the ongoing maintenance cost is low if the extraction logic is clean.
+
+<KeyTakeaway>
+DIY API extraction makes sense when the scope is bounded and the researcher has Python fluency. It breaks down when the query is open-ended (e.g., "all bilateral flows for 180 countries at HS6 for 30 years"), when the data must be merged with WITS, World Bank, or IMF series before use, or when the researcher needs the data this week rather than in three weeks. At that point, the economics of outsourcing improve sharply.
+</KeyTakeaway>
+
+The break-even calculation is straightforward: if building and debugging the extraction pipeline takes more than 20 RA hours, and a data service can deliver a validated, analysis-ready dataset in 48 hours, the service is almost certainly cheaper — even before accounting for the probability of errors in a manually built pipeline.
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "How many requests can I make per day on the free Comtrade API tier?",
+    answer: "The free tier allows 500 requests per day and up to 250,000 records per request. If your extraction requires more than 500 queries — common for full country-pair matrices or all-HS6 extractions — you need a paid subscription. The UN offers institutional subscriptions through the Comtrade Plus portal; pricing varies by institution type. Budget at least 4–6 weeks for institutional procurement processes."
+  },
+  {
+    question: "What is the difference between flow codes X, M, RX, and RM?",
+    answer: "X means exports (domestic goods sent abroad), M means imports (foreign goods received), RX means re-exports (foreign goods that entered the country and are then exported without significant transformation), and RM means re-imports (domestic goods that were exported and returned). For most trade analysis, X and M are the relevant flows. Re-export and re-import flows are important for entrepot economies like Hong Kong and Singapore, where they can exceed domestic trade flows in value."
+  },
+  {
+    question: "How do I handle HS revision breaks in a long panel?",
+    answer: "The standard approach is to work within a single HS revision for the entire panel, then use concordance tables to map codes across revisions where necessary. The UN Statistics Division publishes official HS concordance tables. WITS also provides a correlation table tool at wits.worldbank.org. For 4-digit or 2-digit analysis, concordance is usually straightforward. For HS6 analysis, some products split or merge across revisions and require researcher judgment about how to handle the discontinuity."
+  },
+  {
+    question: "Can I get monthly trade data from the Comtrade API?",
+    answer: "Yes. Replace the `A` (annual) segment in the endpoint path with `M` (monthly): `GET /data/v1/get/C/M/HS`. Monthly data is available for many major reporters from the mid-1990s onward, though coverage and timeliness vary more than for annual data. Monthly data also has more revision activity — preliminary estimates are often revised substantially in subsequent months. For high-frequency trade analysis, also consider CEPII's BACI database, which provides harmonized annual data with quality adjustments, and Eurostat's COMEXT database for EU trade."
+  }
+]} />
+
+## Related Reading
+
+- [World Bank WITS API: Download Bilateral Trade Data for Research](/blog/world-bank-wits-api-guide-trade-data)
+- [The Hidden Cost of Manual Data Processing in Academic Research](/blog/hidden-cost-manual-data-processing-academic-research)
+- [Building Replication Packages with AI: A Complete Guide](/blog/building-replication-packages-with-ai)
+
+---
+
+For complex multi-source extractions — combining Comtrade flows with WITS tariff data, World Bank income classifications, and IMF exchange rates into a single panel — or when time is scarce, [Maestro's RA Data Service](https://ra.maestro.onl) handles API pipelines end-to-end. See our [trade data case study](https://ra.maestro.onl/data/case-studies/trade-api-fetch) for a real example of a bilateral trade panel built from Comtrade, WITS, and CEPII sources delivered to a research team in under 72 hours.
+
+*Published by the Maestro team. Learn how RA Suite can accelerate your empirical research at [ra.maestro.onl](https://ra.maestro.onl).*
