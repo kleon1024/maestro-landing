@@ -45,8 +45,9 @@ export function Services() {
             Enterprise AI Solutions
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 max-w-2xl">
-            From strategy to deployment, we partner with businesses to create AI
-            solutions that deliver measurable results.
+            We&apos;ve built 7 AI products. We know how to build yours.
+            From prototype to production, we deliver full-stack AI solutions
+            with real shipping experience.
           </p>
         </div>
 
@@ -75,8 +76,8 @@ export function Services() {
                 {service.description}
               </p>
 
-              {/* Features 2-col grid */}
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-8">
+              {/* Features 3-col grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 mb-8">
                 {service.features.map((feature, index) => (
                   <span
                     key={index}

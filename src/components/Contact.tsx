@@ -54,6 +54,8 @@ export function Contact() {
       email: formData.get("email") as string,
       subject,
       message,
+      source: "maestro.onl",
+      sourceCategory: inquiry,
     };
 
     try {
