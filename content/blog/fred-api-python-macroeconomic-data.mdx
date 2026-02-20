@@ -1,0 +1,213 @@
+---
+title: "FRED API Python: Download Macroeconomic Data for Research (2026)"
+description: "Complete guide to the FRED API for economists. Download GDP, CPI, unemployment, and interest rate series with Python. Handle vintages, revisions, and build panel datasets."
+publishedAt: "2026-02-18"
+author: "Maestro Team"
+faq:
+  - question: "Is FRED API free to use?"
+    answer: "Yes. FRED (Federal Reserve Economic Data) API is completely free. You need to register for an API key at fred.stlouisfed.org/docs/api/api_key.html. There are no usage fees and the rate limit is 120 requests per 60 seconds."
+  - question: "How do I handle data revisions in FRED?"
+    answer: "FRED provides vintage dates via the fred/series/observations endpoint using the realtime_start and realtime_end parameters. For research requiring point-in-time data (e.g., forecasting studies), always specify vintage dates to avoid look-ahead bias."
+  - question: "What is the best Python library for FRED?"
+    answer: "fredapi is the official Python wrapper maintained by the St. Louis Fed. For bulk downloads and panel construction, pandas_datareader also supports FRED but fredapi gives more control over vintage dates and series metadata."
+  - question: "Can FRED data be used in peer-reviewed research?"
+    answer: "Yes. FRED is operated by the Federal Reserve Bank of St. Louis and is widely cited in top economics journals. Always cite the specific series, vintage date, and access date in your data section."
+seo:
+  keywords: ["FRED API Python", "FRED macroeconomic data", "Federal Reserve data download", "FRED API tutorial", "macroeconomic panel data Python"]
+---
+
+Every macroeconomist has downloaded GDP or CPI data from the FRED website at some point. The web interface is well-designed and sufficient for a single series. It fails completely the moment you need to do research: looping over 40 countries, fetching 15 series per country, or recovering what the data looked like in 2019 before subsequent revisions. That is a programming problem, and the FRED API is the right tool.
+
+This guide covers the complete workflow: API key setup, the `fredapi` Python library, fetching individual and bulk series, handling vintage dates to avoid look-ahead bias, and constructing multi-series panel datasets. All code targets Python 3.10+ and `fredapi` 0.5+.
+
+## What FRED Contains
+
+Before writing code, it helps to understand the scope of what the St. Louis Fed has assembled.
+
+<MetricGrid>
+  <Metric value="800,000+" label="Economic data series" source="FRED About page, St. Louis Fed, 2025" />
+  <Metric value="100+" label="Source organizations (BLS, BEA, Census, ECB, IMF)" source="FRED source directory, 2025" />
+  <Metric value="60+ years" label="Historical depth for core US series" source="St. Louis Fed FRED documentation" />
+  <Metric value="120 req/min" label="Free API rate limit (no fees, no tiers)" source="FRED API documentation, 2025" />
+</MetricGrid>
+
+The 800,000-series figure is not inflated by obscure regional data. FRED includes the full BLS employment and price series, BEA national accounts, Federal Reserve H.15 interest rate releases, Census housing permits and retail sales, and international data from the ECB, IMF, World Bank, and OECD — all consistently formatted and reliably updated.
+
+## Setting Up API Access
+
+<StepGuide>
+  <Step number={1} title="Register for a FRED API key">
+    Go to fred.stlouisfed.org/docs/api/api_key.html and log in or create a St. Louis Fed account. API keys are issued immediately and free of charge. Copy the 32-character key and store it as an environment variable: `export FRED_API_KEY=your_key_here`. Never embed it in version-controlled source files.
+  </Step>
+  <Step number={2} title="Install fredapi">
+    Install the official Python wrapper: `pip install fredapi`. This library wraps the REST endpoints under a clean Python interface and handles pagination automatically. Also install pandas if not already present: `pip install pandas`.
+  </Step>
+  <Step number={3} title="Instantiate the Fred client">
+    Import and instantiate the client with your API key from the environment. All subsequent calls go through this object. The client is stateless and thread-safe — you can reuse one instance across your entire script.
+  </Step>
+  <Step number={4} title="Search for series IDs">
+    FRED series are identified by short string codes: `GDP` (nominal GDP), `CPIAUCSL` (CPI all items), `UNRATE` (unemployment rate), `DFF` (federal funds rate). Use `fred.search("consumer price index")` to discover series codes, or browse fred.stlouisfed.org directly and copy the series ID from the URL.
+  </Step>
+  <Step number={5} title="Fetch a single series to verify">
+    Call `fred.get_series("UNRATE")` to retrieve the full unemployment rate history as a pandas Series. If you see a DataFrame indexed by date, your key and installation are working. From here the code scales to any number of series.
+  </Step>
+</StepGuide>
+
+## Basic Series Download
+
+The simplest use case — fetching one series — requires three lines.
+
+```python
+import os
+import pandas as pd
+from fredapi import Fred
+
+fred = Fred(api_key=os.environ["FRED_API_KEY"])
+
+# Fetch US unemployment rate, monthly, seasonally adjusted
+unrate = fred.get_series("UNRATE")
+print(unrate.tail(12))
+# Returns a pandas Series indexed by datetime, values in percent
+
+# Fetch with explicit date range
+gdp = fred.get_series("GDP", observation_start="2000-01-01", observation_end="2023-12-31")
+print(gdp.shape)  # (96,) -- quarterly observations 2000-2023
+```
+
+The return type is a `pandas.Series` with a `DatetimeIndex`. This integrates directly with pandas merging, resampling, and plotting without additional conversion.
+
+## Handling Vintage Dates (Critical for Forecasting Research)
+
+FRED data is revised. GDP estimates are revised quarterly; employment figures are revised monthly and then again in annual benchmark revisions. A forecast model trained on data as it appears today, but evaluated against historical periods, will unknowingly use revised data that was not available at the time. This look-ahead bias inflates model performance.
+
+<Callout type="warning">
+**Vintage bias**: If your research involves real-time forecasting, event studies around data releases, or any analysis where the timing of data availability matters, you must use vintage dates. Fetching the current-vintage series and pretending it represents what researchers knew in 2010 is a methodological error that will not survive peer review.
+</Callout>
+
+FRED stores real-time vintages: the full history of what the data looked like on any given date. Fetch vintage data with the `realtime_start` and `realtime_end` parameters.
+
+```python
+import os
+import pandas as pd
+from fredapi import Fred
+
+fred = Fred(api_key=os.environ["FRED_API_KEY"])
+
+# Get GDP observations as they were known on 2015-01-15
+# (i.e., before any revisions made after that date)
+gdp_vintage_2015 = fred.get_series_all_releases("GDP")
+# Returns DataFrame with columns: date, realtime_start, realtime_end, value
+
+# Filter to a specific vintage date
+vintage_date = "2015-01-15"
+gdp_as_of_2015 = gdp_vintage_2015[
+    (gdp_vintage_2015["realtime_start"] <= vintage_date)
+    & (gdp_vintage_2015["realtime_end"] >= vintage_date)
+].copy()
+
+print(gdp_as_of_2015.head())
+```
+
+For forecasting studies, loop over a sequence of vintage dates to reconstruct the real-time data vintages available to a hypothetical forecaster at each point in time.
+
+## Building a Multi-Series Panel
+
+Most macroeconomic research requires multiple series combined into a single analysis-ready dataset. The pattern below downloads a defined set of series, aligns them to a common frequency, and writes to Parquet.
+
+```python
+import os
+import time
+import pandas as pd
+from fredapi import Fred
+
+fred = Fred(api_key=os.environ["FRED_API_KEY"])
+
+# Define the series to fetch: (series_id, label, frequency)
+SERIES = [
+    ("GDP",      "gdp_nominal",   "Q"),   # quarterly
+    ("GDPC1",    "gdp_real",      "Q"),
+    ("CPIAUCSL", "cpi",           "M"),   # monthly
+    ("UNRATE",   "unemployment",  "M"),
+    ("DFF",      "fed_funds",     "M"),
+    ("T10Y2Y",   "yield_spread",  "D"),   # daily
+]
+
+START = "1990-01-01"
+END   = "2023-12-31"
+
+frames = {}
+for series_id, label, freq in SERIES:
+    raw = fred.get_series(series_id, observation_start=START, observation_end=END)
+    # Resample to monthly for a common frequency panel
+    if freq == "D":
+        raw = raw.resample("ME").last()
+    elif freq == "Q":
+        raw = raw.resample("ME").ffill()  # forward-fill quarterly to monthly
+    frames[label] = raw
+    time.sleep(0.5)  # stay well under 120 req/min limit
+
+panel = pd.DataFrame(frames)
+panel.index.name = "date"
+panel.to_parquet("fred_macro_panel.parquet")
+print(panel.shape)
+print(panel.head())
+```
+
+The result is a monthly-frequency panel from 1990 to 2023 with five macroeconomic indicators, ready for regression or VAR estimation.
+
+## Series Metadata and Search
+
+Before extracting data, it is worth inspecting series metadata to confirm frequency, units, seasonal adjustment status, and data source.
+
+```python
+# Get metadata for a series
+info = fred.get_series_info("CPIAUCSL")
+print(info["title"])            # "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average"
+print(info["frequency"])        # "Monthly"
+print(info["units"])            # "Index 1982-1984=100"
+print(info["seasonal_adjustment"])  # "Seasonally Adjusted"
+print(info["last_updated"])     # timestamp of last revision
+
+# Search for related series
+results = fred.search("unemployment rate", limit=10)
+print(results[["id", "title", "frequency", "observation_start"]])
+```
+
+This is particularly useful when working with regional data. FRED contains state-level unemployment, CPI by metro area, and county-level economic data — all discoverable through search before extraction.
+
+<KeyTakeaway>
+The FRED API is the lowest-friction source for US macroeconomic data. The vintage date functionality is underused in empirical work but is essential for any study involving real-time data availability, forecasting evaluation, or data release timing. Build vintage fetching into your pipeline from the start — retrofitting it later is tedious.
+</KeyTakeaway>
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "Is FRED API free to use?",
+    answer: "Yes. FRED (Federal Reserve Economic Data) API is completely free. You need to register for an API key at fred.stlouisfed.org/docs/api/api_key.html. There are no usage fees and the rate limit is 120 requests per 60 seconds."
+  },
+  {
+    question: "How do I handle data revisions in FRED?",
+    answer: "FRED provides vintage dates via the fred/series/observations endpoint using the realtime_start and realtime_end parameters. For research requiring point-in-time data (e.g., forecasting studies), always specify vintage dates to avoid look-ahead bias."
+  },
+  {
+    question: "What is the best Python library for FRED?",
+    answer: "fredapi is the official Python wrapper maintained by the St. Louis Fed. For bulk downloads and panel construction, pandas_datareader also supports FRED but fredapi gives more control over vintage dates and series metadata."
+  },
+  {
+    question: "Can FRED data be used in peer-reviewed research?",
+    answer: "Yes. FRED is operated by the Federal Reserve Bank of St. Louis and is widely cited in top economics journals. Always cite the specific series, vintage date, and access date in your data section."
+  }
+]} />
+
+## Related Reading
+
+- [UN Comtrade API: Complete Python Tutorial for Economists](/blog/un-comtrade-api-python-tutorial-economists)
+- [Eurostat API Python: Download EU Economic and Trade Statistics](/blog/eurostat-api-python-eu-statistics)
+- [The Hidden Cost of Manual Data Processing in Academic Research](/blog/hidden-cost-manual-data-processing-academic-research)
+
+---
+
+For projects requiring FRED data merged with international sources — World Bank, IMF WEO, or Eurostat — or when vintage extraction for a large panel is consuming RA time, [Maestro's RA Data Service](https://ra.maestro.onl) delivers analysis-ready datasets end-to-end. See our [FRED macro indicators case study](https://ra.maestro.onl/data/case-studies/fred-macro-indicators) for a real example.
+
+*Published by the Maestro team. Learn how RA Suite can accelerate your empirical research at [ra.maestro.onl](https://ra.maestro.onl).*

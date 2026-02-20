@@ -1,0 +1,207 @@
+---
+title: "IPUMS Microdata: Extract CPS and ACS Data for Labor Economics Research"
+description: "Step-by-step guide to extracting IPUMS CPS and ACS microdata for labor market research. Covers variable selection, extract API, survey weights, and occupational crosswalks in Stata and R."
+publishedAt: "2026-02-19"
+author: "Maestro Team"
+faq:
+  - question: "What is the difference between IPUMS CPS and IPUMS USA (ACS)?"
+    answer: "IPUMS CPS harmonizes Current Population Survey data (monthly labor force data, ASEC supplement for income). IPUMS USA harmonizes American Community Survey and decennial Census data. CPS is better for longitudinal labor analysis; ACS is better for geographic cross-sections."
+  - question: "How do I handle IPUMS survey weights correctly?"
+    answer: "Always use the ASECWT (CPS) or PERWT (ACS) weights for individual-level analysis. For household-level analysis, use HWTFINL (CPS) or HHWT (ACS). In Stata, use svyset and svy: prefix. In R, use the survey package."
+  - question: "Can I access IPUMS data via API?"
+    answer: "Yes. The IPUMS API (beta) allows programmatic extract submission and download at api.ipums.org. Alternatively, ipumsr R package handles extract requests and data import. Python users can use ipumspy."
+  - question: "How are occupational codes harmonized across IPUMS CPS waves?"
+    answer: "IPUMS provides OCC1990 and OCC2010 crosswalked variables that harmonize across survey years. For finer-grained analysis, use the crosswalk tables provided in IPUMS documentation to map raw OCC codes to consistent categories."
+seo:
+  keywords: ["IPUMS microdata", "IPUMS CPS extraction", "IPUMS ACS data", "labor economics data Stata", "survey microdata R"]
+---
+
+The Current Population Survey and American Community Survey are the empirical backbone of US labor economics. Virtually every paper on wage inequality, labor force participation, occupational sorting, or immigration effects uses one or both. The challenge is not finding the data — it is extracting it correctly. IPUMS (Integrated Public Use Microdata Series) at the University of Minnesota has spent thirty years solving that problem, and understanding how to use IPUMS efficiently is a core skill for any labor economist.
+
+This guide covers the full extraction workflow: understanding the difference between CPS and ACS, selecting and submitting an IPUMS extract, loading data in Stata and R, applying survey weights correctly, and handling the occupational code crosswalks that are essential for longitudinal analysis.
+
+## CPS vs. ACS: Choosing the Right Dataset
+
+The first decision is which IPUMS product to use. The two main options target different research designs.
+
+<MetricGrid>
+  <Metric value="1962" label="IPUMS CPS start year (basic monthly)" source="IPUMS CPS documentation, 2025" />
+  <Metric value="3.5M" label="ACS annual sample size (persons), allowing fine geographic detail" source="Census Bureau ACS design documentation" />
+  <Metric value="50+" label="Harmonized occupational and industry variables across CPS waves" source="IPUMS CPS variable list, 2025" />
+  <Metric value="1%" label="Minimum geographic unit: Public Use Microdata Areas (PUMAs, ~100k population)" source="Census Bureau PUMA documentation" />
+</MetricGrid>
+
+IPUMS CPS (cps.ipums.org) covers the basic monthly survey from 1962 and the Annual Social and Economic Supplement (ASEC, sometimes called the March CPS) from 1962 as well. It is the right choice for: longitudinal labor force analysis, wage and income research using the ASEC supplement, month-to-month transitions (using the matched monthly files), and any research requiring data before 2005.
+
+IPUMS USA (usa.ipums.org) covers the ACS from 2001 and decennial Census samples back to 1850. It is the right choice for: geographic cross-sections at the state, metro, or PUMA level, large sample sizes for subgroup analysis, demographic and immigrant research, and any project needing fine spatial granularity.
+
+## Setting Up IPUMS Access
+
+<StepGuide>
+  <Step number={1} title="Create an IPUMS account">
+    Go to ipums.org and register. Accounts are free for researchers at accredited institutions. After registering, you can access all IPUMS products from a single login. Approval is usually instant.
+  </Step>
+  <Step number={2} title="Navigate to the correct IPUMS project">
+    Go to cps.ipums.org for CPS data or usa.ipums.org for ACS/Census data. The variable selection interface is similar across projects. Click "Build an Extract" to begin.
+  </Step>
+  <Step number={3} title="Select samples">
+    On the sample selection page, choose the survey years you need. For ASEC income analysis, select the ASEC samples. For basic monthly labor force data, select the monthly samples. Each sample you add increases extract size — be precise about which years you actually need.
+  </Step>
+  <Step number={4} title="Select variables">
+    Add variables from the variable selection interface. Core variables for labor analysis: AGE, SEX, RACE, HISPAN (Hispanic origin), EDUC (educational attainment), EMPSTAT (employment status), OCC (occupation), IND (industry), WKSWORK2 (weeks worked), UHRSWORKT (usual hours), INCWAGE (wage and salary income), WTFINL or ASECWT (person weight). Also add PERWT for ACS.
+  </Step>
+  <Step number={5} title="Submit the extract and download">
+    Submit your extract. IPUMS emails you when it is ready (usually 5-30 minutes for typical extract sizes). Download the fixed-width data file and the accompanying DDI codebook (XML). Never try to read the data without the codebook — column positions vary by extract.
+  </Step>
+</StepGuide>
+
+## Loading Data in Stata
+
+IPUMS provides a Stata do-file with every extract that reads the fixed-width file and applies labels. Always use the provided do-file rather than trying to parse the layout manually.
+
+```stata
+* Load the IPUMS extract using the provided do-file
+* Replace filename with your actual extract number
+do cps_00042.do
+
+* Verify the data loaded correctly
+describe
+summarize AGE INCWAGE ASECWT
+
+* Apply survey design for CPS ASEC
+* ASECWT is the person weight for income/poverty analysis
+* HWTFINL is the household weight
+svyset [pw=ASECWT], vce(linearized)
+
+* Example: Mean log wage by education group, weighted
+gen log_wage = log(INCWAGE) if INCWAGE > 0 & INCWAGE < 9999998
+svy: mean log_wage, over(EDUC)
+
+* Example: Employment rate by race-gender cell
+gen employed = (EMPSTAT == 10 | EMPSTAT == 12)
+svy: mean employed, over(RACE SEX)
+```
+
+The `svy:` prefix is not optional for publishable results. IPUMS surveys use complex sample designs with stratification and clustering. Ignoring survey weights produces biased estimates; ignoring the design effect understates standard errors.
+
+## Loading Data in R
+
+The `ipumsr` package handles both data loading and, as of version 0.6, programmatic extract submission via the IPUMS API.
+
+```r
+library(ipumsr)
+library(survey)
+library(dplyr)
+
+# Load data using the DDI codebook and the data file
+ddi  <- read_ipums_ddi("cps_00042.xml")
+data <- read_ipums_micro(ddi)
+
+# Inspect variable labels (IPUMS stores these in the DDI)
+ipums_var_label(ddi, "EDUC")
+ipums_val_labels(ddi, "EMPSTAT")
+
+# Apply survey design for CPS ASEC
+cps_design <- svydesign(
+  ids     = ~1,
+  weights = ~ASECWT,
+  data    = data
+)
+
+# Mean log wage by education, with proper standard errors
+data <- data %>%
+  mutate(
+    log_wage = ifelse(INCWAGE > 0 & INCWAGE < 9999998, log(INCWAGE), NA_real_)
+  )
+
+cps_design <- update(cps_design, log_wage = data$log_wage)
+
+educ_wages <- svyby(~log_wage, ~EDUC, cps_design, svymean, na.rm = TRUE)
+print(educ_wages)
+```
+
+## Programmatic Extraction via the IPUMS API
+
+For automated pipelines or reproducible data workflows, the IPUMS API allows extract submission without the web interface.
+
+```r
+library(ipumsr)
+
+# Set your IPUMS API key (get it from account.ipums.org)
+set_ipums_api_key(Sys.getenv("IPUMS_API_KEY"), save = TRUE)
+
+# Define an extract programmatically
+extract <- define_extract_cps(
+  description = "Wage analysis extract 2010-2022 ASEC",
+  samples     = c("cps2010_03s", "cps2015_03s", "cps2020_03s", "cps2022_03s"),
+  variables   = c("AGE", "SEX", "RACE", "EDUC", "EMPSTAT",
+                  "OCC", "IND", "INCWAGE", "ASECWT")
+)
+
+# Submit, wait, and download
+submitted <- submit_extract(extract)
+ready     <- wait_for_extract(submitted)
+paths     <- download_extract(ready, download_dir = "data/raw/")
+cat("Downloaded:", paths$data, "\n")
+```
+
+This approach is essential for replication packages — it documents exactly which variables and samples were requested, making the extraction step reproducible.
+
+## Occupational Code Crosswalks
+
+Occupational codes are a recurring headache in CPS panel analysis. The Census Bureau revised occupational codes in 1983, 2000, 2003, 2010, and 2018. A time series of "programmers" from 1983 to 2022 crosses at least three incompatible coding schemes.
+
+<Callout type="warning">
+**Occupational code breaks**: Never use the raw OCC variable for longitudinal analysis without checking which coding scheme applies to each year. Apparent trends in occupational composition may reflect reclassification rather than real change. IPUMS provides OCC1990 and OCC2010 as harmonized crosswalk variables — use these for longitudinal analysis.
+</Callout>
+
+```stata
+* Use IPUMS-harmonized OCC1990 for consistent longitudinal coding
+* OCC1990 maps all years to the 1990 Census occupational classification
+
+* Example: Share of workers in managerial occupations over time
+* OCC1990 range 003-037 covers managers and administrators
+gen manager = (OCC1990 >= 3 & OCC1990 <= 37) if OCC1990 < 999
+
+svyset [pw=ASECWT]
+bysort YEAR: svy: mean manager
+```
+
+For research requiring finer occupational granularity than OCC1990 or OCC2010 provides, consult the crosswalk tables in the IPUMS OCC documentation and the Dorn (2009) occupational task content database, which maps OCC codes to routine/non-routine task intensities.
+
+<KeyTakeaway>
+IPUMS solves the hardest part of working with US survey microdata: harmonizing variables across survey waves, documentation, and consistent handling of sample design. The investment in learning the extract system and the ipumsr or Stata workflow pays off across dozens of projects. The two common failure modes are ignoring survey weights (biased point estimates) and using raw OCC codes for longitudinal analysis (spurious trends).
+</KeyTakeaway>
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "What is the difference between IPUMS CPS and IPUMS USA (ACS)?",
+    answer: "IPUMS CPS harmonizes Current Population Survey data (monthly labor force data, ASEC supplement for income). IPUMS USA harmonizes American Community Survey and decennial Census data. CPS is better for longitudinal labor analysis; ACS is better for geographic cross-sections."
+  },
+  {
+    question: "How do I handle IPUMS survey weights correctly?",
+    answer: "Always use the ASECWT (CPS) or PERWT (ACS) weights for individual-level analysis. For household-level analysis, use HWTFINL (CPS) or HHWT (ACS). In Stata, use svyset and svy: prefix. In R, use the survey package."
+  },
+  {
+    question: "Can I access IPUMS data via API?",
+    answer: "Yes. The IPUMS API (beta) allows programmatic extract submission and download at api.ipums.org. Alternatively, ipumsr R package handles extract requests and data import. Python users can use ipumspy."
+  },
+  {
+    question: "How are occupational codes harmonized across IPUMS CPS waves?",
+    answer: "IPUMS provides OCC1990 and OCC2010 crosswalked variables that harmonize across survey years. For finer-grained analysis, use the crosswalk tables provided in IPUMS documentation to map raw OCC codes to consistent categories."
+  }
+]} />
+
+## Related Reading
+
+- [FRED API Python: Download Macroeconomic Data for Research](/blog/fred-api-python-macroeconomic-data)
+- [Web Scraping for Academic Research: Python Guide for Economists](/blog/web-scraping-academic-data-python-guide)
+- [The Hidden Cost of Manual Data Processing in Academic Research](/blog/hidden-cost-manual-data-processing-academic-research)
+
+---
+
+For research requiring IPUMS microdata merged with administrative records, geographic covariates, or employer-employee datasets, or when the extraction and cleaning workflow is consuming RA time, [Maestro's RA Data Service](https://ra.maestro.onl) handles the full pipeline. See our [IPUMS CPS microdata case study](https://ra.maestro.onl/data/case-studies/ipums-cps-microdata) for a real example of a wage inequality panel built from three decades of ASEC data.
+
+*Published by the Maestro team. Learn how RA Suite can accelerate your empirical research at [ra.maestro.onl](https://ra.maestro.onl).*

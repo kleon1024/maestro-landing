@@ -1,0 +1,254 @@
+---
+title: "Google Earth Engine for Academic Research: Python API Complete Guide (2026)"
+description: "How to use the Google Earth Engine Python API to extract MODIS, Landsat, and Sentinel satellite data for economics and social science research. Cloud-based geospatial analysis at scale."
+publishedAt: "2026-02-20"
+author: "Maestro Team"
+faq:
+  - question: "Is Google Earth Engine free for academic research?"
+    answer: "Yes. Google Earth Engine is free for academic and non-commercial research use. Apply for access at earthengine.google.com with your institutional email. Commercial use requires a paid subscription."
+  - question: "What satellite datasets are available in Google Earth Engine?"
+    answer: "GEE includes 70+ petabytes of satellite imagery including MODIS (daily, 250m-1km), Landsat (30m, 1972-present), Sentinel-1/2 (10m, 2014-present), ERA5 climate reanalysis, SRTM elevation, and hundreds of derived datasets."
+  - question: "Can I export GEE data to use in Stata or R?"
+    answer: "Yes. Use ee.Image.reduceRegions() for zonal statistics (e.g., mean NDVI per county) and Export.table.toDrive() to save results as CSV. The output integrates directly with Stata, R, or Python for panel regression."
+  - question: "How do I cite Google Earth Engine in academic papers?"
+    answer: "Cite the platform paper: Gorelick et al. (2017), 'Google Earth Engine: Planetary-scale geospatial analysis for everyone,' Remote Sensing of Environment 202:18-27. Also cite the specific dataset used with its doi from the GEE Data Catalog."
+seo:
+  keywords: ["Google Earth Engine Python", "GEE academic research", "MODIS satellite data", "remote sensing economics", "satellite data panel data"]
+---
+
+Satellite data has moved from a niche input in a few geography papers to a mainstream empirical tool in economics. Agricultural economists use MODIS vegetation indices to measure crop yields across countries without field surveys. Urban economists use nighttime lights data as a proxy for economic activity in places with poor GDP statistics. Climate economists use ERA5 reanalysis to construct weather shocks at the grid level. Development economists use Landsat to track deforestation, urbanization, and conflict damage.
+
+All of these applications share the same bottleneck: processing terabytes of raw imagery to extract the handful of numbers that actually enter a regression. Google Earth Engine (GEE) eliminates that bottleneck by running the analysis in Google's cloud, against data that is already stored there. You write code that describes the analysis; GEE handles storage, parallelization, and computation.
+
+This guide covers GEE access for academic researchers, the Python API, the key operations used in economics research (ImageCollection filtering, zonal statistics, time series export), and the workflow for getting results into Stata or R.
+
+## Why GEE Changed Empirical Work
+
+The traditional alternative to GEE — downloading raw satellite tiles, preprocessing them locally, and running analysis on your own hardware — is feasible for a single image or a small geographic area. It does not scale. A single year of global MODIS NDVI data at 250m resolution is around 200 GB. A multi-decadal panel for a continent is a petabyte-scale problem that a research laptop cannot solve.
+
+<MetricGrid>
+  <Metric value="70+ PB" label="Satellite imagery and geospatial data in the GEE catalog" source="Google Earth Engine documentation, 2025" />
+  <Metric value="1972" label="Start year for Landsat time series (longest satellite archive in GEE)" source="USGS Landsat program documentation" />
+  <Metric value="250m" label="Spatial resolution of MODIS daily surface reflectance products" source="NASA MODIS documentation" />
+  <Metric value="Free" label="Access for academic and non-commercial research (institutional email required)" source="Google Earth Engine access policy, 2025" />
+</MetricGrid>
+
+For economics researchers, the key insight is that you rarely need to process full images. You need zonal statistics: the mean NDVI within each county, the sum of nighttime light within each grid cell, the standard deviation of rainfall within each province. GEE runs these aggregations in the cloud and exports a CSV with one row per geographic unit — precisely the format that feeds into a panel regression.
+
+## Getting Access
+
+<StepGuide>
+  <Step number={1} title="Apply for academic access">
+    Go to earthengine.google.com and click "Get Started." Select "Academic/Research" as your use case and apply with your institutional email address. Approval typically takes 1-3 business days. You will receive a confirmation email when access is granted.
+  </Step>
+  <Step number={2} title="Install the Python API">
+    Install the Earth Engine Python client: `pip install earthengine-api`. Also install `geemap` for visualization during development: `pip install geemap`. For export workflows, `geopandas` and `pandas` are useful: `pip install geopandas pandas`.
+  </Step>
+  <Step number={3} title="Authenticate your installation">
+    Run `earthengine authenticate` in the terminal. This opens a browser window for Google OAuth authentication. After authenticating, a credentials file is stored locally. Authentication persists across sessions. In Colab or automated environments, use `ee.ServiceAccountCredentials` instead.
+  </Step>
+  <Step number={4} title="Initialize the API in your script">
+    At the top of every script, call `ee.Initialize()`. This connects your session to the GEE servers. All subsequent `ee.*` calls communicate with the cloud — local computation is minimal. This is why GEE is fast: your Python script sends instructions, not data.
+  </Step>
+  <Step number={5} title="Explore the Data Catalog">
+    Browse the GEE Data Catalog at developers.google.com/earth-engine/datasets. Each dataset has a collection ID (e.g., `MODIS/061/MOD13Q1` for MODIS 16-day NDVI at 250m), a description of bands and quality flags, and example code. Copy the collection ID for the dataset you need.
+  </Step>
+</StepGuide>
+
+## Core Python API Concepts
+
+GEE operates on two main data types: `ee.Image` (a single raster with multiple bands) and `ee.ImageCollection` (a time series of images). For economics research, the typical workflow is: filter a collection by time and geography, compute a derived index (e.g., NDVI), reduce it to zonal statistics over your geographic units, and export the result.
+
+```python
+import ee
+import pandas as pd
+
+ee.Initialize()
+
+# Load MODIS 16-day NDVI ImageCollection
+# Collection: MOD13Q1, Band: NDVI, Scale: 250m
+ndvi_collection = (
+    ee.ImageCollection("MODIS/061/MOD13Q1")
+    .filterDate("2010-01-01", "2020-12-31")
+    .select("NDVI")
+)
+
+print("Images in collection:", ndvi_collection.size().getInfo())
+# Each image covers 16 days; 10 years gives ~230 images
+
+# Compute annual mean NDVI (average across all images in each year)
+def annual_mean_ndvi(year):
+    start = ee.Date.fromYMD(year, 1, 1)
+    end   = ee.Date.fromYMD(year, 12, 31)
+    mean  = (ndvi_collection
+             .filterDate(start, end)
+             .mean()
+             .set("year", year))
+    return mean
+
+years = ee.List.sequence(2010, 2020)
+annual_collection = ee.ImageCollection(years.map(annual_mean_ndvi))
+```
+
+## Zonal Statistics: From Pixels to a Panel
+
+The most common operation in economics research is reducing pixel-level data to administrative-unit-level statistics. This is what `reduceRegions` does.
+
+```python
+import ee
+
+ee.Initialize()
+
+# Load county boundaries (example: US counties from TIGER)
+counties = ee.FeatureCollection("TIGER/2018/Counties")
+
+# Load and compute annual mean NDVI for 2015
+ndvi_2015 = (
+    ee.ImageCollection("MODIS/061/MOD13Q1")
+    .filterDate("2015-01-01", "2015-12-31")
+    .select("NDVI")
+    .mean()
+    .multiply(0.0001)  # MODIS NDVI scale factor
+)
+
+# Compute mean NDVI per county
+county_ndvi = ndvi_2015.reduceRegions(
+    collection = counties,
+    reducer    = ee.Reducer.mean(),
+    scale      = 250,     # match MODIS resolution
+    crs        = "EPSG:4326",
+)
+
+# Export to Google Drive as CSV
+task = ee.batch.Export.table.toDrive(
+    collection  = county_ndvi,
+    description = "county_ndvi_2015",
+    fileFormat  = "CSV",
+    selectors   = ["STATEFP", "COUNTYFP", "NAME", "mean"],
+)
+task.start()
+print("Export task submitted. Check progress at code.earthengine.google.com/tasks")
+```
+
+The exported CSV has one row per county with the mean NDVI. This is the format that merges directly with county-level economic data in Stata or R.
+
+## Building a Multi-Year Panel for Regression
+
+For panel regression, loop the zonal statistics over years and stack the outputs.
+
+```python
+import ee
+
+ee.Initialize()
+
+counties = ee.FeatureCollection("TIGER/2018/Counties")
+
+def export_annual_ndvi(year):
+    """Submit a GEE export task for one year of county-level mean NDVI."""
+    start = f"{year}-01-01"
+    end   = f"{year}-12-31"
+
+    ndvi_annual = (
+        ee.ImageCollection("MODIS/061/MOD13Q1")
+        .filterDate(start, end)
+        .select("NDVI")
+        .mean()
+        .multiply(0.0001)
+        .set("year", year)
+    )
+
+    county_stats = ndvi_annual.reduceRegions(
+        collection = counties,
+        reducer    = ee.Reducer.mean().combine(
+                         ee.Reducer.stdDev(), sharedInputs=True
+                     ),
+        scale      = 250,
+    )
+
+    task = ee.batch.Export.table.toDrive(
+        collection  = county_stats,
+        description = f"county_ndvi_{year}",
+        folder      = "gee_exports",
+        fileFormat  = "CSV",
+        selectors   = ["STATEFP", "COUNTYFP", "mean", "stdDev"],
+    )
+    task.start()
+    print(f"Submitted: county_ndvi_{year}")
+
+for year in range(2005, 2024):
+    export_annual_ndvi(year)
+```
+
+GEE runs all tasks asynchronously. Monitor progress at code.earthengine.google.com/tasks. Completed CSV files land in your Google Drive folder and can be downloaded, concatenated in Python, and merged with economic outcome variables.
+
+<Callout type="info">
+**Tip for large exports**: For global or large-country panels, split by geographic region to keep individual export files under GEE's 10 MB file limit. Filter the county/district feature collection by state or region code inside the export loop, and reassemble the panel locally after download.
+</Callout>
+
+## Integrating GEE Output with Stata
+
+After downloading the CSVs from Drive, combine them and merge with your main panel:
+
+```stata
+* Combine annual GEE exports into one panel
+* Assumes files county_ndvi_2005.csv through county_ndvi_2023.csv are in data/raw/gee/
+
+local files: dir "data/raw/gee" files "county_ndvi_*.csv"
+clear
+foreach f of local files {
+    local year = substr("`f'", 13, 4)
+    import delimited "data/raw/gee/`f'", clear
+    gen year = `year'
+    tempfile tmp_`year'
+    save `tmp_`year''
+}
+
+use `tmp_2005', clear
+forvalues y = 2006/2023 {
+    append using `tmp_`y''
+}
+
+* Generate panel identifier
+gen fips = statefp * 1000 + countyfp
+xtset fips year
+
+* Merge with economic outcome data
+merge 1:1 fips year using "data/processed/county_outcomes.dta"
+```
+
+<KeyTakeaway>
+Google Earth Engine eliminates the storage and computation bottleneck that previously made satellite-based economics research feasible only for well-resourced labs. The Python API makes GEE accessible without JavaScript. The critical workflow is: filter ImageCollection by time, compute derived index, reduce to zonal statistics over administrative units, export as CSV, merge with economic data. That five-step pattern covers 90 percent of GEE use cases in economics research.
+</KeyTakeaway>
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "Is Google Earth Engine free for academic research?",
+    answer: "Yes. Google Earth Engine is free for academic and non-commercial research use. Apply for access at earthengine.google.com with your institutional email. Commercial use requires a paid subscription."
+  },
+  {
+    question: "What satellite datasets are available in Google Earth Engine?",
+    answer: "GEE includes 70+ petabytes of satellite imagery including MODIS (daily, 250m-1km), Landsat (30m, 1972-present), Sentinel-1/2 (10m, 2014-present), ERA5 climate reanalysis, SRTM elevation, and hundreds of derived datasets."
+  },
+  {
+    question: "Can I export GEE data to use in Stata or R?",
+    answer: "Yes. Use ee.Image.reduceRegions() for zonal statistics (e.g., mean NDVI per county) and Export.table.toDrive() to save results as CSV. The output integrates directly with Stata, R, or Python for panel regression."
+  },
+  {
+    question: "How do I cite Google Earth Engine in academic papers?",
+    answer: "Cite the platform paper: Gorelick et al. (2017), 'Google Earth Engine: Planetary-scale geospatial analysis for everyone,' Remote Sensing of Environment 202:18-27. Also cite the specific dataset used with its doi from the GEE Data Catalog."
+  }
+]} />
+
+## Related Reading
+
+- [FRED API Python: Download Macroeconomic Data for Research](/blog/fred-api-python-macroeconomic-data)
+- [Web Scraping for Academic Research: Python Guide for Economists](/blog/web-scraping-academic-data-python-guide)
+- [The Hidden Cost of Manual Data Processing in Academic Research](/blog/hidden-cost-manual-data-processing-academic-research)
+
+---
+
+For projects requiring satellite-derived variables (NDVI, nighttime lights, rainfall, elevation) merged with economic panel data, or when GEE export pipelines and raster-to-panel conversion are consuming RA time, [Maestro's RA Data Service](https://ra.maestro.onl) handles the full geospatial pipeline. See our [MODIS NDVI crop yield case study](https://ra.maestro.onl/data/case-studies/modis-ndvi-crop-yield) for a real example delivered to an agricultural economics team.
+
+*Published by the Maestro team. Learn how RA Suite can accelerate your empirical research at [ra.maestro.onl](https://ra.maestro.onl).*

@@ -1,0 +1,204 @@
+---
+title: "Eurostat API Python: Download EU Economic and Trade Statistics (2026)"
+description: "How to use the Eurostat REST API to download EU trade, GDP, employment, and demographic data with Python. Handle SDMX format, dataset codes, and build cross-country panels."
+publishedAt: "2026-02-20"
+author: "Maestro Team"
+faq:
+  - question: "Does Eurostat API require an API key?"
+    answer: "No. The Eurostat REST API is completely open and does not require registration or an API key. You can query datasets directly at ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{datasetCode}."
+  - question: "What format does Eurostat data come in?"
+    answer: "Eurostat returns data in SDMX-JSON or SDMX-XML format. The JSON format is easier to parse with Python. The eurostat Python package handles SDMX parsing automatically."
+  - question: "How do I find the right Eurostat dataset code?"
+    answer: "Use the Eurostat Data Browser at ec.europa.eu/eurostat/databrowser to find and preview datasets. Each dataset has a unique code shown in the URL (e.g., ext_lt_mainit for main international trade indicators)."
+  - question: "How do I handle missing EU member data in Eurostat panels?"
+    answer: "Eurostat codes missing values as 'b' (break), 'd' (definition differs), 'e' (estimated), 'p' (provisional), or ':' (not available). Always check the obs_status column and document your handling of these flags in your data section."
+seo:
+  keywords: ["Eurostat API Python", "Eurostat data download", "EU statistics API", "European trade data Python", "SDMX Eurostat"]
+---
+
+Research on European economic integration, trade policy, labor markets, or regional inequality almost always ends up at Eurostat — the statistical office of the European Union. Eurostat's data browser is usable for spot queries. For panel construction across 27 EU member states and multiple time periods, you need the API. Unlike many national statistical agencies, Eurostat runs an open REST API that requires no registration, no key, and has no documented rate limits for reasonable research use.
+
+The catch is SDMX. Eurostat returns data in the Statistical Data and Metadata eXchange format, which is precise and well-structured but verbose and unfamiliar to most economists. This guide covers finding datasets, calling the API with Python, parsing SDMX responses, handling the observation status flags that signal data quality issues, and building analysis-ready cross-country panels.
+
+## What Eurostat Contains
+
+<MetricGrid>
+  <Metric value="6,000+" label="Datasets across economics, trade, demographics, environment" source="Eurostat data catalogue, 2025" />
+  <Metric value="27" label="EU member states plus EEA countries and accession candidates" source="Eurostat geographic coverage documentation" />
+  <Metric value="1960" label="Earliest data for select macroeconomic series (National Accounts)" source="Eurostat national accounts documentation" />
+  <Metric value="100%" label="Free, open API — no registration, no API key required" source="Eurostat API dissemination documentation" />
+</MetricGrid>
+
+Eurostat's particular strength is harmonization: all member states report under the European System of Accounts (ESA 2010), ensuring that GDP components, employment measures, and trade statistics are defined consistently across countries. This is what makes EU cross-country panels more reliable than panels assembled from individual national statistical agencies.
+
+## Finding the Right Dataset Code
+
+Before writing code, you need the dataset code. There are two ways to find it.
+
+The first is the Eurostat Data Browser at ec.europa.eu/eurostat/databrowser. Browse by theme (Economy, Trade, Population) until you find a dataset that looks right, then preview it. The dataset code appears in the browser URL. For example, `nama_10_gdp` is quarterly GDP by expenditure component; `ext_lt_mainit` is main international trade indicators; `lfsa_ergaed` is employment by sex, age, and educational attainment.
+
+The second is programmatic search via the `eurostat` Python package:
+
+```python
+import eurostat
+
+# Search for datasets matching a keyword
+results = eurostat.get_toc_df()
+gdp_related = results[results["title"].str.contains("GDP", case=False)]
+print(gdp_related[["code", "title", "type"]].head(20))
+```
+
+Once you have the code, inspect the dataset dimensions before building a full extraction.
+
+## Setting Up Python
+
+```bash
+pip install eurostat pandas
+```
+
+The `eurostat` package (maintained on PyPI as `eurostat`) wraps the REST API and handles SDMX-JSON parsing. You do not need to implement SDMX parsing yourself.
+
+## Basic Dataset Download
+
+```python
+import eurostat
+import pandas as pd
+
+# Download the full dataset: quarterly GDP growth rates
+# Dataset code: namq_10_pc_gdp -- GDP and main components, growth rates
+df = eurostat.get_data_df("namq_10_pc_gdp")
+
+print(df.shape)
+print(df.columns.tolist())
+# Columns include dimension labels (geo, unit, na_item, s_adj) + time periods as columns
+
+# The default return is wide format (time periods as columns)
+# Melt to long format for panel analysis
+long_df = df.melt(
+    id_vars=["freq", "unit", "na_item", "s_adj", "geo\\TIME_PERIOD"],
+    var_name="period",
+    value_name="value"
+)
+long_df.rename(columns={"geo\\TIME_PERIOD": "geo"}, inplace=True)
+long_df["period"] = pd.PeriodIndex(long_df["period"], freq="Q")
+
+print(long_df.head())
+```
+
+## Filtered Extraction: Specifying Dimensions
+
+Downloading an entire dataset and filtering afterward is inefficient for large datasets. The API supports dimension-level filtering via query parameters.
+
+```python
+import eurostat
+import pandas as pd
+
+# Download annual employment data, filtered to specific countries and indicators
+# Dataset: lfsa_ergaed -- Employment by sex, age, education (annual, LFS)
+
+pars = {
+    "geo":   ["DE", "FR", "IT", "ES", "PL", "NL"],   # six largest EU economies
+    "sex":   ["T"],    # total (not broken down by sex)
+    "age":   ["Y20-64"],  # working-age population
+    "isced11": ["TOTAL"],  # all education levels
+    "unit":  ["THS_PER"],  # thousands of persons
+}
+
+df = eurostat.get_data_df("lfsa_ergaed", filter_pars=pars)
+
+# Melt wide to long
+time_cols = [c for c in df.columns if c[:4].isdigit()]
+id_cols   = [c for c in df.columns if c not in time_cols]
+
+long_df = df.melt(id_vars=id_cols, value_vars=time_cols,
+                  var_name="year", value_name="employment_thousands")
+long_df["year"] = long_df["year"].astype(int)
+long_df = long_df.dropna(subset=["employment_thousands"])
+
+print(long_df.shape)
+long_df.to_parquet("eu_employment_panel.parquet", index=False)
+```
+
+## Handling Observation Status Flags
+
+Eurostat encodes data quality alongside values. Missing or unreliable observations carry status codes that most researchers overlook.
+
+<Callout type="warning">
+**Status flags matter**: Eurostat observation status codes are not cosmetic. A value flagged 'b' (break in series) signals a methodological change that creates a discontinuity. A value flagged ':' is missing — not zero. Failing to separate these cases is a common source of incorrect regressions when the missing pattern is non-random (e.g., new EU member states entering the panel).
+</Callout>
+
+```python
+import eurostat
+import pandas as pd
+
+# Some datasets return flags alongside values when flag=True
+df_with_flags = eurostat.get_data_df("nama_10_gdp", flags=True)
+
+# Columns come in pairs: value and flag
+# e.g., "2020" (value) and "2020 flag" (status)
+flag_cols = [c for c in df_with_flags.columns if "flag" in str(c).lower()]
+
+# Separate value and flag columns, then filter
+# Status codes: '' (ok), 'b' (break), 'd' (definition differs),
+#               'e' (estimated), 'p' (provisional), ':' (not available)
+
+# Example: remove provisional and estimated values for a strict analysis
+def is_reliable(flag_value):
+    if pd.isna(flag_value):
+        return True
+    return flag_value.strip() not in ["p", "e", "b"]
+```
+
+Document your treatment of each status code in the data section of your paper. Reviewers at European journals will check.
+
+## Comparing Eurostat vs. World Bank vs. OECD
+
+For cross-country European panels, you often have a choice of source. The right choice depends on your coverage requirements and the specific variables.
+
+| Dimension | Eurostat | World Bank WDI | OECD.Stat |
+|-----------|----------|----------------|-----------|
+| Geographic scope | EU/EEA + candidates | 200+ countries | OECD members (38 countries) |
+| Harmonization standard | ESA 2010 (strict) | Varies by indicator | SNA 2008 |
+| Timeliness | 2-3 month lag | 6-12 month lag | 3-6 month lag |
+| Disaggregation | High (NUTS2, NACE) | Low-medium | Medium |
+| API quality | Good (SDMX) | Good (REST) | Moderate (SDMX) |
+| Free access | Yes | Yes | Yes |
+
+For EU-focused research, Eurostat is almost always the right primary source: the harmonization is stricter, the geographic disaggregation is finer (NUTS2 regional data is available for most indicators), and the series definitions are consistent with European legal frameworks. Use World Bank or OECD when you need non-EU comparison countries.
+
+<KeyTakeaway>
+Eurostat's open API and rigorous harmonization make it the right choice for EU cross-country panels. The SDMX format is the main friction point, but the `eurostat` Python package handles parsing. The real discipline is in observation status flags — treat every non-empty status code as a data quality signal that requires a documented decision in your methods section.
+</KeyTakeaway>
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "Does Eurostat API require an API key?",
+    answer: "No. The Eurostat REST API is completely open and does not require registration or an API key. You can query datasets directly at ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{datasetCode}."
+  },
+  {
+    question: "What format does Eurostat data come in?",
+    answer: "Eurostat returns data in SDMX-JSON or SDMX-XML format. The JSON format is easier to parse with Python. The eurostat Python package handles SDMX parsing automatically."
+  },
+  {
+    question: "How do I find the right Eurostat dataset code?",
+    answer: "Use the Eurostat Data Browser at ec.europa.eu/eurostat/databrowser to find and preview datasets. Each dataset has a unique code shown in the URL (e.g., ext_lt_mainit for main international trade indicators)."
+  },
+  {
+    question: "How do I handle missing EU member data in Eurostat panels?",
+    answer: "Eurostat codes missing values as 'b' (break), 'd' (definition differs), 'e' (estimated), 'p' (provisional), or ':' (not available). Always check the obs_status column and document your handling of these flags in your data section."
+  }
+]} />
+
+## Related Reading
+
+- [UN Comtrade API: Complete Python Tutorial for Economists](/blog/un-comtrade-api-python-tutorial-economists)
+- [FRED API Python: Download Macroeconomic Data for Research](/blog/fred-api-python-macroeconomic-data)
+- [Building Replication Packages with AI: A Complete Guide](/blog/building-replication-packages-with-ai)
+
+---
+
+For EU trade and macroeconomic panels combining Eurostat with Comtrade, World Bank, or OECD sources, or when SDMX parsing and status flag reconciliation is consuming RA bandwidth, [Maestro's RA Data Service](https://ra.maestro.onl) handles the full pipeline. See our [Eurostat trade panel case study](https://ra.maestro.onl/data/case-studies/eurostat-trade-panel) for a real example delivered to a research team in under 72 hours.
+
+*Published by the Maestro team. Learn how RA Suite can accelerate your empirical research at [ra.maestro.onl](https://ra.maestro.onl).*

@@ -1,0 +1,313 @@
+---
+title: "Web Scraping for Academic Research: Python Guide for Economists (2026)"
+description: "Ethical web scraping for academic data collection using Python. Covers requests, BeautifulSoup, Playwright, rate limiting, robots.txt compliance, and documentation for replication packages."
+publishedAt: "2026-02-20"
+author: "Maestro Team"
+faq:
+  - question: "Is web scraping legal for academic research?"
+    answer: "Web scraping for research is generally permitted under fair use, but always check the site's robots.txt and Terms of Service. Public data scraped for non-commercial research is typically allowed. Avoid scraping behind authentication and always rate-limit your requests."
+  - question: "What Python libraries should I use for academic web scraping?"
+    answer: "Use requests + BeautifulSoup for static HTML pages. Use Playwright or Selenium for JavaScript-rendered pages. For large-scale crawls, use Scrapy. Always add delays between requests (time.sleep(1-3)) to avoid overloading servers."
+  - question: "How do I document web scraping for a replication package?"
+    answer: "Document: the target URL pattern, access date, HTTP headers used, rate limit applied, parsing logic, and any login/session handling. Store the raw HTML alongside your parsed CSV for replication. Include your scraping script in the replication package."
+  - question: "What should I do when a website blocks my scraper?"
+    answer: "First check if an official API or data export exists — this is always preferable. If scraping is necessary, respect rate limits, use a realistic User-Agent, and add random delays. Do not attempt to bypass CAPTCHAs or authentication for academic research."
+seo:
+  keywords: ["web scraping Python academic", "web scraping research data", "BeautifulSoup economist data", "Playwright scraping", "academic data collection Python"]
+---
+
+Not every dataset an economist needs exists as a clean API or a downloadable spreadsheet. Firm-level financial data, corporate governance records, court decisions, legislative voting records, real estate listings, job postings, patent filings, product prices — these are often published on the web and accessible only by reading HTML. Web scraping is how empirical economists collect data that has not yet been packaged for research use, and it is a legitimate and increasingly common method in top applied economics journals.
+
+This guide covers the ethics and legal framework, the technical implementation in Python, handling JavaScript-rendered pages with Playwright, rate limiting, and the documentation standards needed for a replication package that a journal data editor will approve.
+
+## The Ethics Framework First
+
+Before touching a line of code, there are three questions to answer.
+
+Does an official API or data download exist? Scraping is always a second choice. Before writing a scraper, check whether the site offers an API, a bulk download, or a data partnership program. Many government databases, financial data providers, and research repositories offer machine-readable access that is faster, more reliable, and more clearly permitted than scraping.
+
+What does the robots.txt say? The robots.txt file at the root of every domain specifies which paths are off-limits to automated crawlers. Disregarding robots.txt is an ethical violation and, depending on jurisdiction, a legal one. Check it before scraping.
+
+What do the Terms of Service say? Some sites explicitly prohibit automated access. Others permit it for research. Read the ToS and note your findings in your research documentation. For papers targeting journals with data availability requirements, you may need to demonstrate you had the right to collect the data.
+
+<Callout type="warning">
+**Replication risk**: If your paper depends on scraped data that is behind a paywall, behind authentication, or explicitly prohibited by ToS, your replication package will fail data editor review. The American Economic Review, JPE, and QJE now require data availability statements for all empirical papers. Build scraping workflows that collect from publicly accessible, non-authenticated pages where possible.
+</Callout>
+
+## Setting Up Python
+
+```bash
+pip install requests beautifulsoup4 lxml playwright pandas
+playwright install chromium
+```
+
+The `lxml` parser is faster and more lenient than the built-in `html.parser` for BeautifulSoup. Playwright handles JavaScript-rendered pages. Install the Chromium browser binary with `playwright install chromium` after the pip install.
+
+## Static Page Scraping with requests and BeautifulSoup
+
+Most government websites, court databases, and archival sources serve static HTML that does not require JavaScript to render. This is the simplest case.
+
+<StepGuide>
+  <Step number={1} title="Check robots.txt and identify the URL pattern">
+    Before scraping, fetch `https://example.gov/robots.txt` and verify your target paths are not disallowed. Identify the URL pattern for pagination: most sites use a query parameter like `?page=1&page=2` or path segments like `/records/1`, `/records/2`.
+  </Step>
+  <Step number={2} title="Fetch a single page and inspect the HTML structure">
+    Use your browser's developer tools (F12) to inspect the HTML element containing your target data. Identify the CSS class or HTML tag structure that wraps each record. Right-click on the element and copy the CSS selector.
+  </Step>
+  <Step number={3} title="Write the parser function">
+    Write a function that takes raw HTML and returns a list of dictionaries — one per record. Keep parsing logic separate from fetching logic. This makes testing and debugging easier.
+  </Step>
+  <Step number={4} title="Add rate limiting and headers">
+    Set a realistic User-Agent header and add a delay between requests. A delay of 1-3 seconds is standard practice for research scraping. This is both ethical and pragmatic: it prevents the site from blocking your IP.
+  </Step>
+  <Step number={5} title="Save raw HTML alongside parsed data">
+    Store the raw HTML for every page you scrape, in addition to your parsed CSV. Raw HTML provides replication insurance: if the site's structure changes or goes offline, you can re-parse from your archive without re-scraping.
+  </Step>
+</StepGuide>
+
+```python
+import os
+import time
+import random
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+# Realistic User-Agent prevents trivial bot detection
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+RAW_DIR = "data/raw/html"
+os.makedirs(RAW_DIR, exist_ok=True)
+
+def fetch_page(url: str, delay_range: tuple = (1.0, 2.5)) -> str:
+    """
+    Fetch a URL with a randomized delay and save raw HTML to disk.
+
+    Raises requests.HTTPError on non-200 responses after the delay.
+    Caller should catch and log rather than crashing the loop.
+    """
+    time.sleep(random.uniform(*delay_range))
+    resp = requests.get(url, headers=HEADERS, timeout=30)
+    resp.raise_for_status()
+
+    # Save raw HTML for replication
+    safe_name = url.replace("https://", "").replace("/", "_") + ".html"
+    with open(os.path.join(RAW_DIR, safe_name), "w", encoding="utf-8") as f:
+        f.write(resp.text)
+
+    return resp.text
+
+
+def parse_records(html: str) -> list[dict]:
+    """
+    Parse records from a single page of HTML.
+
+    Returns a list of dicts with keys: id, name, date, value.
+    Returns empty list if the expected structure is absent.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    rows = soup.select("table.data-table tbody tr")  # adjust selector to actual site
+
+    records = []
+    for row in rows:
+        cells = row.find_all("td")
+        if len(cells) < 4:
+            continue
+        records.append({
+            "id":    cells[0].get_text(strip=True),
+            "name":  cells[1].get_text(strip=True),
+            "date":  cells[2].get_text(strip=True),
+            "value": cells[3].get_text(strip=True),
+        })
+    return records
+
+
+def scrape_paginated(base_url: str, total_pages: int) -> pd.DataFrame:
+    """
+    Scrape a paginated table and return all records as a DataFrame.
+
+    Parameters
+    ----------
+    base_url    : URL template with {} placeholder for page number
+    total_pages : number of pages to scrape (verify in advance by inspection)
+    """
+    all_records = []
+    for page in range(1, total_pages + 1):
+        url = base_url.format(page)
+        try:
+            html = fetch_page(url)
+            records = parse_records(html)
+            all_records.extend(records)
+            print(f"Page {page}/{total_pages}: {len(records)} records")
+        except Exception as exc:
+            print(f"FAILED page {page}: {exc}")  # log and continue
+
+    return pd.DataFrame(all_records)
+
+
+# Example usage
+# df = scrape_paginated("https://example.gov/records?page={}", total_pages=50)
+# df.to_csv("data/processed/records.csv", index=False)
+```
+
+## JavaScript-Rendered Pages with Playwright
+
+An increasing share of web data is rendered by JavaScript frameworks. The HTML returned by a simple `requests.get()` call is a shell; the actual content only appears after the browser executes JavaScript. Playwright controls a real browser and returns the fully rendered DOM.
+
+```python
+import time
+import pandas as pd
+from playwright.sync_api import sync_playwright
+
+def scrape_js_table(url: str, row_selector: str, delay: float = 2.0) -> list[dict]:
+    """
+    Scrape a JavaScript-rendered table using Playwright.
+
+    Parameters
+    ----------
+    url          : target URL
+    row_selector : CSS selector for table rows containing data
+    delay        : seconds to wait after navigation for JS to render
+
+    Returns a list of dicts, one per row.
+    """
+    records = []
+
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        page    = browser.new_page()
+
+        page.set_extra_http_headers({
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0.0.0 Safari/537.36"
+            )
+        })
+
+        page.goto(url, wait_until="networkidle")
+        time.sleep(delay)  # extra wait for late-loading content
+
+        # Extract text from each row
+        rows = page.query_selector_all(row_selector)
+        for row in rows:
+            cells = row.query_selector_all("td")
+            if len(cells) >= 3:
+                records.append({
+                    "col1": cells[0].inner_text().strip(),
+                    "col2": cells[1].inner_text().strip(),
+                    "col3": cells[2].inner_text().strip(),
+                })
+
+        # Save rendered HTML for replication
+        rendered_html = page.content()
+        with open("data/raw/html/rendered_page.html", "w", encoding="utf-8") as f:
+            f.write(rendered_html)
+
+        browser.close()
+
+    return records
+```
+
+## Rate Limiting and Respectful Scraping
+
+Research scraping should be invisible to the server operator. The practical standards are:
+
+- Minimum 1 second delay between requests; use `random.uniform(1.0, 3.0)` to avoid patterns that look robotic
+- Maximum 1 concurrent connection to any single domain
+- Scrape during off-peak hours when possible (overnight for US sites)
+- Stop immediately and contact the site administrator if you receive a cease-and-desist
+
+<Callout type="tip">
+**Caching saves time and server load**: Once you have fetched a page, do not fetch it again. Check whether the raw HTML file already exists before making a network request. This makes your scraping idempotent and allows you to restart a failed run without duplicating server load.
+</Callout>
+
+```python
+import os
+
+def fetch_with_cache(url: str, cache_dir: str = "data/raw/html") -> str:
+    """
+    Return cached HTML if it exists; otherwise fetch and cache.
+
+    This ensures each URL is fetched at most once across all runs.
+    """
+    os.makedirs(cache_dir, exist_ok=True)
+    cache_key = url.replace("https://", "").replace("/", "_") + ".html"
+    cache_path = os.path.join(cache_dir, cache_key)
+
+    if os.path.exists(cache_path):
+        with open(cache_path, encoding="utf-8") as f:
+            return f.read()
+
+    html = fetch_page(url)  # defined above, includes delay
+    return html
+```
+
+## Documentation for Replication Packages
+
+Journal data editors are increasingly strict about scraped data documentation. A replication package for a paper using web-scraped data should include all of the following.
+
+```
+replication_package/
+  data/
+    raw/
+      html/           # all fetched HTML files, one per URL
+      records.csv     # parsed output, before cleaning
+    processed/
+      final_panel.dta # Stata-ready analysis dataset
+  code/
+    scraper.py        # scraping script (this file)
+    parse.py          # parsing logic
+    clean.py          # cleaning and panel construction
+  documentation/
+    data_sources.md   # for each source: URL pattern, access date,
+                      # robots.txt check result, ToS assessment,
+                      # rate limit applied, parse logic description
+    codebook.md       # variable definitions and sources
+```
+
+The `data_sources.md` file is the one that data editors actually read. It should state, for every scraped source: the base URL and URL pattern used, the date range of access, the robots.txt status at time of access, what User-Agent and headers were sent, the inter-request delay applied, and how the parsed output maps to variables in the final dataset.
+
+<KeyTakeaway>
+Web scraping is a legitimate empirical method for economists when the target data is publicly accessible, the collection is documented, and the analysis is non-commercial. The technical implementation is straightforward — the professional standard lies in the documentation. Build the documentation infrastructure (raw HTML archive, data_sources.md, scraping script in replication package) from day one, not as a retrofit before submission.
+</KeyTakeaway>
+
+## Frequently Asked Questions
+
+<FAQAccordion items={[
+  {
+    question: "Is web scraping legal for academic research?",
+    answer: "Web scraping for research is generally permitted under fair use, but always check the site's robots.txt and Terms of Service. Public data scraped for non-commercial research is typically allowed. Avoid scraping behind authentication and always rate-limit your requests."
+  },
+  {
+    question: "What Python libraries should I use for academic web scraping?",
+    answer: "Use requests + BeautifulSoup for static HTML pages. Use Playwright or Selenium for JavaScript-rendered pages. For large-scale crawls, use Scrapy. Always add delays between requests (time.sleep(1-3)) to avoid overloading servers."
+  },
+  {
+    question: "How do I document web scraping for a replication package?",
+    answer: "Document: the target URL pattern, access date, HTTP headers used, rate limit applied, parsing logic, and any login/session handling. Store the raw HTML alongside your parsed CSV for replication. Include your scraping script in the replication package."
+  },
+  {
+    question: "What should I do when a website blocks my scraper?",
+    answer: "First check if an official API or data export exists — this is always preferable. If scraping is necessary, respect rate limits, use a realistic User-Agent, and add random delays. Do not attempt to bypass CAPTCHAs or authentication for academic research."
+  }
+]} />
+
+## Related Reading
+
+- [UN Comtrade API: Complete Python Tutorial for Economists](/blog/un-comtrade-api-python-tutorial-economists)
+- [IPUMS Microdata: Extract CPS and ACS Data for Labor Economics Research](/blog/ipums-microdata-stata-r-extraction-guide)
+- [Building Replication Packages with AI: A Complete Guide](/blog/building-replication-packages-with-ai)
+
+---
+
+For research requiring large-scale data collection from web sources — firm-level records, legislative data, court decisions, price data, job postings — or when scraping, parsing, and replication-package documentation are consuming RA bandwidth, [Maestro's RA Data Service](https://ra.maestro.onl) handles the full pipeline with documentation included. Learn more at [ra.maestro.onl](https://ra.maestro.onl).
+
+*Published by the Maestro team. Learn how RA Suite can accelerate your empirical research at [ra.maestro.onl](https://ra.maestro.onl).*
