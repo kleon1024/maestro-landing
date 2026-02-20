@@ -3,6 +3,13 @@ title: "UN Comtrade API: Complete Python Tutorial for Economists (2026)"
 description: "Step-by-step guide to downloading bilateral trade data from UN Comtrade API using Python. Handle pagination, rate limits, and HS code filtering — with working code examples."
 publishedAt: "2026-02-18"
 author: "Maestro Team"
+faq:
+  - question: "Is UN Comtrade API free to use?"
+    answer: "Yes. The UN Comtrade API is free for all users. You need to register at comtradeplus.un.org for an API subscription key. The free tier allows 500 requests per day and up to 250,000 records per request. Institutional subscriptions remove rate limits for bulk extraction."
+  - question: "How do I download bilateral trade data with Python?"
+    answer: "Use the requests library to call the Comtrade Plus API v2 endpoint at comtradeapi.un.org/data/v1/get/C/A/HS with your subscription key in the header. Specify reporterCode, partnerCode, cmdCode (HS product code), and period (year) as query parameters. The comtradeapicall Python package also provides a wrapper."
+  - question: "What is the difference between reporter and mirror trade statistics in Comtrade?"
+    answer: "Reporter statistics are what a country reports about its own trade. Mirror statistics come from the partner country reporting the same trade from the other side. These rarely agree exactly due to CIF/FOB adjustments, timing differences, and classification discrepancies. Use the exporter's own report for export value and the importer's report for import value."
 seo:
   keywords: ["UN Comtrade API", "bilateral trade data Python", "UN Comtrade download", "trade data economics research", "HS code trade statistics API"]
 ---
@@ -277,8 +284,9 @@ The break-even calculation is straightforward: if building and debugging the ext
 ## Related Reading
 
 - [World Bank WITS API: Download Bilateral Trade Data for Research](/blog/world-bank-wits-api-guide-trade-data)
+- [Eurostat API Python: Download EU Statistics](/blog/eurostat-api-python-eu-statistics)
+- [FRED API Python: Download Macroeconomic Data for Research](/blog/fred-api-python-macroeconomic-data)
 - [The Hidden Cost of Manual Data Processing in Academic Research](/blog/hidden-cost-manual-data-processing-academic-research)
-- [Building Replication Packages with AI: A Complete Guide](/blog/building-replication-packages-with-ai)
 
 ---
 

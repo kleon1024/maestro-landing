@@ -3,6 +3,13 @@ title: "World Bank WITS API: Download Bilateral Trade Data for Research (2026)"
 description: "How to use the World Bank WITS API to extract bilateral trade flows by HS code. Python examples, rate limit handling, and validation against WTO statistics."
 publishedAt: "2026-02-19"
 author: "Maestro Team"
+faq:
+  - question: "Does WITS API require an API key?"
+    answer: "No. The World Bank WITS REST API is publicly accessible without registration or an API key. This is a significant practical advantage over UN Comtrade. However, WITS has undocumented rate limits enforced through connection throttling -- add 6-8 second delays between requests for bulk extractions."
+  - question: "What is the difference between WITS and UN Comtrade data?"
+    answer: "WITS aggregates and harmonizes data from UN Comtrade, applies quality filters, and integrates tariff data from UNCTAD TRAINS. WITS also offers BACI-harmonized bilateral flows that reconcile CIF/FOB differences. Use WITS for policy research needing tariff data; use Comtrade for raw reported flows or monthly frequency data."
+  - question: "How do I extract tariff data alongside trade flows from WITS?"
+    answer: "Tariff data uses a separate WITS endpoint: tradestats-tariff. The indicator code for applied MFN tariff rates is MFN-WGHTD-AVRG (weighted average). The product and partner dimensions work identically to the trade flow endpoint. Preferential tariff rates from bilateral agreements have less complete coverage."
 seo:
   keywords: ["World Bank WITS API", "WITS trade data", "bilateral trade flows download", "HS84 trade data", "World Bank trade statistics API"]
 ---
@@ -335,8 +342,9 @@ Use WITS when you need tariff data alongside trade flows, want BACI-harmonized s
 ## Related Reading
 
 - [UN Comtrade API: Complete Python Tutorial for Economists](/blog/un-comtrade-api-python-tutorial-economists)
+- [Eurostat API Python: Download EU Statistics](/blog/eurostat-api-python-eu-statistics)
+- [FRED API Python: Download Macroeconomic Data for Research](/blog/fred-api-python-macroeconomic-data)
 - [The Hidden Cost of Manual Data Processing in Academic Research](/blog/hidden-cost-manual-data-processing-academic-research)
-- [Building Replication Packages with AI: A Complete Guide](/blog/building-replication-packages-with-ai)
 
 ---
 
