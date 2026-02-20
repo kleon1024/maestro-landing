@@ -3,6 +3,13 @@ title: "From Survey Data to Insights: AI Automation for Behavioral Scientists"
 description: "A practical walkthrough of the AI-powered survey data pipeline -- from raw Qualtrics export to publication-ready results. Built for behavioral scientists processing real experimental data."
 publishedAt: "2026-01-23"
 author: "Maestro Team"
+faq:
+  - question: "How does AI automate survey data processing?"
+    answer: "AI automates survey data processing across multiple stages: parsing raw exports and mapping cryptic variable names to meaningful labels, flagging inattentive respondents through response pattern analysis, detecting bots and straight-liners using timing and consistency metrics, automating scale construction and reverse coding, running standard statistical tests and generating initial result summaries, and creating publication-ready visualizations. The entire pipeline from raw Qualtrics export to analysis-ready dataset can be reduced from days to hours."
+  - question: "What quality checks should I run on survey data before analysis?"
+    answer: "Essential quality checks include: completion time analysis (flag responses below 1/3 of median time), attention check question accuracy, straight-line response detection (same answer across all items in a scale), open-ended response quality (detecting copy-paste or gibberish), duplicate IP and worker ID detection, geographic consistency verification, and scale reliability analysis (Cronbach's alpha). AI can automate all of these checks and generate a comprehensive quality report."
+  - question: "Can AI handle Qualtrics data export formatting issues?"
+    answer: "Yes. AI tools can parse Qualtrics CSV exports including the multi-row header format, embedded metadata columns, and coded response values. AI handles common Qualtrics-specific issues: separating the display labels from coded values, parsing multi-select and matrix question formats, handling skip logic and display logic metadata, and converting timing data into usable metrics. This eliminates hours of manual reformatting that researchers typically perform."
 seo:
   keywords: ["survey data processing", "behavioral science data", "AI survey analysis", "Qualtrics data cleaning"]
 ---

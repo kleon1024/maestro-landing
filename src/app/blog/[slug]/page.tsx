@@ -21,9 +21,18 @@ import { BlogHeader } from "@/components/blog/BlogHeader";
 import { TableOfContents } from "@/components/blog/TableOfContents";
 import { ShareButtons } from "@/components/blog/ShareButtons";
 import { BlogJsonLd } from "@/components/blog/BlogJsonLd";
+import { BlogCTA } from "@/components/blog/BlogCTA";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
+
+// Keywords that indicate research-related content
+const RESEARCH_KEYWORDS = [
+  "research", "academic", "data", "economists", "replication",
+  "survey", "api", "python", "stata", "microdata", "comtrade",
+  "eurostat", "fred", "ipums", "earth engine", "scraping",
+  "behavioral", "psychology", "pipeline", "ra suite",
+];
 
 type Params = Promise<{ slug: string }>;
 
@@ -87,6 +96,19 @@ export default async function BlogPostPage({
 
   const headings = extractHeadings(post.content);
 
+  // Determine CTA variant based on article keywords
+  const keywords = (post.frontmatter.seo?.keywords ?? []).map((k) =>
+    k.toLowerCase()
+  );
+  const titleLower = post.frontmatter.title.toLowerCase();
+  const isResearch = RESEARCH_KEYWORDS.some(
+    (rk) =>
+      keywords.some((k) => k.includes(rk)) || titleLower.includes(rk)
+  );
+  const ctaVariant: "research" | "enterprise" = isResearch
+    ? "research"
+    : "enterprise";
+
   const { content: mdxContent } = await compileMDX({
     source: post.content,
     components: mdxComponents,
@@ -146,6 +168,9 @@ export default async function BlogPostPage({
 
               {/* MDX content */}
               <div className="prose-maestro">{mdxContent}</div>
+
+              {/* CTA */}
+              <BlogCTA variant={ctaVariant} />
 
               {/* Share + back */}
               <div className="mt-12 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

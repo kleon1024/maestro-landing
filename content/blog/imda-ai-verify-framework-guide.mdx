@@ -1,0 +1,180 @@
+---
+title: "IMDA AI Verify Framework: Complete Guide for Singapore Businesses"
+description: "Practical guide to Singapore's AI Verify framework for responsible AI governance. Covers testing methodology, compliance steps, toolkit usage, and how AI Verify affects grant eligibility and business competitiveness."
+publishedAt: "2026-02-20"
+author: "Maestro Team"
+faq:
+  - question: "What is Singapore's AI Verify framework?"
+    answer: "AI Verify is Singapore's national framework for responsible AI governance, developed by IMDA and the AI Verify Foundation. It provides an open-source testing toolkit that helps organizations assess AI systems against internationally recognized principles including transparency, fairness, safety, and accountability. It is currently voluntary but increasingly important for government grant applications and enterprise procurement."
+  - question: "Is AI Verify mandatory for Singapore businesses?"
+    answer: "AI Verify is currently voluntary. However, IMDA strongly encourages adoption, and demonstrating AI Verify compliance can strengthen government grant applications (such as EDG) and is increasingly requested in enterprise procurement processes. The framework is expected to become a de facto standard as AI governance expectations mature."
+  - question: "How long does AI Verify implementation take?"
+    answer: "For a typical SME deploying standard AI solutions, initial assessment takes 2-4 weeks. For companies with multiple AI systems or complex custom models, comprehensive implementation may take 2-3 months. IMDA provides tiered guidance proportional to the risk level and complexity of your AI deployment."
+  - question: "Does AI Verify work with AI solutions from international vendors?"
+    answer: "Yes. AI Verify is designed to be vendor-agnostic and can assess AI systems regardless of their origin. The testing toolkit supports common AI frameworks including TensorFlow, PyTorch, and scikit-learn. For SaaS AI products where you do not have direct model access, IMDA provides adapted assessment approaches focused on input-output testing and vendor documentation review."
+seo:
+  keywords: ["ai verify framework", "imda ai governance", "singapore ai compliance", "responsible ai singapore", "ai verify toolkit"]
+---
+
+Singapore launched AI Verify as the world's first AI governance testing framework and toolkit in 2022. By 2026, it has matured from a pilot project into a comprehensive governance standard adopted by over 100 organizations across ASEAN. For Singapore businesses deploying AI -- whether off-the-shelf solutions or custom models -- understanding AI Verify is no longer optional. It is becoming the baseline expectation for responsible AI deployment.
+
+This guide provides a practical walkthrough of the AI Verify framework: what it tests, how to implement it, and why it matters for your business beyond compliance.
+
+## What AI Verify Actually Does
+
+AI Verify is not a certification or a license. It is a testing framework paired with an open-source toolkit that helps organizations validate their AI systems against a set of governance principles.
+
+The framework answers a specific question: **Can you demonstrate that your AI system behaves responsibly across defined criteria?**
+
+<MetricGrid>
+  <Metric value="100+" label="Organizations adopted AI Verify by early 2026" source="AI Verify Foundation" />
+  <Metric value="11" label="Governance testing dimensions in the framework" />
+  <Metric value="Open Source" label="AI Verify toolkit is freely available" />
+  <Metric value="2022" label="Year of launch, first of its kind globally" />
+</MetricGrid>
+
+### The 11 Governance Dimensions
+
+AI Verify organizes its testing around internationally recognized AI ethics principles, broken into testable dimensions:
+
+| Dimension | What It Tests |
+|-----------|--------------|
+| Transparency | Can users understand how the AI reaches decisions? |
+| Explainability | Can the system explain individual decisions to affected parties? |
+| Fairness | Does the system produce equitable outcomes across demographic groups? |
+| Safety | Does the system operate reliably under expected conditions? |
+| Robustness | How does the system handle adversarial inputs and edge cases? |
+| Accountability | Are roles and responsibilities for AI decisions clearly defined? |
+| Data governance | Is training and operational data managed responsibly? |
+| Human oversight | Are appropriate human-in-the-loop controls in place? |
+| Inclusiveness | Does the system consider diverse user needs? |
+| Reliability | Does the system produce consistent results over time? |
+| Security | Is the system protected against unauthorized access and manipulation? |
+
+### What AI Verify Is Not
+
+AI Verify does not:
+
+- Grant a pass/fail certification
+- Replace sector-specific regulations (e.g., MAS guidelines for financial AI)
+- Require disclosure of proprietary model architectures
+- Apply only to high-risk AI systems -- it is designed for all AI deployments
+
+<Callout type="info" title="Proportional Governance">
+AI Verify is designed to be proportional. A small business using AI-powered CRM is not expected to demonstrate the same governance depth as a bank deploying credit scoring models. The framework provides tiered assessment approaches based on the risk level and impact of your AI system.
+</Callout>
+
+## The AI Verify Toolkit: Practical Usage
+
+The AI Verify toolkit is open-source software that organizations can download and run against their AI systems. It automates portions of the governance testing and generates standardized reports.
+
+### Supported Frameworks and Models
+
+The toolkit supports testing of AI models built with:
+
+- **Python ML frameworks**: TensorFlow, PyTorch, scikit-learn, XGBoost
+- **Tabular data models**: Classification and regression tasks
+- **Image classification models**: Computer vision systems
+- **Natural language models**: Text classification and sentiment analysis
+
+For SaaS AI products where you do not have direct model access (e.g., using OpenAI API, Google Cloud AI, or AWS AI services), IMDA provides adapted assessment approaches that focus on input-output testing and documentation review.
+
+### Running the Toolkit
+
+<StepGuide>
+  <Step number={1} title="Install the Toolkit">Download the AI Verify toolkit from the official GitHub repository. It runs as a local web application with a Python backend. Docker installation is available for simplified setup.</Step>
+  <Step number={2} title="Prepare Your Model and Data">Load your AI model and a representative test dataset. The toolkit requires the model to be in a supported format (pickle, SavedModel, ONNX) and the test data to include ground truth labels.</Step>
+  <Step number={3} title="Configure Tests">Select which governance dimensions to test. For each dimension, the toolkit provides specific technical tests -- for example, fairness testing includes disparate impact analysis across specified protected attributes.</Step>
+  <Step number={4} title="Run Assessment">Execute the selected tests. The toolkit generates quantitative metrics for each dimension, including fairness metrics, explainability scores, and robustness measurements.</Step>
+  <Step number={5} title="Generate Report">The toolkit produces a standardized AI Verify report that documents test results, methodology, and findings. This report can be shared with stakeholders, regulators, and customers.</Step>
+</StepGuide>
+
+## Implementation Guide for Businesses
+
+### For SMEs Using Pre-Built AI Solutions
+
+If your business uses AI solutions from vendors (SaaS products, pre-approved PSG solutions), your AI Verify implementation focuses on:
+
+1. **Vendor assessment**: Request AI Verify reports or equivalent governance documentation from your AI vendors. Reputable vendors should be able to provide information about their fairness testing, data governance, and safety practices.
+
+2. **Usage documentation**: Document how your business uses the AI system, including what decisions it informs, who has oversight, and what recourse exists when the AI produces incorrect results.
+
+3. **Data practices**: Ensure the data you feed into AI systems is appropriately managed -- consent, accuracy, security, and retention policies.
+
+This level of implementation is proportional to SME use cases and can typically be completed in 2-4 weeks with existing staff.
+
+### For Companies Building Custom AI
+
+If your organization develops custom AI models, full AI Verify implementation includes:
+
+1. **Model-level testing**: Run the AI Verify toolkit against your models to measure fairness, explainability, robustness, and reliability metrics.
+
+2. **System-level assessment**: Evaluate the broader system in which the AI operates, including data pipelines, human oversight mechanisms, error handling, and monitoring.
+
+3. **Organizational governance**: Establish roles and responsibilities for AI decisions, including a designated AI governance lead, incident response procedures, and regular review cycles.
+
+4. **Continuous monitoring**: AI Verify is not a one-time exercise. Implement ongoing monitoring to detect model drift, fairness degradation, and emerging safety issues.
+
+<KeyTakeaway title="Start With What Matters Most">
+You do not need to achieve perfect scores across all 11 dimensions before deploying AI. Prioritize the dimensions most relevant to your use case: fairness and transparency for customer-facing systems, safety and robustness for operational systems, and data governance for all AI deployments. Build governance incrementally alongside your AI capabilities.
+</KeyTakeaway>
+
+## AI Verify and Government Grant Applications
+
+### How AI Verify Strengthens Grant Applications
+
+While AI Verify compliance is not a mandatory requirement for most [Singapore AI grants](/blog/singapore-budget-2026-ai-sme), demonstrating responsible AI practices provides tangible advantages:
+
+- **EDG applications**: The Enterprise Development Grant evaluates project quality and business impact. Including an AI governance plan based on AI Verify signals project maturity and increases approval likelihood.
+
+- **Enterprise procurement**: Larger organizations increasingly require AI Verify documentation from vendors. SMEs that can demonstrate compliance gain access to enterprise contracts.
+
+- **Future-proofing**: As Singapore's [National AI Strategy](/blog/singapore-national-ai-council-enterprise-ai-adoption) matures, governance expectations will tighten. Early adopters avoid the scramble of retroactive compliance.
+
+### Documentation for Grant Applications
+
+When including AI Verify in a grant application, focus on:
+
+- Which governance dimensions you plan to address and why
+- How you will test and validate your AI system against these dimensions
+- What ongoing monitoring you will implement
+- How governance findings will inform system improvements
+
+## AI Verify Foundation: The Ecosystem
+
+The AI Verify Foundation, established in 2023, manages the framework's development and fosters an ecosystem of governance tools and best practices. Key activities include:
+
+- **Open-source development**: The toolkit is continuously updated with new testing capabilities and model support
+- **Industry working groups**: Sector-specific governance guidance for finance, healthcare, education, and public services
+- **International alignment**: AI Verify maps to the EU AI Act, NIST AI RMF, and OECD AI Principles, enabling cross-border governance recognition
+- **Training and certification**: IMDA-endorsed training programmes for AI governance professionals
+
+### International Recognition
+
+AI Verify's international alignment is a strategic advantage for Singapore businesses operating across borders. If your AI products or services serve markets subject to the [EU AI Act](/blog/eu-ai-act-compliance-guide-businesses-2026), demonstrating AI Verify compliance provides a foundation for EU compliance as well.
+
+## Common Misconceptions
+
+**"AI Verify is only for tech companies."** Any organization deploying AI benefits from governance testing, including retailers using recommendation engines, manufacturers using predictive maintenance, and professional services firms using AI document review.
+
+**"It requires exposing proprietary algorithms."** AI Verify tests focus on system behavior (inputs and outputs), not internal architecture. You can demonstrate fairness and safety without disclosing trade secrets.
+
+**"Small businesses do not need AI governance."** The risk is proportional to deployment scale, but even small AI deployments can produce biased or unsafe outcomes. AI Verify provides a lightweight, proportional approach for smaller organizations.
+
+**"It is just a checkbox exercise."** Organizations that approach AI Verify seriously report tangible improvements in AI system quality, not just compliance documentation. Testing often reveals fairness issues and robustness gaps that would otherwise go undetected.
+
+## Next Steps for Your Business
+
+1. **Assess your AI inventory**: List all AI systems your business uses or plans to deploy
+2. **Determine risk levels**: Classify each system by its potential impact on customers, employees, and business operations
+3. **Download the toolkit**: Get familiar with AI Verify through the open-source toolkit, even if you start with a single system
+4. **Align with grants**: If you are applying for [government AI grants](/blog/singapore-budget-2026-ai-sme), incorporate AI Verify into your project plan
+5. **Engage experts**: For complex AI deployments, consider working with [AI governance specialists](/) who can guide implementation
+
+---
+
+**Related Reading:**
+- [Singapore Budget 2026: AI Incentives and Grants for SMEs](/blog/singapore-budget-2026-ai-sme)
+- [EU AI Act 2026: The Compliance Guide Every AI Company Needs](/blog/eu-ai-act-compliance-guide-businesses-2026)
+- [Singapore's National AI Council and What It Means for Enterprise AI](/blog/singapore-national-ai-council-enterprise-ai-adoption)
+- [How to Evaluate AI Service Providers: A Procurement Guide](/blog/how-to-evaluate-ai-service-providers)
