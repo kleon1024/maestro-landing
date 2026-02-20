@@ -15,13 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
-      lastModified: "2025-02-15",
+      lastModified: "2026-02-15",
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${BASE_URL}/blog`,
-      lastModified: "2025-02-15",
+      lastModified: "2026-02-15",
       changeFrequency: "weekly",
       priority: 0.8,
     },
@@ -29,14 +29,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes: MetadataRoute.Sitemap = [
     {
+      url: "https://ra.maestro.onl",
+      lastModified: "2026-02-15",
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: "https://growth.maestro.onl",
+      lastModified: "2026-02-15",
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: "https://econ.maestro.onl",
-      lastModified: "2025-02-15",
+      lastModified: "2026-02-15",
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: "https://printpic.maestro.onl",
-      lastModified: "2025-02-15",
+      lastModified: "2026-02-15",
       changeFrequency: "monthly",
       priority: 0.7,
     },

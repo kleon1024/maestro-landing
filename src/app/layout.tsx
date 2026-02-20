@@ -20,34 +20,35 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://maestro.onl"),
-  title: "Maestro | AI, Orchestrated",
+  title: "Maestro AI — Research Data Services & AI Tools for Academics",
   description:
-    "We build AI tools that amplify human expertise. From behavioral economics to intelligent calendars, our products transform how professionals work.",
+    "Maestro builds AI-powered research tools for academics. RA Data Service delivers clean datasets, geospatial analysis, trade data, and econometrics — fast.",
   keywords: [
     "Maestro AI",
     "AI research assistant",
     "RA data service",
-    "AI behavioral economics",
     "research data processing",
-    "AI orchestration",
-    "data automation",
+    "academic data cleaning",
+    "trade data extraction",
+    "econometrics data service",
+    "AI tools for researchers",
   ],
   authors: [{ name: "Maestro" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "https://maestro.onl" },
   openGraph: {
-    title: "Maestro | AI, Orchestrated",
+    title: "Maestro AI — Research Data Services & AI Tools for Academics",
     description:
-      "We build AI tools that amplify human expertise. From behavioral economics to intelligent calendars, our products transform how professionals work.",
+      "Maestro builds AI-powered research tools for academics. RA Data Service delivers clean datasets, geospatial analysis, trade data, and econometrics — fast.",
     url: "https://maestro.onl",
     siteName: "Maestro",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maestro | AI, Orchestrated",
+    title: "Maestro AI — Research Data Services & AI Tools for Academics",
     description:
-      "We build AI tools that amplify human expertise. From behavioral economics to intelligent calendars, our products transform how professionals work.",
+      "Maestro builds AI-powered research tools for academics. RA Data Service delivers clean datasets, geospatial analysis, trade data, and econometrics — fast.",
   },
 };
 
