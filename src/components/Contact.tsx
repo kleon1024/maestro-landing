@@ -6,18 +6,25 @@ import { CONTACT } from "@/lib/constants";
 ////////////////////////////////////////////////////////////////////////////////
 // [Contact] Responsibility: Contact section with form + fallback mailto links
 //
-// Form submits to /api/contact (Resend email)
+// Form submits to ra.maestro.onl/api/contact (centralized CRM)
+// Maps inquiry types to ra CRM categories (General/Data/Website/Paper)
 // Keeps mailto links as secondary contact option
 // Client component due to form state management
 ////////////////////////////////////////////////////////////////////////////////
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-const INQUIRY_TYPES = [
-  "Enterprise AI",
-  "Research Data",
-  "Partnership",
-  "Other",
+const CONTACT_API =
+  process.env.NODE_ENV === "development"
+    ? "/api/contact"
+    : "https://ra.maestro.onl/api/contact";
+
+const INQUIRY_OPTIONS = [
+  { label: "Enterprise AI", subject: "General" },
+  { label: "Research Data", subject: "Data" },
+  { label: "Website Development", subject: "Website" },
+  { label: "Partnership", subject: "General" },
+  { label: "Other", subject: "General" },
 ] as const;
 
 export function Contact() {
@@ -31,16 +38,26 @@ export function Contact() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const inquiry = formData.get("inquiryType") as string;
+    const company = (formData.get("company") as string)?.trim();
+    const messageBody = formData.get("message") as string;
+
+    // Map to ra CRM schema: { name, email, subject, message }
+    const option = INQUIRY_OPTIONS.find((o) => o.label === inquiry);
+    const subject = option?.subject ?? "General";
+    const message = company
+      ? `[Company: ${company}] [Via: maestro.onl - ${inquiry}]\n\n${messageBody}`
+      : `[Via: maestro.onl - ${inquiry}]\n\n${messageBody}`;
+
     const payload = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
-      company: formData.get("company") as string,
-      inquiryType: formData.get("inquiryType") as string,
-      message: formData.get("message") as string,
+      subject,
+      message,
     };
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(CONTACT_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -48,7 +65,7 @@ export function Contact() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Failed to send message");
+        throw new Error(data.message || "Failed to send message");
       }
 
       setStatus("success");
@@ -100,7 +117,7 @@ export function Contact() {
                 Message Sent
               </h3>
               <p className="text-sm text-zinc-400 mb-6">
-                We will get back to you within 1-2 business days.
+                We will get back to you within 24 hours.
               </p>
               <button
                 onClick={() => setStatus("idle")}
@@ -185,9 +202,9 @@ export function Contact() {
                     <option value="" disabled>
                       Select type
                     </option>
-                    {INQUIRY_TYPES.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
+                    {INQUIRY_OPTIONS.map((opt) => (
+                      <option key={opt.label} value={opt.label}>
+                        {opt.label}
                       </option>
                     ))}
                   </select>
