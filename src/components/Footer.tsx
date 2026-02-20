@@ -4,18 +4,7 @@
 // Design: Clean, minimal footer matching the Space Tech aesthetic
 ////////////////////////////////////////////////////////////////////////////////
 
-function MaestroLogo() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 32 32" className="text-blue-500">
-      <circle cx="16" cy="10" r="3" fill="currentColor" />
-      <circle cx="8" cy="22" r="3" fill="currentColor" />
-      <circle cx="24" cy="22" r="3" fill="currentColor" />
-      <line x1="16" y1="13" x2="9.5" y2="19.5" stroke="currentColor" strokeWidth="1.5" />
-      <line x1="16" y1="13" x2="22.5" y2="19.5" stroke="currentColor" strokeWidth="1.5" />
-      <line x1="11" y1="22" x2="21" y2="22" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
-}
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,7 +16,7 @@ export function Footer() {
           {/* Logo and tagline */}
           <div className="flex flex-col items-center md:items-start gap-3">
             <div className="flex items-center gap-2">
-              <MaestroLogo />
+              <Image src="/logo.png" alt="Maestro" width={24} height={24} />
               <span className="text-lg font-semibold text-zinc-50">Maestro</span>
             </div>
             <p className="text-xs font-mono tracking-wider text-zinc-600 uppercase">

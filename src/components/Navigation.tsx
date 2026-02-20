@@ -1,57 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { NAV_LINKS } from "@/lib/constants";
-
-// Logo: Abstract AI node network representing orchestration
-function MaestroLogo() {
-  return (
-    <svg
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="text-blue-500"
-    >
-      {/* Three interconnected nodes forming a triangular network */}
-      {/* Center node */}
-      <circle cx="16" cy="10" r="3" fill="currentColor" />
-      {/* Bottom left node */}
-      <circle cx="8" cy="22" r="3" fill="currentColor" />
-      {/* Bottom right node */}
-      <circle cx="24" cy="22" r="3" fill="currentColor" />
-      {/* Connecting lines */}
-      <line
-        x1="16"
-        y1="13"
-        x2="9.5"
-        y2="19.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <line
-        x1="16"
-        y1="13"
-        x2="22.5"
-        y2="19.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <line
-        x1="11"
-        y1="22"
-        x2="21"
-        y2="22"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -80,7 +31,7 @@ export function Navigation() {
             href="/"
             className="flex items-center gap-2.5 cursor-pointer"
           >
-            <MaestroLogo />
+            <Image src="/logo.png" alt="Maestro" width={32} height={32} />
             <span className="text-lg font-semibold text-zinc-50">
               Maestro
             </span>
