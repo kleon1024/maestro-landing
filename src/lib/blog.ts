@@ -20,6 +20,7 @@ export interface BlogFrontmatter {
   updatedAt?: string;
   author: string;
   featured?: boolean;
+  faq?: Array<{ question: string; answer: string }>;
   seo?: {
     keywords?: string[];
     ogImage?: string;

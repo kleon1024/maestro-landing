@@ -3,6 +3,17 @@ title: "Building Replication Packages with AI: A Complete Guide"
 description: "Step-by-step guide to building journal-ready replication packages using AI tools. Address the replication crisis with automated documentation, verification, and packaging."
 publishedAt: "2026-01-13"
 author: "Maestro Team"
+faq:
+  - question: "How long does it take to build a replication package for a typical economics paper?"
+    answer: "Manually, 40 to 120 hours for a standard empirical paper with 2-3 data sources. With AI-assisted tools, this drops to 8-20 hours. Papers with complex pipelines (multiple data sources, GIS, web scraping, machine learning) can exceed 200 hours manually. The time investment depends heavily on whether reproducibility practices were followed during the research process or must be reconstructed retroactively."
+  - question: "What is the most common reason replication packages are rejected by journals?"
+    answer: "Hardcoded file paths and missing data files account for the largest share of first-submission rejections. The AEA Data Editor reports that approximately 60% of packages require revision, with incomplete code (scripts that do not run end-to-end) and inadequate documentation as the other major issues. These problems are almost entirely preventable with proper tooling."
+  - question: "Can I build a replication package if some of my data is restricted-access?"
+    answer: "Yes. For restricted data, you provide detailed access instructions rather than the data itself. Your code should still run end-to-end once the data is obtained. Some journals accept 'partial replication packages' that include all code and public data, with clear instructions for the restricted components. Include synthetic or simulated data that allows code to execute for testing purposes when possible."
+  - question: "Do I need to include replication packages for working papers or only journal submissions?"
+    answer: "Journal requirements apply to accepted manuscripts. However, building replication packages for working papers is increasingly common and strategically valuable. It demonstrates rigor, facilitates feedback from colleagues, and means the package is ready when the paper is accepted rather than built retroactively under deadline pressure. Pre-registration platforms like the AEA RCT Registry also benefit from early replication documentation."
+  - question: "How does Maestro's RA Suite achieve a 100% replication rate?"
+    answer: "Through automated pipeline development, clean-room testing, and programmatic output verification. Every package is built using a pipeline-first approach where code and documentation are developed together. Before delivery, packages are executed in isolated environments and all outputs are compared against reference results. This systematic verification process catches errors that manual checking routinely misses. The service supports Stata, R, and Python, including mixed-language pipelines."
 seo:
   keywords: ["replication package", "research reproducibility", "data replication economics", "replication crisis"]
 ---
