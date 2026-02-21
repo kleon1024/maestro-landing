@@ -79,13 +79,13 @@ function ProductCard({ product }: { product: Product }) {
         {/* Year / Featured badge */}
         <div className="absolute top-3 right-3">
           {isFeatured ? (
-            <span className="text-xs font-medium px-2 py-1 bg-blue-700 text-white tracking-wide">
+            <span className="font-mono text-[10px] px-2 py-0.5 bg-blue-700 text-white tracking-wide">
               FLAGSHIP
             </span>
           ) : (
-            <span className={`text-xs font-medium px-2 py-1 ${
+            <span className={`font-mono text-[10px] px-2 py-0.5 ${
               isLive
-                ? "bg-white/80 text-slate-600 rounded-sm"
+                ? "bg-white/80 text-slate-600"
                 : "bg-slate-100 text-slate-400"
             }`}>
               {isLive ? "2025" : "Soon"}
@@ -95,7 +95,7 @@ function ProductCard({ product }: { product: Product }) {
 
         {/* Product icon and name in header */}
         <div className="absolute bottom-4 left-4 flex items-center gap-3">
-          <div className={`p-2 rounded ${
+          <div className={`p-2 ${
             isLive ? "bg-white/70 text-slate-700" : "bg-slate-100/50 text-slate-400"
           }`}>
             {productIcons[product.icon]}
@@ -137,7 +137,7 @@ function ProductCard({ product }: { product: Product }) {
             </svg>
           </a>
         ) : (
-          <span className="inline-flex items-center text-sm text-slate-400">
+          <span className="inline-flex items-center text-slate-400 font-mono text-[10px]">
             COMING SOON
           </span>
         )}
@@ -165,13 +165,14 @@ export function Products() {
 
   return (
     <section id="products" className="section-padding bg-slate-50">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
         {/* Section header */}
         <div className="mb-12">
-          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            7 Products Shipped
-          </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-bold text-[#1A2744] tracking-tight">
+          <div className="inline-flex items-center gap-3 mb-10">
+            <span className="font-mono text-[11px] text-blue-600 font-bold tracking-widest border border-blue-200 bg-blue-50 px-2 py-1">04</span>
+            <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">OUR PRODUCTS</span>
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight">
             Our Product Suite
           </h2>
           <p className="text-slate-500 mt-3 text-base max-w-xl">

@@ -33,13 +33,14 @@ const valueIcons: Record<string, React.ReactNode> = {
 export function About() {
   return (
     <section id="about" className="section-padding bg-white">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
         {/* Section header - centered, large typography */}
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Our Philosophy
-          </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-8 tracking-tight">
+          <div className="inline-flex items-center gap-3 mb-10">
+            <span className="font-mono text-[11px] text-blue-600 font-bold tracking-widest border border-blue-200 bg-blue-50 px-2 py-1">03</span>
+            <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">ABOUT US</span>
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight">
             Built on Real Products.
           </h2>
           <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
@@ -54,7 +55,7 @@ export function About() {
               key={value.id}
               className="group p-6"
             >
-              <div className="w-10 h-10 mb-6 rounded bg-blue-50 flex items-center justify-center text-blue-700">
+              <div className="w-10 h-10 mb-6 bg-blue-50 flex items-center justify-center text-blue-700">
                 {valueIcons[value.icon]}
               </div>
               <h3 className="text-lg font-semibold text-[#1A2744] mb-3">

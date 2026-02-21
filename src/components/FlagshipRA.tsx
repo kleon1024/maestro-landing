@@ -94,13 +94,14 @@ const serviceIcons: Record<string, React.ReactNode> = {
 export function FlagshipRA() {
   return (
     <section className="section-padding bg-white border-t border-slate-100">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
         {/* Section header */}
         <div className="mb-16">
-          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Case Study
-          </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] tracking-tight mb-6">
+          <div className="inline-flex items-center gap-3 mb-10">
+            <span className="font-mono text-[11px] text-blue-600 font-bold tracking-widest border border-blue-200 bg-blue-50 px-2 py-1">01</span>
+            <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">FLAGSHIP PRODUCT</span>
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight">
             RA Suite
           </h2>
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl leading-relaxed">
@@ -120,7 +121,7 @@ export function FlagshipRA() {
                 <span className="text-xs font-medium text-[#B8860B] tracking-wider">
                   {service.number}
                 </span>
-                <div className="w-10 h-10 rounded bg-blue-50 flex items-center justify-center text-blue-700">
+                <div className="w-10 h-10 bg-blue-50 flex items-center justify-center text-blue-700">
                   {serviceIcons[service.icon]}
                 </div>
               </div>
@@ -138,7 +139,7 @@ export function FlagshipRA() {
                 {service.specs.map((spec) => (
                   <span
                     key={spec}
-                    className="text-xs text-slate-400 truncate"
+                    className="font-mono text-[11px] text-slate-500 border border-slate-200 px-2 py-0.5 truncate"
                   >
                     {spec}
                   </span>
@@ -166,10 +167,10 @@ export function FlagshipRA() {
           <div className="grid grid-cols-3 gap-8 text-center">
             {STATS.map((stat) => (
               <div key={stat.label}>
-                <div className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-[#1A2744] mb-2">
+                <div className="font-serif text-2xl font-bold text-slate-900 mb-2">
                   {stat.value}
                 </div>
-                <div className="text-xs font-medium tracking-wider uppercase text-slate-400">
+                <div className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
                   {stat.label}
                 </div>
               </div>
@@ -183,7 +184,7 @@ export function FlagshipRA() {
             href="https://ra.maestro.onl"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-8 py-4 bg-[#1A3A6B] text-white text-sm font-semibold hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
+            className="h-12 rounded-none bg-slate-900 hover:bg-blue-600 text-white font-medium px-8 text-sm transition-colors inline-flex items-center justify-center cursor-pointer"
           >
             Explore RA Suite
             <svg className="ml-3 w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

@@ -35,13 +35,14 @@ const INCENTIVES = [
 export function Services() {
   return (
     <section id="enterprise" className="section-padding bg-slate-50">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
         {/* Section header */}
         <div className="mb-20">
-          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Our Practice Areas
-          </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-6 tracking-tight">
+          <div className="inline-flex items-center gap-3 mb-10">
+            <span className="font-mono text-[11px] text-blue-600 font-bold tracking-widest border border-blue-200 bg-blue-50 px-2 py-1">02</span>
+            <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">ENTERPRISE SERVICES</span>
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight">
             What We Build
           </h2>
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl">
@@ -79,7 +80,7 @@ export function Services() {
                 {service.features.map((feature, index) => (
                   <span
                     key={index}
-                    className="text-xs text-slate-400"
+                    className="font-mono text-[11px] text-slate-500 border border-slate-200 px-2 py-0.5"
                   >
                     {feature}
                   </span>
@@ -108,7 +109,7 @@ export function Services() {
             </span>
           </div>
 
-          <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-semibold text-[#1A2744] mb-6">
+          <h3 className="font-serif text-2xl font-semibold text-slate-900 mb-6">
             Singapore AI Incentives
           </h3>
 

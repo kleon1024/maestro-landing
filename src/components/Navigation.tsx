@@ -18,18 +18,16 @@ export function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200"
-          : "bg-white/80 backdrop-blur-sm border-b border-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 transition-shadow duration-300 ${
+        scrolled ? "shadow-sm" : ""
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2.5 cursor-pointer">
             <Image src="/logo.png" alt="Maestro" width={32} height={32} />
-            <span className="text-lg font-semibold text-slate-900">
+            <span className="font-serif font-bold text-[1.375rem] text-slate-900">
               Maestro
             </span>
           </a>
@@ -40,7 +38,7 @@ export function Navigation() {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-sm text-slate-600 hover:text-slate-900 transition-colors duration-200 cursor-pointer"
+                className="px-4 py-2 text-sm text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-900 transition-colors duration-200 cursor-pointer"
               >
                 {link.label}
               </a>
@@ -51,7 +49,7 @@ export function Navigation() {
           <div className="hidden md:block">
             <a
               href="/#contact"
-              className="inline-flex items-center px-5 py-2 bg-[#1A3A6B] text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
+              className="inline-flex items-center px-5 h-9 bg-slate-900 text-white text-sm font-medium rounded-none hover:bg-blue-600 transition-colors cursor-pointer"
             >
               Request a Consultation
             </a>
@@ -103,7 +101,7 @@ export function Navigation() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors duration-200 cursor-pointer"
+                  className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 cursor-pointer"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -111,7 +109,7 @@ export function Navigation() {
               ))}
               <a
                 href="/#contact"
-                className="mt-2 mx-4 inline-flex items-center justify-center px-5 py-2.5 bg-[#1A3A6B] text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
+                className="mt-2 mx-4 inline-flex items-center justify-center px-5 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-none hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Request a Consultation

@@ -82,13 +82,14 @@ export function Contact() {
 
   return (
     <section id="contact" className="section-padding bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16">
-          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Get in Touch
-          </p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-6 tracking-tight">
+          <div className="inline-flex items-center gap-3 mb-10">
+            <span className="font-mono text-[11px] text-blue-600 font-bold tracking-widest border border-blue-200 bg-blue-50 px-2 py-1">05</span>
+            <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">CONTACT US</span>
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight">
             Start a Project
           </h2>
           <p className="text-lg md:text-xl text-slate-500 max-w-xl mx-auto">
@@ -100,7 +101,7 @@ export function Contact() {
         <div className="max-w-2xl mx-auto mb-16">
           {status === "success" ? (
             <div className="p-8 bg-white border border-slate-200 text-center">
-              <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-green-50 flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="w-6 h-6 text-green-600"
                   fill="none"
@@ -144,7 +145,7 @@ export function Contact() {
                     name="name"
                     type="text"
                     required
-                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
+                    className="w-full rounded-none border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     placeholder="Your name"
                   />
                 </div>
@@ -162,7 +163,7 @@ export function Contact() {
                     name="email"
                     type="email"
                     required
-                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
+                    className="w-full rounded-none border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     placeholder="you@company.com"
                   />
                 </div>
@@ -181,7 +182,7 @@ export function Contact() {
                     id="contact-company"
                     name="company"
                     type="text"
-                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
+                    className="w-full rounded-none border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     placeholder="Company name (optional)"
                   />
                 </div>
@@ -198,7 +199,7 @@ export function Contact() {
                     id="contact-inquiry"
                     name="inquiryType"
                     required
-                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
+                    className="w-full rounded-none border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     defaultValue=""
                   >
                     <option value="" disabled>
@@ -226,7 +227,7 @@ export function Contact() {
                   name="message"
                   required
                   rows={5}
-                  className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors resize-none"
+                  className="w-full rounded-none border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>
@@ -240,7 +241,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="w-full rounded-md bg-[#1A3A6B] py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full rounded-none bg-slate-900 py-3 text-sm font-semibold text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {status === "submitting" ? "Sending..." : "Submit Request"}
               </button>

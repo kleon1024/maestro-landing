@@ -1,59 +1,61 @@
 ////////////////////////////////////////////////////////////////////////////////
 // [Hero] Responsibility: Landing page hero section
 //
-// Design: Split layout - left text panel, right stats + product preview
-// Reference: ra.maestro.onl split hero pattern, elevated for parent brand
+// Design: Split 12-col grid - left text (col-span-7) + right panel (col-span-5)
+// Reference: ra.maestro.onl hero pattern adapted for parent brand
+// Container: max-w-[1400px]
 ////////////////////////////////////////////////////////////////////////////////
 
+const STATS = [
+  { value: "7", label: "Products Shipped" },
+  { value: "50+", label: "Projects Delivered" },
+  { value: "<24h", label: "Response Time" },
+];
+
+const FEATURED_PRODUCTS = [
+  { name: "RA Suite", tag: "Research Infrastructure", url: "https://ra.maestro.onl" },
+  { name: "Econ", tag: "Behavioural Economics", url: "https://econ.maestro.onl" },
+  { name: "Kairos", tag: "AI Productivity", url: "https://kairos.maestro.onl" },
+  { name: "Growth Foundry", tag: "Growth Marketing", url: "https://growth.maestro.onl" },
+];
+
+const TAGS = ["AI Product Dev", "Data Infrastructure", "AI Strategy", "Research Tools"];
+
 export function Hero() {
-  const STATS = [
-    { value: "7", label: "Products Shipped" },
-    { value: "50+", label: "Projects Delivered" },
-    { value: "< 24h", label: "Response Time" },
-  ];
-
-  const FEATURED_PRODUCTS = [
-    { name: "RA Suite", tag: "Research Infrastructure", color: "from-blue-100 to-blue-50", border: "border-blue-200", url: "https://ra.maestro.onl" },
-    { name: "Econ", tag: "Behavioural Economics", color: "from-emerald-100 to-emerald-50", border: "border-emerald-200", url: "https://econ.maestro.onl" },
-    { name: "Kairos", tag: "AI Productivity", color: "from-indigo-100 to-indigo-50", border: "border-indigo-200", url: "https://kairos.maestro.onl" },
-    { name: "Growth Foundry", tag: "Growth Marketing", color: "from-amber-100 to-amber-50", border: "border-amber-200", url: "https://growth.maestro.onl" },
-  ];
-
-  const TAGS = ["AI Product Dev", "Data Infrastructure", "AI Strategy", "Research Tools"];
-
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-gray-50 via-white to-blue-50 pt-20">
-      <div className="max-w-7xl mx-auto px-6 py-24 lg:py-32 w-full">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-20 items-center">
+    <section className="relative bg-white pt-[72px]">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
 
           {/* Left panel */}
-          <div>
-            {/* Badge */}
-            <div className="flex items-center gap-2.5 mb-8">
-              <span className="w-2 h-2 rounded-full bg-blue-600" />
-              <span className="text-sm font-semibold tracking-widest uppercase text-blue-700">
+          <div className="lg:col-span-7 lg:border-r lg:border-slate-200 px-6 py-20 lg:py-28 flex flex-col justify-center">
+
+            {/* Status badge */}
+            <div className="inline-flex items-center gap-2 mb-8 border-b border-slate-900 pb-2 self-start">
+              <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
+              <span className="font-mono text-[11px] font-medium tracking-widest uppercase text-slate-700">
                 Accepting Projects
               </span>
             </div>
 
             {/* H1 */}
-            <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl lg:text-[4.5rem] font-bold text-[#1A2744] leading-[1.05] mb-6">
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-[3.75rem] font-medium text-slate-900 leading-[0.95] tracking-tight mb-6">
               Enterprise AI.<br />
               Built to<br />
               Specification.
             </h1>
 
             {/* Subhead */}
-            <p className="text-lg md:text-xl text-slate-500 leading-relaxed mb-8 max-w-xl">
+            <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
               We design and ship custom AI systems for enterprises, research institutions, and government agencies. Singapore-based, globally delivered.
             </p>
 
-            {/* Tag pills */}
+            {/* Capability tags */}
             <div className="flex flex-wrap gap-2 mb-10">
               {TAGS.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1.5 text-sm text-slate-600 bg-white border border-slate-200 rounded-full"
+                  className="font-mono text-[11px] text-slate-600 border border-slate-200 px-2.5 py-1"
                 >
                   {tag}
                 </span>
@@ -64,66 +66,62 @@ export function Hero() {
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#1A3A6B] text-white text-sm font-semibold hover:bg-blue-700 transition-colors duration-200"
+                className="inline-flex items-center justify-center h-12 rounded-none bg-slate-900 text-white font-medium px-8 text-sm hover:bg-blue-600 transition-colors"
               >
                 Request a Consultation
-                <svg
-                  className="ml-3 w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                >
+                <svg className="ml-3 w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>
               </a>
               <a
                 href="#products"
-                className="inline-flex items-center justify-center px-8 py-4 border border-[#1A3A6B] text-[#1A3A6B] text-sm font-semibold hover:bg-blue-50 transition-all duration-200"
+                className="inline-flex items-center justify-center h-12 rounded-none border-2 border-slate-300 bg-white text-slate-900 font-medium px-8 text-sm hover:border-blue-600 hover:text-blue-600 transition-colors"
               >
                 View Our Products
               </a>
             </div>
           </div>
 
-          {/* Right panel - hidden on mobile */}
-          <div className="hidden lg:flex flex-col gap-4">
-            {/* Stats row */}
-            <div className="grid grid-cols-3 gap-3">
+          {/* Right panel */}
+          <div className="hidden lg:flex lg:col-span-5 flex-col px-6 py-20 lg:py-28 justify-center gap-8">
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-px bg-slate-100 border border-slate-100">
               {STATS.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="bg-white rounded-lg border border-slate-200 p-4 text-center"
-                >
-                  <div className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#1A2744] mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-slate-400 uppercase tracking-wide leading-tight">
-                    {stat.label}
-                  </div>
+                <div key={stat.label} className="bg-white p-5 text-center">
+                  <div className="font-serif text-2xl font-bold text-slate-900">{stat.value}</div>
+                  <div className="font-mono text-[10px] text-slate-400 uppercase tracking-wider mt-1">{stat.label}</div>
                 </div>
               ))}
             </div>
 
-            {/* Product preview 2x2 grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {FEATURED_PRODUCTS.map((product) => (
-                <a
-                  key={product.name}
-                  href={product.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`bg-gradient-to-br ${product.color} rounded-lg border ${product.border} p-5 hover:shadow-md hover:scale-[1.02] transition-all duration-200 cursor-pointer`}
-                >
-                  <div className="text-sm font-semibold text-[#1A2744] mb-1">
-                    {product.name}
-                  </div>
-                  <div className="text-xs text-slate-500">{product.tag}</div>
-                </a>
-              ))}
+            {/* Product list */}
+            <div>
+              <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-3">
+                Featured Products
+              </div>
+              <div className="flex flex-col gap-2">
+                {FEATURED_PRODUCTS.map((product) => (
+                  <a
+                    key={product.name}
+                    href={product.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-slate-100 bg-slate-50 p-3 flex items-center justify-between hover:border-blue-200 hover:bg-blue-50 transition-colors group"
+                  >
+                    <div>
+                      <div className="font-medium text-sm text-slate-700 group-hover:text-blue-700 transition-colors">{product.name}</div>
+                      <div className="font-mono text-[10px] text-slate-400 mt-0.5">{product.tag}</div>
+                    </div>
+                    <svg className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </section>

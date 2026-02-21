@@ -1,10 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Atkinson+Hyperlegible+Next:wght@400;700&display=swap");
 @import "tailwindcss";
 
 /*
  * Maestro Design System v2.0
  * Theme: Institutional Enterprise
  * Color Palette: Corporate Navy + Warm White
- * Typography: Playfair Display + Inter
+ * Typography: Crimson Pro + Atkinson Hyperlegible
  */
 
 :root {
@@ -32,9 +33,10 @@
   --border-subtle: #F1F5F9;
 }
 
-@theme inline {
-  --font-heading: var(--font-playfair);
-  --font-body: var(--font-inter);
+@theme {
+  --font-family-serif: 'Crimson Pro', Georgia, serif;
+  --font-family-sans: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-family-mono: ui-monospace, 'SFMono-Regular', 'Consolas', monospace;
 }
 
 * {
@@ -48,14 +50,13 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings use Playfair Display */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), Georgia, serif;
+  font-family: var(--font-family-serif);
 }
 
 /* Scrollbar */
