@@ -39,15 +39,13 @@ export function Services() {
         {/* Section header */}
         <div className="mb-20">
           <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Enterprise
+            Our Practice Areas
           </p>
           <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-6 tracking-tight">
-            Enterprise AI Solutions
+            What We Build
           </h2>
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl">
-            We&apos;ve built 7 AI products. We know how to build yours.
-            From prototype to production, we deliver full-stack AI solutions
-            with real shipping experience.
+            Three practice areas. All grounded in 7 shipped products and real delivery experience.
           </p>
         </div>
 
@@ -92,7 +90,7 @@ export function Services() {
                 href="#contact"
                 className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800 transition-colors duration-200"
               >
-                CONTACT SALES
+                Discuss Your Project
                 <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
@@ -111,7 +109,7 @@ export function Services() {
           </div>
 
           <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-semibold text-[#1A2744] mb-6">
-            Leverage Singapore&apos;s AI Incentives
+            Singapore AI Incentives
           </h3>
 
           <div className="grid md:grid-cols-3 gap-4">
@@ -139,7 +137,7 @@ export function Services() {
             href={`mailto:${CONTACT.sales}`}
             className="inline-flex items-center text-sm text-[#1A3A6B] font-semibold hover:text-blue-700 transition-colors mt-6"
           >
-            Talk to Us About Incentives
+            Talk to Our Team
             <svg
               className="w-4 h-4 ml-2"
               fill="none"

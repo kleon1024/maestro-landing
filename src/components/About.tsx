@@ -37,15 +37,13 @@ export function About() {
         {/* Section header - centered, large typography */}
         <div className="text-center max-w-3xl mx-auto mb-24">
           <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            About Us
+            Our Philosophy
           </p>
           <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-8 tracking-tight">
-            Orchestrating AI for Business and Individuals
+            Built on Real Products.
           </h2>
           <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
-            We partner with enterprises to build custom AI solutions, and
-            create consumer AI products that empower individuals. From
-            Singapore to the world.
+            We don&apos;t just consult &mdash; we build. 7 AI products shipped across research, productivity, and creative tools. Our enterprise work is grounded in what we&apos;ve delivered.
           </p>
         </div>
 

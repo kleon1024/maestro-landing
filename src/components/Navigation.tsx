@@ -53,7 +53,7 @@ export function Navigation() {
               href="/#contact"
               className="inline-flex items-center px-5 py-2 bg-[#1A3A6B] text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
             >
-              Contact Us
+              Request a Consultation
             </a>
           </div>
 
@@ -114,7 +114,7 @@ export function Navigation() {
                 className="mt-2 mx-4 inline-flex items-center justify-center px-5 py-2.5 bg-[#1A3A6B] text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Contact Us
+                Request a Consultation
               </a>
             </div>
           </div>
