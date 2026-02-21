@@ -18,21 +18,18 @@ export function Navigation() {
 
   return (
     <nav
-      className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 rounded-full ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-zinc-950/90 backdrop-blur-xl border border-zinc-800"
-          : "bg-zinc-950/50 backdrop-blur-sm border border-zinc-800/50"
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200"
+          : "bg-white/80 backdrop-blur-sm border-b border-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a
-            href="/"
-            className="flex items-center gap-2.5 cursor-pointer"
-          >
+          <a href="/" className="flex items-center gap-2.5 cursor-pointer">
             <Image src="/logo.png" alt="Maestro" width={32} height={32} />
-            <span className="text-lg font-semibold text-zinc-50">
+            <span className="text-lg font-semibold text-slate-900">
               Maestro
             </span>
           </a>
@@ -43,7 +40,7 @@ export function Navigation() {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-sm text-zinc-400 hover:text-zinc-50 transition-colors duration-200 cursor-pointer"
+                className="px-4 py-2 text-sm text-slate-600 hover:text-slate-900 transition-colors duration-200 cursor-pointer"
               >
                 {link.label}
               </a>
@@ -54,7 +51,7 @@ export function Navigation() {
           <div className="hidden md:block">
             <a
               href="/#contact"
-              className="inline-flex items-center px-5 py-2 rounded-full bg-blue-500 text-white text-sm font-medium hover:bg-blue-400 transition-colors duration-200 cursor-pointer"
+              className="inline-flex items-center px-5 py-2 bg-[#1A3A6B] text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
             >
               Contact Us
             </a>
@@ -62,7 +59,7 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-zinc-400 hover:text-zinc-50 p-2 cursor-pointer transition-colors duration-200"
+            className="md:hidden text-slate-500 hover:text-slate-800 p-2 cursor-pointer transition-colors duration-200"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -100,13 +97,13 @@ export function Navigation() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-zinc-800">
+          <div className="md:hidden py-4 border-t border-slate-100 bg-white">
             <div className="flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-2.5 text-sm text-zinc-400 hover:text-zinc-50 hover:bg-zinc-800/50 rounded-lg transition-colors duration-200 cursor-pointer"
+                  className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors duration-200 cursor-pointer"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -114,7 +111,7 @@ export function Navigation() {
               ))}
               <a
                 href="/#contact"
-                className="mt-2 mx-4 inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-blue-500 text-white text-sm font-medium cursor-pointer"
+                className="mt-2 mx-4 inline-flex items-center justify-center px-5 py-2.5 bg-[#1A3A6B] text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact Us

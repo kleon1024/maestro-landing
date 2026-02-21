@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // [FlagshipRA] Responsibility: Showcase RA Suite as the flagship product
 //
-// Design: Dark theme adaptation of ra-suite's Swiss Modernism layout
+// Design: Institutional light theme (Playfair headings, navy/gold palette)
 // Features: 3 service cards (Data, Website, Paper) + stats + CTA
 // Position: Between Hero and Products sections
 ////////////////////////////////////////////////////////////////////////////////
@@ -93,20 +93,17 @@ const serviceIcons: Record<string, React.ReactNode> = {
 
 export function FlagshipRA() {
   return (
-    <section className="section-padding bg-zinc-950 border-t border-zinc-800/50">
+    <section className="section-padding bg-white border-t border-slate-100">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="mb-16">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-xs font-mono tracking-[0.2em] text-blue-400 uppercase">
-              Enterprise Case Study
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-50 tracking-tight mb-6">
+          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
+            Flagship Product
+          </p>
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] tracking-tight mb-6">
             RA Suite
           </h2>
-          <p className="text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-500 max-w-2xl leading-relaxed">
             Technical infrastructure for quantitative research. Data systems,
             research platforms, and collaborative tools built for economists and
             social scientists.
@@ -118,23 +115,23 @@ export function FlagshipRA() {
           {RA_SERVICES.map((service) => (
             <div
               key={service.number}
-              className="group bg-zinc-900/50 border border-zinc-800 p-8 hover:border-zinc-600 transition-all duration-300"
+              className="group bg-white border border-slate-200 p-8 hover:border-blue-300 hover:shadow-md transition-all duration-300"
             >
               {/* Card header */}
               <div className="flex items-start justify-between mb-6">
-                <span className="text-xs font-mono text-zinc-600 tracking-wider">
+                <span className="text-xs font-medium text-[#B8860B] tracking-wider">
                   {service.number}
                 </span>
-                <div className="w-10 h-10 rounded bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/15 transition-colors">
+                <div className="w-10 h-10 rounded bg-blue-50 flex items-center justify-center text-blue-700">
                   {serviceIcons[service.icon]}
                 </div>
               </div>
 
               {/* Title and description */}
-              <h3 className="text-xl font-semibold text-zinc-50 mb-3">
+              <h3 className="text-xl font-semibold text-[#1A2744] mb-3">
                 {service.title}
               </h3>
-              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+              <p className="text-sm text-slate-500 leading-relaxed mb-6">
                 {service.description}
               </p>
 
@@ -143,7 +140,7 @@ export function FlagshipRA() {
                 {service.specs.map((spec) => (
                   <span
                     key={spec}
-                    className="text-xs text-zinc-500 font-mono truncate"
+                    className="text-xs text-slate-400 truncate"
                   >
                     {spec}
                   </span>
@@ -155,7 +152,7 @@ export function FlagshipRA() {
                 href="https://ra.maestro.onl"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-sm font-mono text-zinc-500 hover:text-blue-400 transition-colors duration-200 tracking-wider"
+                className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800 transition-colors duration-200"
               >
                 LEARN MORE
                 <svg className="ml-2 w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -167,14 +164,14 @@ export function FlagshipRA() {
         </div>
 
         {/* Stats bar */}
-        <div className="border-t border-b border-zinc-800 py-10 mb-16">
+        <div className="border-t border-b border-slate-200 py-10 mb-16">
           <div className="grid grid-cols-3 gap-8 text-center">
             {STATS.map((stat) => (
               <div key={stat.label}>
-                <div className="text-3xl md:text-4xl font-bold text-zinc-50 mb-2">
+                <div className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-[#1A2744] mb-2">
                   {stat.value}
                 </div>
-                <div className="text-xs font-mono text-zinc-500 tracking-wider uppercase">
+                <div className="text-xs font-medium tracking-wider uppercase text-slate-400">
                   {stat.label}
                 </div>
               </div>
@@ -188,14 +185,14 @@ export function FlagshipRA() {
             href="https://ra.maestro.onl"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 transition-colors duration-200 cursor-pointer"
+            className="inline-flex items-center justify-center px-8 py-4 bg-[#1A3A6B] text-white text-sm font-semibold hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
           >
             Explore RA Suite
             <svg className="ml-3 w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
             </svg>
           </a>
-          <span className="text-sm text-zinc-500">
+          <span className="text-sm text-slate-400">
             Response time: &lt; 24 hours
           </span>
         </div>

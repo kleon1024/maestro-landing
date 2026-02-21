@@ -81,17 +81,17 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="section-padding bg-zinc-900">
+    <section id="contact" className="section-padding bg-gray-50">
       <div className="max-w-4xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16">
-          <p className="text-xs font-mono tracking-[0.2em] text-zinc-600 uppercase mb-6">
-            /// Contact ///
+          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
+            Contact
           </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-50 mb-6 tracking-tight">
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-6 tracking-tight">
             Let&apos;s Build Together
           </h2>
-          <p className="text-lg md:text-xl text-zinc-400 max-w-xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-500 max-w-xl mx-auto">
             Ready to transform your workflows with AI? Get in touch.
           </p>
         </div>
@@ -99,10 +99,10 @@ export function Contact() {
         {/* Contact form */}
         <div className="max-w-2xl mx-auto mb-16">
           {status === "success" ? (
-            <div className="p-8 bg-zinc-950 border border-zinc-800 text-center">
-              <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
+            <div className="p-8 bg-white border border-slate-200 text-center">
+              <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-6 h-6 text-green-400"
+                  className="w-6 h-6 text-green-600"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth={2}
@@ -115,15 +115,15 @@ export function Contact() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-zinc-50 mb-2">
+              <h3 className="text-lg font-semibold text-[#1A2744] mb-2">
                 Message Sent
               </h3>
-              <p className="text-sm text-zinc-400 mb-6">
+              <p className="text-sm text-slate-500 mb-6">
                 We will get back to you within 24 hours.
               </p>
               <button
                 onClick={() => setStatus("idle")}
-                className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                className="text-sm text-blue-700 hover:text-blue-800 transition-colors"
               >
                 Send another message
               </button>
@@ -135,7 +135,7 @@ export function Contact() {
                 <div>
                   <label
                     htmlFor="contact-name"
-                    className="block text-xs font-medium text-zinc-400 mb-1.5"
+                    className="block text-sm font-medium text-slate-700 mb-1.5"
                   >
                     Name <span className="text-red-400">*</span>
                   </label>
@@ -144,7 +144,7 @@ export function Contact() {
                     name="name"
                     type="text"
                     required
-                    className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30 transition-colors"
+                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     placeholder="Your name"
                   />
                 </div>
@@ -153,7 +153,7 @@ export function Contact() {
                 <div>
                   <label
                     htmlFor="contact-email"
-                    className="block text-xs font-medium text-zinc-400 mb-1.5"
+                    className="block text-sm font-medium text-slate-700 mb-1.5"
                   >
                     Email <span className="text-red-400">*</span>
                   </label>
@@ -162,7 +162,7 @@ export function Contact() {
                     name="email"
                     type="email"
                     required
-                    className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30 transition-colors"
+                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     placeholder="you@company.com"
                   />
                 </div>
@@ -173,7 +173,7 @@ export function Contact() {
                 <div>
                   <label
                     htmlFor="contact-company"
-                    className="block text-xs font-medium text-zinc-400 mb-1.5"
+                    className="block text-sm font-medium text-slate-700 mb-1.5"
                   >
                     Company
                   </label>
@@ -181,7 +181,7 @@ export function Contact() {
                     id="contact-company"
                     name="company"
                     type="text"
-                    className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30 transition-colors"
+                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     placeholder="Company name (optional)"
                   />
                 </div>
@@ -190,7 +190,7 @@ export function Contact() {
                 <div>
                   <label
                     htmlFor="contact-inquiry"
-                    className="block text-xs font-medium text-zinc-400 mb-1.5"
+                    className="block text-sm font-medium text-slate-700 mb-1.5"
                   >
                     Inquiry Type <span className="text-red-400">*</span>
                   </label>
@@ -198,7 +198,7 @@ export function Contact() {
                     id="contact-inquiry"
                     name="inquiryType"
                     required
-                    className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-200 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30 transition-colors"
+                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors"
                     defaultValue=""
                   >
                     <option value="" disabled>
@@ -217,7 +217,7 @@ export function Contact() {
               <div>
                 <label
                   htmlFor="contact-message"
-                  className="block text-xs font-medium text-zinc-400 mb-1.5"
+                  className="block text-sm font-medium text-slate-700 mb-1.5"
                 >
                   Message <span className="text-red-400">*</span>
                 </label>
@@ -226,21 +226,21 @@ export function Contact() {
                   name="message"
                   required
                   rows={5}
-                  className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30 transition-colors resize-none"
+                  className="w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-200 transition-colors resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>
 
               {/* Error */}
               {status === "error" && (
-                <p className="text-sm text-red-400">{errorMsg}</p>
+                <p className="text-sm text-red-600">{errorMsg}</p>
               )}
 
               {/* Submit */}
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full rounded-md bg-[#1A3A6B] py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {status === "submitting" ? "Sending..." : "Send Message"}
               </button>
@@ -250,24 +250,24 @@ export function Contact() {
 
         {/* Mailto fallback cards */}
         <div className="grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
-          <p className="sm:col-span-2 text-center text-xs text-zinc-600 mb-2">
+          <p className="sm:col-span-2 text-center text-xs text-slate-400 mb-2">
             Or reach us directly via email
           </p>
 
           {/* Sales */}
           <a
             href={`mailto:${CONTACT.sales}`}
-            className="group block p-6 bg-zinc-950 border border-zinc-800 hover:border-zinc-600 transition-all duration-300 cursor-pointer"
+            className="group block p-6 bg-white border border-slate-200 hover:border-blue-300 hover:shadow-sm transition-all duration-300 cursor-pointer"
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-zinc-50">Sales</h3>
-                <span className="text-sm text-blue-400 group-hover:text-blue-300 transition-colors">
+                <h3 className="text-sm font-semibold text-slate-900">Sales</h3>
+                <span className="text-sm text-blue-700 group-hover:text-blue-800 transition-colors">
                   {CONTACT.sales}
                 </span>
               </div>
               <svg
-                className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors"
+                className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
@@ -285,17 +285,17 @@ export function Contact() {
           {/* Support */}
           <a
             href={`mailto:${CONTACT.support}`}
-            className="group block p-6 bg-zinc-950 border border-zinc-800 hover:border-zinc-600 transition-all duration-300 cursor-pointer"
+            className="group block p-6 bg-white border border-slate-200 hover:border-blue-300 hover:shadow-sm transition-all duration-300 cursor-pointer"
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-zinc-50">Support</h3>
-                <span className="text-sm text-blue-400 group-hover:text-blue-300 transition-colors">
+                <h3 className="text-sm font-semibold text-slate-900">Support</h3>
+                <span className="text-sm text-blue-700 group-hover:text-blue-800 transition-colors">
                   {CONTACT.support}
                 </span>
               </div>
               <svg
-                className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors"
+                className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}

@@ -4,25 +4,25 @@ import { useState } from "react";
 import { PRODUCTS, type Product } from "@/lib/constants";
 
 ////////////////////////////////////////////////////////////////////////////////
-// [Products] Responsibility: Display product showcase with 24Labs-inspired design
+// [Products] Responsibility: Display product showcase with institutional design
 //
 // Features:
-// - Gradient header cards with corner decorations
+// - Pastel gradient header cards (light theme)
 // - Year badges for live products
 // - Horizontal carousel with navigation on desktop
 // - Responsive grid on mobile
 //
-// Design Reference: 24Labs Studio section
+// Design: Enterprise consulting aesthetic, light palette
 ////////////////////////////////////////////////////////////////////////////////
 
-// Product-specific gradient colors
+// Product-specific gradient colors (light pastel for white-bg cards)
 const productGradients: Record<string, string> = {
-  econ: "from-emerald-500/40 via-teal-500/20 to-transparent",
-  printpic: "from-pink-500/40 via-rose-500/20 to-transparent",
-  kairos: "from-blue-500/40 via-indigo-500/20 to-transparent",
-  growth: "from-amber-500/40 via-orange-500/20 to-transparent",
-  layout: "from-cyan-500/40 via-sky-500/20 to-transparent",
-  rehearse: "from-lime-500/40 via-green-500/20 to-transparent",
+  econ: "from-emerald-100 via-teal-50 to-transparent",
+  printpic: "from-pink-100 via-rose-50 to-transparent",
+  kairos: "from-blue-100 via-indigo-50 to-transparent",
+  growth: "from-amber-100 via-orange-50 to-transparent",
+  layout: "from-cyan-100 via-sky-50 to-transparent",
+  rehearse: "from-lime-100 via-green-50 to-transparent",
 };
 
 // Product icons
@@ -65,55 +65,28 @@ const productIcons: Record<string, React.ReactNode> = {
   ),
 };
 
-// Corner decoration component
-function CornerMarkers() {
-  return (
-    <>
-      {/* Top-left */}
-      <span className="absolute top-0 left-0 w-3 h-3 border-l border-t border-zinc-600" />
-      {/* Top-right */}
-      <span className="absolute top-0 right-0 w-3 h-3 border-r border-t border-zinc-600" />
-      {/* Bottom-left */}
-      <span className="absolute bottom-0 left-0 w-3 h-3 border-l border-b border-zinc-600" />
-      {/* Bottom-right */}
-      <span className="absolute bottom-0 right-0 w-3 h-3 border-r border-b border-zinc-600" />
-    </>
-  );
-}
-
 function ProductCard({ product }: { product: Product }) {
   const isLive = product.status === "live";
   const isFeatured = product.featured === true;
-  const gradient = productGradients[product.id] || "from-blue-500/40 via-blue-500/20 to-transparent";
+  const gradient = productGradients[product.id] || "from-blue-100 via-indigo-50 to-transparent";
 
   return (
-    <div className={`group relative bg-zinc-900/50 border overflow-hidden cursor-pointer hover:border-zinc-600 transition-all duration-300 flex flex-col h-full ${
-      isFeatured ? "border-blue-500/40 ring-1 ring-blue-500/10" : "border-zinc-800"
+    <div className={`group relative bg-white border overflow-hidden cursor-pointer hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col h-full ${
+      isFeatured ? "border-blue-400 ring-1 ring-blue-200" : "border-slate-200"
     }`}>
-      <CornerMarkers />
-
       {/* Gradient header with product branding */}
       <div className={`relative h-36 bg-gradient-to-b ${gradient}`}>
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)`,
-            backgroundSize: "20px 20px",
-          }}
-        />
-
         {/* Year / Featured badge */}
         <div className="absolute top-3 right-3">
           {isFeatured ? (
-            <span className="text-xs font-mono px-2 py-1 bg-blue-600 text-white tracking-wider">
+            <span className="text-xs font-medium px-2 py-1 bg-blue-700 text-white tracking-wide">
               FLAGSHIP
             </span>
           ) : (
-            <span className={`text-xs font-mono px-2 py-1 ${
+            <span className={`text-xs font-medium px-2 py-1 ${
               isLive
-                ? "bg-zinc-800 text-zinc-300"
-                : "bg-zinc-800/50 text-zinc-500"
+                ? "bg-white/80 text-slate-600 rounded-sm"
+                : "bg-slate-100 text-slate-400"
             }`}>
               {isLive ? "2025" : "Soon"}
             </span>
@@ -123,12 +96,12 @@ function ProductCard({ product }: { product: Product }) {
         {/* Product icon and name in header */}
         <div className="absolute bottom-4 left-4 flex items-center gap-3">
           <div className={`p-2 rounded ${
-            isLive ? "bg-white/10 text-white" : "bg-zinc-800/50 text-zinc-500"
+            isLive ? "bg-white/70 text-slate-700" : "bg-slate-100/50 text-slate-400"
           }`}>
             {productIcons[product.icon]}
           </div>
           <span className={`font-semibold text-lg tracking-wide ${
-            isLive ? "text-white" : "text-zinc-500"
+            isLive ? "text-slate-800" : "text-slate-400"
           }`}>
             {product.name}
           </span>
@@ -138,12 +111,12 @@ function ProductCard({ product }: { product: Product }) {
       {/* Content area */}
       <div className="p-5 flex-1 flex flex-col">
         <h3 className={`font-semibold text-lg mb-2 ${
-          isLive ? "text-zinc-100" : "text-zinc-500"
+          isLive ? "text-[#1A2744]" : "text-slate-400"
         }`}>
           {product.name}
         </h3>
         <p className={`text-sm leading-relaxed flex-1 ${
-          isLive ? "text-zinc-400" : "text-zinc-600"
+          isLive ? "text-slate-500" : "text-slate-400"
         }`}>
           {product.description}
         </p>
@@ -156,13 +129,15 @@ function ProductCard({ product }: { product: Product }) {
             href={product.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center text-sm font-mono text-zinc-500 hover:text-white transition-colors duration-200 tracking-wider"
+            className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800 transition-colors duration-200"
           >
             VISIT
-            <span className="ml-2 text-zinc-600 group-hover:text-zinc-400 transition-colors">&gt;&gt;&gt;</span>
+            <svg className="ml-2 w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
           </a>
         ) : (
-          <span className="inline-flex items-center text-sm font-mono text-zinc-700 tracking-wider">
+          <span className="inline-flex items-center text-sm text-slate-400">
             COMING SOON
           </span>
         )}
@@ -189,19 +164,16 @@ export function Products() {
   };
 
   return (
-    <section id="products" className="section-padding bg-zinc-950">
+    <section id="products" className="section-padding bg-slate-50">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Section header - 24Labs style */}
+        {/* Section header */}
         <div className="mb-12">
-          <div className="flex items-baseline gap-4 mb-2">
-            <h2 className="text-4xl md:text-5xl font-bold text-zinc-50 tracking-tight">
-              AI
-              <span className="text-blue-500 ml-3">PRODUCTS</span>
-            </h2>
-          </div>
-          <p className="text-xs font-mono tracking-[0.2em] text-zinc-600 uppercase">
-            /// Tools that empower individuals ///
+          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
+            Our Products
           </p>
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-bold text-[#1A2744] tracking-tight">
+            AI Products
+          </h2>
         </div>
 
         {/* Desktop: Horizontal carousel */}
@@ -225,7 +197,7 @@ export function Products() {
               <button
                 onClick={handlePrev}
                 disabled={scrollIndex === 0}
-                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className="p-3 bg-white border border-slate-200 text-slate-500 hover:border-slate-400 hover:text-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                 aria-label="Previous"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -235,7 +207,7 @@ export function Products() {
               <button
                 onClick={handleNext}
                 disabled={scrollIndex >= maxIndex}
-                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className="p-3 bg-white border border-slate-200 text-slate-500 hover:border-slate-400 hover:text-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                 aria-label="Next"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

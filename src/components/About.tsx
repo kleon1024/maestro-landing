@@ -3,7 +3,7 @@ import { VALUES } from "@/lib/constants";
 ////////////////////////////////////////////////////////////////////////////////
 // [About] Responsibility: Company values and mission statement
 //
-// Design: Clean, spacious layout with emphasis on typography
+// Design: Institutional light theme (bg-white, Playfair headings, navy palette)
 ////////////////////////////////////////////////////////////////////////////////
 
 // SVG Icons for values
@@ -32,17 +32,17 @@ const valueIcons: Record<string, React.ReactNode> = {
 
 export function About() {
   return (
-    <section id="about" className="section-padding bg-zinc-950">
+    <section id="about" className="section-padding bg-white">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header - centered, large typography */}
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <p className="text-xs font-mono tracking-[0.2em] text-zinc-600 uppercase mb-6">
-            /// About Us ///
+          <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
+            About Us
           </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-50 mb-8 tracking-tight">
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-8 tracking-tight">
             Orchestrating AI for Business and Individuals
           </h2>
-          <p className="text-lg md:text-xl text-zinc-400 leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
             We partner with enterprises to build custom AI solutions, and
             create consumer AI products that empower individuals. From
             Singapore to the world.
@@ -56,13 +56,13 @@ export function About() {
               key={value.id}
               className="group p-6"
             >
-              <div className="w-10 h-10 mb-6 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center text-blue-400 group-hover:border-zinc-700 transition-colors">
+              <div className="w-10 h-10 mb-6 rounded bg-blue-50 flex items-center justify-center text-blue-700">
                 {valueIcons[value.icon]}
               </div>
-              <h3 className="text-lg font-semibold text-zinc-50 mb-3">
+              <h3 className="text-lg font-semibold text-[#1A2744] mb-3">
                 {value.title}
               </h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">
+              <p className="text-sm text-slate-500 leading-relaxed">
                 {value.description}
               </p>
             </div>

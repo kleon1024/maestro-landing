@@ -1,34 +1,40 @@
 @import "tailwindcss";
 
 /*
- * Maestro Design System
- * Color Palette: Space Tech
- * Typography: Space Grotesk + DM Sans
+ * Maestro Design System v2.0
+ * Theme: Institutional Enterprise
+ * Color Palette: Corporate Navy + Warm White
+ * Typography: Playfair Display + Inter
  */
 
 :root {
   /* Background */
-  --bg-primary: #09090B;
-  --bg-surface: #18181B;
-  --bg-surface-alt: #27272A;
+  --bg-primary: #F9FAFB;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F1F5F9;
 
   /* Text */
-  --text-primary: #FAFAFA;
-  --text-secondary: #A1A1AA;
-  --text-muted: #71717A;
+  --text-primary: #1A2744;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
 
   /* Accent */
-  --accent-primary: #3B82F6;
-  --accent-hover: #60A5FA;
+  --accent-primary: #1A3A6B;
+  --accent-hover: #2563EB;
+
+  /* Gold */
+  --gold: #B8860B;
+  --gold-bg: #FFFBEB;
+  --gold-border: #FCD34D;
 
   /* Border */
-  --border-default: #27272A;
-  --border-subtle: #18181B;
+  --border-default: #E2E8F0;
+  --border-subtle: #F1F5F9;
 }
 
 @theme inline {
-  --font-heading: var(--font-space-grotesk);
-  --font-body: var(--font-dm-sans);
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-inter);
 }
 
 * {
@@ -47,9 +53,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings use Space Grotesk */
+/* Headings use Playfair Display */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), system-ui, sans-serif;
+  font-family: var(--font-heading), Georgia, serif;
 }
 
 /* Scrollbar */
@@ -58,11 +64,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--bg-elevated);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-surface-alt);
+  background: #CBD5E1;
   border-radius: 3px;
 }
 
@@ -72,8 +78,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Selection */
 ::selection {
-  background: var(--accent-primary);
-  color: white;
+  background: #DBEAFE;
+  color: var(--text-primary);
 }
 
 /* Focus styles for accessibility */
@@ -82,36 +88,7 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
-/* Utility: Gradient text */
-.text-gradient {
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Utility: Subtle glow on hover */
-.hover-glow {
-  transition: box-shadow 0.2s ease;
-}
-
-.hover-glow:hover {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
-}
-
-/* Utility: Card base */
-.card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  border-radius: 12px;
-  transition: border-color 0.2s ease;
-}
-
-.card:hover {
-  border-color: var(--accent-primary);
-}
-
-/* Utility: Section padding - generous whitespace for premium feel */
+/* Utility: Section padding */
 .section-padding {
   padding-top: 140px;
   padding-bottom: 140px;
