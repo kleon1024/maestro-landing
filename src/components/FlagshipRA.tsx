@@ -1,11 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // [FlagshipRA] Responsibility: Showcase RA Suite as the flagship product
 //
-// Design: Two-part layout
+// Design: Three-part layout
 //   Part 1: Left-right split (col-4 label+stats | col-8 services)
-//   Part 2: Full-width dark terminal mockup + delivery specs
+//   Part 2: Geographic coverage — 4 SVG map cards
+//   Part 3: Full-width dark terminal mockup + delivery specs
 // Invariants: RA Suite only — 3 sub-services (Data, Website, Paper)
 ////////////////////////////////////////////////////////////////////////////////
+
+import Image from "next/image";
 
 const RA_STATS = [
   { value: "50+", label: "Labs Supported" },
@@ -43,6 +46,37 @@ const RA_SERVICES = [
     accent: "border-indigo-400",
   },
 ] as const;
+
+const GEO_REGIONS = [
+  {
+    name: "United States",
+    src: "/images/maps/us-map.svg",
+    sources: "EPA WQP, NOAA CDO, USGS, TIGER/Line",
+    example: "County-month panels, 33K+ grid cells",
+    scale: "20M+ rows",
+  },
+  {
+    name: "Japan",
+    src: "/images/maps/japan-map.svg",
+    sources: "MAFF, e-Stat, land survey, trade",
+    example: "47 prefectures, prefecture-month",
+    scale: "5M+ rows",
+  },
+  {
+    name: "S.E. Asia",
+    src: "/images/maps/sea-map.svg",
+    sources: "Property, air quality, census",
+    example: "Planning area / district panels",
+    scale: "3M+ rows",
+  },
+  {
+    name: "Europe",
+    src: "/images/maps/europe-map.svg",
+    sources: "Eurostat, ECB, NUTS, OECD",
+    example: "38 economies, country-quarter",
+    scale: "2M+ rows",
+  },
+];
 
 // Delivery file tree — CSS mockup, no images
 function DeliveryTree() {
@@ -146,7 +180,49 @@ export function FlagshipRA() {
 
       </div>
 
-      {/* Part 2: Dark delivery specs row */}
+      {/* Part 2: Geographic coverage map cards */}
+      <div className="border-t border-slate-200 bg-slate-50">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 py-10 lg:py-14">
+          <p className="font-mono text-[11px] text-slate-400 uppercase tracking-widest mb-6">
+            Geographic Coverage · Shapefile Processing at Scale
+          </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {GEO_REGIONS.map((region) => (
+              <div
+                key={region.name}
+                className="group border border-slate-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all duration-300"
+              >
+                {/* Map SVG */}
+                <div className="aspect-[4/3] relative overflow-hidden bg-slate-50 border-b border-slate-100">
+                  <Image
+                    src={region.src}
+                    alt={`${region.name} shapefile boundaries`}
+                    fill
+                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                {/* Info */}
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-serif text-base font-semibold text-slate-900">
+                      {region.name}
+                    </h3>
+                    <span className="font-mono text-[11px] font-bold text-blue-600">
+                      {region.scale}
+                    </span>
+                  </div>
+                  <p className="font-mono text-[10px] text-slate-400 mb-1 leading-relaxed">
+                    {region.sources}
+                  </p>
+                  <p className="text-xs text-slate-500">{region.example}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Part 3: Dark delivery specs row */}
       <div className="border-t border-slate-200 bg-[#F9F9F9]">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0">
 
