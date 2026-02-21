@@ -86,13 +86,13 @@ export function Contact() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Contact
+            Get in Touch
           </p>
           <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] mb-6 tracking-tight">
-            Let&apos;s Build Together
+            Start a Project
           </h2>
           <p className="text-lg md:text-xl text-slate-500 max-w-xl mx-auto">
-            Ready to transform your workflows with AI? Get in touch.
+            Tell us about your requirements. We typically respond within 24 hours.
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export function Contact() {
                 </svg>
               </div>
               <h3 className="text-lg font-semibold text-[#1A2744] mb-2">
-                Message Sent
+                Request Received
               </h3>
               <p className="text-sm text-slate-500 mb-6">
                 We will get back to you within 24 hours.
@@ -242,7 +242,7 @@ export function Contact() {
                 disabled={status === "submitting"}
                 className="w-full rounded-md bg-[#1A3A6B] py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                {status === "submitting" ? "Sending..." : "Send Message"}
+                {status === "submitting" ? "Sending..." : "Submit Request"}
               </button>
             </form>
           )}

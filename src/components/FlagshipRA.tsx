@@ -98,15 +98,13 @@ export function FlagshipRA() {
         {/* Section header */}
         <div className="mb-16">
           <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Flagship Product
+            Case Study
           </p>
           <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A2744] tracking-tight mb-6">
             RA Suite
           </h2>
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl leading-relaxed">
-            Technical infrastructure for quantitative research. Data systems,
-            research platforms, and collaborative tools built for economists and
-            social scientists.
+            Our most complex delivery: a full research infrastructure platform serving 50+ labs across 5 regions. Built from scratch, maintained in production.
           </p>
         </div>
 
@@ -193,7 +191,7 @@ export function FlagshipRA() {
             </svg>
           </a>
           <span className="text-sm text-slate-400">
-            Response time: &lt; 24 hours
+            Active project · Accepting new clients
           </span>
         </div>
       </div>

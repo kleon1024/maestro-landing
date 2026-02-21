@@ -169,11 +169,14 @@ export function Products() {
         {/* Section header */}
         <div className="mb-12">
           <p className="text-sm font-semibold tracking-widest uppercase text-blue-700 mb-6">
-            Our Products
+            7 Products Shipped
           </p>
           <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-bold text-[#1A2744] tracking-tight">
-            AI Products
+            Our Product Suite
           </h2>
+          <p className="text-slate-500 mt-3 text-base max-w-xl">
+            Each product a proof point for what we can build for you.
+          </p>
         </div>
 
         {/* Desktop: Horizontal carousel */}
