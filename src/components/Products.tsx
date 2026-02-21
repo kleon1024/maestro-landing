@@ -1,19 +1,11 @@
-"use client";
+////////////////////////////////////////////////////////////////////////////////
+// [Products] Responsibility: Secondary products grid (RA Suite shown separately)
+//
+// Design: Compact 3-col grid, institutional light theme, no carousel
+// Invariants: Only non-ra products shown here (RA Suite has its own section)
+////////////////////////////////////////////////////////////////////////////////
 
-import { useState } from "react";
 import { PRODUCTS, type Product } from "@/lib/constants";
-
-////////////////////////////////////////////////////////////////////////////////
-// [Products] Responsibility: Display product showcase with institutional design
-//
-// Features:
-// - Pastel gradient header cards (light theme)
-// - Year badges for live products
-// - Horizontal carousel with navigation on desktop
-// - Responsive grid on mobile
-//
-// Design: Enterprise consulting aesthetic, light palette
-////////////////////////////////////////////////////////////////////////////////
 
 // Product-specific gradient colors (light pastel for white-bg cards)
 const productGradients: Record<string, string> = {
@@ -65,81 +57,57 @@ const productIcons: Record<string, React.ReactNode> = {
   ),
 };
 
+// Strip gradient for card top accent
+const stripGradients: Record<string, string> = {
+  econ: "from-emerald-400 to-teal-300",
+  printpic: "from-pink-400 to-rose-300",
+  kairos: "from-blue-400 to-indigo-300",
+  growth: "from-amber-400 to-orange-300",
+  layout: "from-cyan-400 to-sky-300",
+  rehearse: "from-lime-400 to-green-300",
+};
+
 function ProductCard({ product }: { product: Product }) {
   const isLive = product.status === "live";
-  const isFeatured = product.featured === true;
-  const gradient = productGradients[product.id] || "from-blue-100 via-indigo-50 to-transparent";
+  const strip = stripGradients[product.id] || "from-blue-400 to-indigo-300";
 
   return (
-    <div className={`group relative bg-white border overflow-hidden cursor-pointer hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col h-full ${
-      isFeatured ? "border-blue-400 ring-1 ring-blue-200" : "border-slate-200"
-    }`}>
-      {/* Gradient header with product branding */}
-      <div className={`relative h-36 bg-gradient-to-b ${gradient}`}>
-        {/* Year / Featured badge */}
-        <div className="absolute top-3 right-3">
-          {isFeatured ? (
-            <span className="font-mono text-[10px] px-2 py-0.5 bg-blue-700 text-white tracking-wide">
-              FLAGSHIP
-            </span>
-          ) : (
-            <span className={`font-mono text-[10px] px-2 py-0.5 ${
-              isLive
-                ? "bg-white/80 text-slate-600"
-                : "bg-slate-100 text-slate-400"
-            }`}>
-              {isLive ? "2025" : "Soon"}
-            </span>
-          )}
-        </div>
+    <div className="group bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col">
+      {/* Minimal colored top strip */}
+      <div className={`h-1 bg-gradient-to-r ${strip}`} />
 
-        {/* Product icon and name in header */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-3">
-          <div className={`p-2 ${
-            isLive ? "bg-white/70 text-slate-700" : "bg-slate-100/50 text-slate-400"
-          }`}>
-            {productIcons[product.icon]}
+      <div className="p-5 flex-1 flex flex-col">
+        {/* Header: icon + name + category badge */}
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="text-slate-500 group-hover:text-blue-600 transition-colors">
+              {productIcons[product.icon]}
+            </div>
+            <span className="font-semibold text-slate-900">{product.name}</span>
           </div>
-          <span className={`font-semibold text-lg tracking-wide ${
-            isLive ? "text-slate-800" : "text-slate-400"
-          }`}>
-            {product.name}
+          <span className="font-mono text-[10px] text-slate-400 border border-slate-100 px-1.5 py-0.5 shrink-0">
+            {product.category}
           </span>
         </div>
+
+        <p className="text-sm text-slate-500 leading-relaxed flex-1">{product.description}</p>
       </div>
 
-      {/* Content area */}
-      <div className="p-5 flex-1 flex flex-col">
-        <h3 className={`font-semibold text-lg mb-2 ${
-          isLive ? "text-[#1A2744]" : "text-slate-400"
-        }`}>
-          {product.name}
-        </h3>
-        <p className={`text-sm leading-relaxed flex-1 ${
-          isLive ? "text-slate-500" : "text-slate-400"
-        }`}>
-          {product.description}
-        </p>
-      </div>
-
-      {/* Footer with visit link */}
-      <div className="px-5 pb-5">
+      <div className="px-5 pb-4 border-t border-slate-50 pt-3">
         {isLive ? (
           <a
             href={product.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800 transition-colors duration-200"
+            className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800 transition-colors"
           >
-            VISIT
-            <svg className="ml-2 w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            Visit
+            <svg className="ml-1.5 w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
             </svg>
           </a>
         ) : (
-          <span className="inline-flex items-center text-slate-400 font-mono text-[10px]">
-            COMING SOON
-          </span>
+          <span className="font-mono text-[10px] text-slate-400">Coming Soon</span>
         )}
       </div>
     </div>
@@ -147,84 +115,29 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export function Products() {
-  const liveProducts = PRODUCTS.filter((p) => p.status === "live" && p.id !== "ra");
-  const upcomingProducts = PRODUCTS.filter((p) => p.status === "coming-soon");
-  const allProducts = [...liveProducts, ...upcomingProducts];
-
-  const [scrollIndex, setScrollIndex] = useState(0);
-  const visibleCount = 3; // Number of cards visible at once on desktop
-  const maxIndex = Math.max(0, allProducts.length - visibleCount);
-
-  const handlePrev = () => {
-    setScrollIndex((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleNext = () => {
-    setScrollIndex((prev) => Math.min(maxIndex, prev + 1));
-  };
+  // Exclude RA Suite (featured separately in Hero section)
+  const products = PRODUCTS.filter((p) => p.id !== "ra");
 
   return (
-    <section id="products" className="section-padding bg-slate-50">
+    <section id="products" className="py-20 bg-slate-50 border-t border-slate-200">
       <div className="max-w-[1400px] mx-auto px-6">
-        {/* Section header */}
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-3 mb-10">
-            <span className="font-mono text-[11px] text-blue-600 font-bold tracking-widest border border-blue-200 bg-blue-50 px-2 py-1">04</span>
-            <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">OUR PRODUCTS</span>
+        <div className="mb-12 flex items-end justify-between">
+          <div>
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="font-mono text-[11px] text-blue-600 font-bold tracking-widest border border-blue-200 bg-blue-50 px-2 py-1">04</span>
+              <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">ALSO FROM MAESTRO</span>
+            </div>
+            <h2 className="font-serif text-3xl font-medium text-slate-900 tracking-tight">
+              More from Our Studio
+            </h2>
+            <p className="text-sm text-slate-500 mt-2 max-w-lg">
+              Side projects we built and shipped. Each one a real product with real users.
+            </p>
           </div>
-          <h2 className="font-serif text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight">
-            Our Product Suite
-          </h2>
-          <p className="text-slate-500 mt-3 text-base max-w-xl">
-            Each product a proof point for what we can build for you.
-          </p>
         </div>
 
-        {/* Desktop: Horizontal carousel */}
-        <div className="hidden lg:block">
-          <div className="overflow-hidden">
-            <div
-              className="flex gap-4 transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${scrollIndex * (100 / visibleCount + 1.3)}%)` }}
-            >
-              {allProducts.map((product) => (
-                <div key={product.id} className="w-1/3 flex-shrink-0">
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Navigation arrows */}
-          {allProducts.length > visibleCount && (
-            <div className="flex items-center gap-3 mt-8">
-              <button
-                onClick={handlePrev}
-                disabled={scrollIndex === 0}
-                className="p-3 bg-white border border-slate-200 text-slate-500 hover:border-slate-400 hover:text-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                aria-label="Previous"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={scrollIndex >= maxIndex}
-                className="p-3 bg-white border border-slate-200 text-slate-500 hover:border-slate-400 hover:text-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                aria-label="Next"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Mobile/Tablet: Grid layout */}
-        <div className="lg:hidden grid sm:grid-cols-2 gap-4">
-          {allProducts.map((product) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

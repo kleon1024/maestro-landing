@@ -2,24 +2,31 @@
 // [Hero] Responsibility: Landing page hero section
 //
 // Design: Split 12-col grid - left text (col-span-7) + right panel (col-span-5)
-// Reference: ra.maestro.onl hero pattern adapted for parent brand
+// Right panel: RA Suite focused stats, capabilities, and product list
 // Container: max-w-[1400px]
 ////////////////////////////////////////////////////////////////////////////////
 
 const STATS = [
-  { value: "7", label: "Products Shipped" },
-  { value: "50+", label: "Projects Delivered" },
-  { value: "<24h", label: "Response Time" },
+  { value: "50+", label: "Labs Supported" },
+  { value: "2M+", label: "Rows Delivered" },
+  { value: "100%", label: "Replication Rate" },
 ];
 
-const FEATURED_PRODUCTS = [
-  { name: "RA Suite", tag: "Research Infrastructure", url: "https://ra.maestro.onl" },
+const RA_CAPABILITIES = [
+  "Scanned PDF",
+  "Gov. Excel",
+  "Shapefile / GIS",
+  "Public API",
+  "Stata / R / Python",
+  "LaTeX / Paper",
+];
+
+const OTHER_PRODUCTS = [
   { name: "Econ", tag: "Behavioural Economics", url: "https://econ.maestro.onl" },
   { name: "Kairos", tag: "AI Productivity", url: "https://kairos.maestro.onl" },
-  { name: "Growth Foundry", tag: "Growth Marketing", url: "https://growth.maestro.onl" },
 ];
 
-const TAGS = ["AI Product Dev", "Data Infrastructure", "AI Strategy", "Research Tools"];
+const TAGS = ["AI Product Dev", "Research Data", "RA Suite", "AI Strategy"];
 
 export function Hero() {
   return (
@@ -47,7 +54,7 @@ export function Hero() {
 
             {/* Subhead */}
             <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
-              We design and ship custom AI systems for enterprises, research institutions, and government agencies. Singapore-based, globally delivered.
+              We design and ship custom AI systems — anchored by RA Suite, our research infrastructure platform serving 50+ labs worldwide.
             </p>
 
             {/* Capability tags */}
@@ -65,19 +72,21 @@ export function Hero() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="#contact"
+                href="https://ra.maestro.onl"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center h-12 rounded-none bg-slate-900 text-white font-medium px-8 text-sm hover:bg-blue-600 transition-colors"
               >
-                Request a Consultation
+                Explore RA Suite
                 <svg className="ml-3 w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>
               </a>
               <a
-                href="#products"
+                href="#contact"
                 className="inline-flex items-center justify-center h-12 rounded-none border-2 border-slate-300 bg-white text-slate-900 font-medium px-8 text-sm hover:border-blue-600 hover:text-blue-600 transition-colors"
               >
-                View Our Products
+                Start a Project
               </a>
             </div>
           </div>
@@ -95,13 +104,37 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Product list */}
+            {/* RA Suite capability tags */}
             <div>
-              <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-3">
-                Featured Products
+              <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-3">RA Suite Capabilities</div>
+              <div className="flex flex-wrap gap-1.5">
+                {RA_CAPABILITIES.map((cap) => (
+                  <span key={cap} className="font-mono text-[10px] text-slate-600 border border-slate-200 px-2 py-0.5">{cap}</span>
+                ))}
               </div>
+            </div>
+
+            {/* Product list - RA Suite highlighted */}
+            <div>
+              <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-3">From Our Studio</div>
               <div className="flex flex-col gap-2">
-                {FEATURED_PRODUCTS.map((product) => (
+                {/* RA Suite - blue highlight */}
+                <a
+                  href="https://ra.maestro.onl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-blue-200 bg-blue-50 p-3 flex items-center justify-between hover:border-blue-400 transition-colors group"
+                >
+                  <div>
+                    <div className="font-medium text-sm text-blue-700">RA Suite</div>
+                    <div className="font-mono text-[10px] text-blue-400 mt-0.5">Flagship -- Research Infrastructure</div>
+                  </div>
+                  <svg className="w-3.5 h-3.5 text-blue-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                </a>
+                {/* Others - normal */}
+                {OTHER_PRODUCTS.map((product) => (
                   <a
                     key={product.name}
                     href={product.url}

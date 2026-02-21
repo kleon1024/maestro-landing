@@ -3,6 +3,7 @@ export { Hero } from "./Hero";
 export { FlagshipRA } from "./FlagshipRA";
 export { Products } from "./Products";
 export { Services } from "./Services";
+export { ProcessWorkflow } from "./ProcessWorkflow";
 export { About } from "./About";
 export { Contact } from "./Contact";
 export { Footer } from "./Footer";

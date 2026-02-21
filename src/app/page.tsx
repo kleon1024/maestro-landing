@@ -2,8 +2,9 @@ import {
   Navigation,
   Hero,
   FlagshipRA,
-  Products,
   Services,
+  ProcessWorkflow,
+  Products,
   About,
   Contact,
   Footer,
@@ -17,8 +18,9 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
-        <Services />
         <FlagshipRA />
+        <Services />
+        <ProcessWorkflow />
         <Products />
         <About />
         <Contact />
