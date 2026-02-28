@@ -12,12 +12,12 @@ interface StepProps {
 export function Step({ number, title, children }: StepProps) {
   return (
     <div className="flex gap-4">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/10 text-sm font-bold text-blue-400">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EFF6FF] text-sm font-bold text-[#1D4ED8]">
         {number}
       </div>
       <div className="pb-6">
-        <p className="font-semibold text-zinc-200">{title}</p>
-        <div className="mt-1 text-sm text-zinc-400">{children}</div>
+        <p className="font-semibold text-[#1A2744]">{title}</p>
+        <div className="mt-1 text-sm text-[#475569]">{children}</div>
       </div>
     </div>
   );

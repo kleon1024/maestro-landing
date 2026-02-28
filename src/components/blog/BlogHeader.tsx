@@ -19,7 +19,7 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
           {frontmatter.seo.keywords.map((kw) => (
             <span
               key={kw}
-              className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400"
+              className="rounded-full bg-[#EFF6FF] px-3 py-1 text-xs font-medium text-[#1D4ED8]"
             >
               {kw}
             </span>
@@ -28,17 +28,17 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
       )}
 
       {/* Title */}
-      <h1 className="text-3xl font-bold text-zinc-50 sm:text-4xl lg:text-5xl leading-tight">
+      <h1 className="text-3xl font-bold text-[#1A2744] sm:text-4xl lg:text-5xl leading-tight">
         {frontmatter.title}
       </h1>
 
       {/* Description */}
-      <p className="mt-4 text-lg text-zinc-400">{frontmatter.description}</p>
+      <p className="mt-4 text-lg text-[#475569]">{frontmatter.description}</p>
 
       {/* Meta line */}
-      <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-zinc-500">
+      <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#94A3B8]">
         <span>{frontmatter.author}</span>
-        <span className="text-zinc-700">|</span>
+        <span className="text-[#CBD5E1]">|</span>
         <time dateTime={frontmatter.publishedAt}>
           {new Date(frontmatter.publishedAt).toLocaleDateString("en-US", {
             year: "numeric",
@@ -46,12 +46,12 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
             day: "numeric",
           })}
         </time>
-        <span className="text-zinc-700">|</span>
+        <span className="text-[#CBD5E1]">|</span>
         <span>{readingTime}</span>
       </div>
 
       {/* Divider */}
-      <hr className="mt-8 border-zinc-800" />
+      <hr className="mt-8 border-[#E2E8F0]" />
     </header>
   );
 }

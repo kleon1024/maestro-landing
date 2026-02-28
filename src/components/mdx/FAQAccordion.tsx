@@ -33,7 +33,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
   };
 
   return (
-    <div className="my-6 divide-y divide-zinc-800 rounded-lg border border-zinc-800">
+    <div className="my-6 divide-y divide-[#E2E8F0] rounded-lg border border-[#E2E8F0]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -42,11 +42,11 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
         <div key={i}>
           <button
             onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-zinc-200 hover:text-zinc-50 transition-colors cursor-pointer"
+            className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-[#1A2744] hover:text-[#1A3A6B] transition-colors cursor-pointer"
           >
             <span>{item.question}</span>
             <svg
-              className={`h-4 w-4 shrink-0 text-zinc-500 transition-transform duration-200 ${
+              className={`h-4 w-4 shrink-0 text-[#94A3B8] transition-transform duration-200 ${
                 openIndex === i ? "rotate-180" : ""
               }`}
               fill="none"
@@ -62,7 +62,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
             </svg>
           </button>
           {openIndex === i && (
-            <div className="px-4 pb-3 text-sm text-zinc-400">
+            <div className="px-4 pb-3 text-sm text-[#475569]">
               {item.answer}
             </div>
           )}

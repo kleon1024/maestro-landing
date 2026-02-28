@@ -24,9 +24,9 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
       className={`my-6 rounded-r-lg border-l-4 ${style.border} ${style.bg} p-4`}
     >
       {title && (
-        <p className="mb-2 text-sm font-semibold text-zinc-200">{title}</p>
+        <p className="mb-2 text-sm font-semibold text-[#1A2744]">{title}</p>
       )}
-      <div className="text-sm text-zinc-400 [&>p]:mb-2 [&>p:last-child]:mb-0">
+      <div className="text-sm text-[#475569] [&>p]:mb-2 [&>p:last-child]:mb-0">
         {children}
       </div>
     </div>
