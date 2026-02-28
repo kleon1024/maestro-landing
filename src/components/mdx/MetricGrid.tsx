@@ -16,16 +16,16 @@ export function Metric({ value, label, trend, source }: MetricProps) {
       ? "text-emerald-600"
       : trend === "down"
         ? "text-red-600"
-        : "text-[#475569]";
+        : "text-slate-600";
 
   return (
-    <div className="rounded-lg border border-[#E2E8F0] bg-white p-4">
-      <p className={`text-2xl font-bold ${trendColor || "text-[#1A2744]"}`}>
+    <div className="rounded-lg border border-slate-200 bg-white p-4">
+      <p className={`text-2xl font-bold ${trendColor || "text-slate-900"}`}>
         {value}
       </p>
-      <p className="mt-1 text-sm text-[#475569]">{label}</p>
+      <p className="mt-1 text-sm text-slate-600">{label}</p>
       {source && (
-        <p className="mt-2 text-xs text-[#94A3B8]">Source: {source}</p>
+        <p className="mt-2 text-xs text-slate-400">Source: {source}</p>
       )}
     </div>
   );

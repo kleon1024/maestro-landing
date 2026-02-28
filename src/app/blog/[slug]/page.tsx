@@ -139,7 +139,7 @@ export default async function BlogPostPage({
           {/* Back link */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1 text-sm text-[#94A3B8] hover:text-[#1A3A6B] transition-colors mb-8"
+            className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-blue-900 transition-colors mb-8"
           >
             <svg
               className="w-4 h-4"
@@ -173,14 +173,14 @@ export default async function BlogPostPage({
               <BlogCTA variant={ctaVariant} />
 
               {/* Share + back */}
-              <div className="mt-12 pt-8 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <ShareButtons
                   title={post.frontmatter.title}
                   slug={slug}
                 />
                 <Link
                   href="/blog"
-                  className="text-sm text-[#94A3B8] hover:text-[#1A3A6B] transition-colors"
+                  className="text-sm text-slate-400 hover:text-blue-900 transition-colors"
                 >
                   View all posts
                 </Link>
