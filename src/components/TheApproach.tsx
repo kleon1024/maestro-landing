@@ -1,155 +1,185 @@
 ////////////////////////////////////////////////////////////////////////////////
-// [TheApproach] S3: Skill Flywheel — offwhite bg, flywheel + stats
+// [TheApproach] S3: Skill Flywheel — DARK, flywheel + stats
 //
-// Design: bg-m-offwhite, max-w-5xl, CSS flywheel diagram, 4-stat grid
-// Copy: CMO v2 "The Approach" verbatim
+// Design: bg-m-black, max-w-7xl, CSS flywheel, 4-stat grid
+// Rhythm: DARK
 ////////////////////////////////////////////////////////////////////////////////
 
 const STATS = [
   { value: "12", label: "Skills in production" },
   { value: "8", label: "Atomic capabilities" },
   { value: "5+", label: "Projects delivered" },
-  { value: "\u2193", label: "Marginal cost" },
+  { value: "\u2193", label: "Decreasing cost" },
 ];
 
-const FLYWHEEL_STEPS = [
-  { label: "SKILL LIBRARY", sub: "12 skills" },
-  { label: "CLIENT REQUEST", sub: "arrives" },
-  { label: "FASTER DELIVERY", sub: "from reuse" },
-  { label: "PROJECT DELIVERED", sub: "to client" },
-  { label: "NEW SKILL EXTRACTED", sub: "into library" },
+const FLYWHEEL_NODES = [
+  { label: "CLIENT REQUEST", position: "top-left" },
+  { label: "PROJECT DELIVERY", position: "top-right" },
+  { label: "SKILL CREATED", position: "bottom-right" },
+  { label: "SKILL LIBRARY", position: "bottom-left" },
 ];
 
 export function TheApproach() {
   return (
-    <section id="approach" className="bg-m-offwhite py-20 lg:py-28">
-      <div className="max-w-5xl mx-auto px-6">
+    <section
+      id="approach"
+      data-theme="dark"
+      className="bg-m-black text-white min-h-[80vh] py-24 lg:py-32"
+    >
+      <div className="max-w-7xl mx-auto px-8">
         {/* Label */}
-        <p className="font-mono text-xs font-bold tracking-widest uppercase text-m-accent-dim mb-6">
-          HOW WE BUILD
+        <p className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-m-accent mb-8">
+          THE APPROACH
         </p>
 
         {/* Heading */}
-        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-m-ink leading-tight mb-6">
-          Every project leaves behind a building block.
+        <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 max-w-4xl">
+          Every project leaves behind
+          <br className="hidden md:block" /> a building block.
         </h2>
 
         {/* Body */}
-        <div className="max-w-3xl text-lg text-m-body leading-relaxed mb-12 space-y-4">
-          <p>When we deliver a data engineering project, we produce two outputs:</p>
-          <ol className="list-decimal list-inside space-y-2">
-            <li>
-              <strong className="text-m-ink">The client deliverable</strong> — a
-              clean, documented, reproducible dataset or pipeline.
-            </li>
-            <li>
-              <strong className="text-m-ink">A Skill</strong> — a tested,
-              versioned, reusable pipeline module extracted from the project.
-            </li>
-          </ol>
+        <div className="max-w-2xl text-lg text-m-body-dark leading-relaxed mb-16 space-y-4">
           <p>
-            Our AI agents orchestrate a growing library of these Skills. The more
-            projects we complete, the wider our capability surface. The wider the
-            surface, the faster we deliver. The faster we deliver, the lower our
-            marginal cost.
+            When we deliver a data engineering project, we produce two outputs:
+            the client deliverable, and a Skill — a tested, versioned, reusable
+            pipeline module extracted from the project.
+          </p>
+          <p>
+            More projects = wider surface = faster delivery = lower marginal
+            cost.
           </p>
         </div>
 
-        {/* Flywheel diagram — CSS version */}
-        <div className="border border-m-line-light bg-white p-6 md:p-10 mb-12">
-          {/* Desktop: circular-ish layout */}
-          <div className="hidden md:block">
-            <div className="flex flex-col items-center gap-4">
-              {/* Top node */}
-              <div className="border border-m-accent/40 bg-m-accent/5 px-6 py-3 text-center">
-                <p className="font-mono text-xs font-bold tracking-wider text-m-accent-dim">
-                  {FLYWHEEL_STEPS[0].label}
-                </p>
-                <p className="font-mono text-[10px] text-m-muted mt-0.5">
-                  {FLYWHEEL_STEPS[0].sub}
-                </p>
-              </div>
-
-              {/* Arrow down */}
-              <svg className="w-4 h-6 text-m-accent" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 16 24">
-                <path d="M8 0v20M2 16l6 6 6-6" />
-              </svg>
-
-              {/* Middle row: 3 steps */}
-              <div className="flex items-center gap-4 md:gap-8 flex-wrap justify-center">
-                {FLYWHEEL_STEPS.slice(1, 4).map((step, i) => (
-                  <div key={step.label} className="flex items-center gap-4">
-                    <div className="border border-m-line-light px-4 py-2 text-center">
-                      <p className="font-mono text-xs font-bold tracking-wider text-m-ink">
-                        {step.label}
-                      </p>
-                      <p className="font-mono text-[10px] text-m-muted mt-0.5">
-                        {step.sub}
-                      </p>
-                    </div>
-                    {i < 2 && (
-                      <svg className="w-6 h-4 text-m-accent shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 16">
-                        <path d="M0 8h20M16 2l6 6-6 6" />
-                      </svg>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Arrow up */}
-              <svg className="w-4 h-6 text-m-accent" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 16 24">
-                <path d="M8 24V4M2 8l6-6 6 6" />
-              </svg>
-
-              {/* Bottom node */}
-              <div className="border border-m-accent/40 bg-m-accent/5 px-6 py-3 text-center">
-                <p className="font-mono text-xs font-bold tracking-wider text-m-accent-dim">
-                  {FLYWHEEL_STEPS[4].label}
-                </p>
-                <p className="font-mono text-[10px] text-m-muted mt-0.5">
-                  {FLYWHEEL_STEPS[4].sub}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile: vertical flow */}
-          <div className="md:hidden flex flex-col items-center gap-3">
-            {FLYWHEEL_STEPS.map((step, i) => (
-              <div key={step.label}>
-                <div className="border border-m-line-light px-5 py-3 text-center">
-                  <p className="font-mono text-xs font-bold tracking-wider text-m-ink">
-                    {step.label}
-                  </p>
-                  <p className="font-mono text-[10px] text-m-muted mt-0.5">
-                    {step.sub}
+        {/* Flywheel — Desktop */}
+        <div className="hidden md:block mb-16">
+          <div className="relative max-w-3xl mx-auto">
+            {/* Grid of 4 nodes */}
+            <div className="grid grid-cols-2 gap-x-16 gap-y-8">
+              {FLYWHEEL_NODES.map((node) => (
+                <div
+                  key={node.label}
+                  className="border border-m-line-dark bg-m-near-black px-6 py-5 text-center"
+                >
+                  <p className="font-mono text-xs font-bold tracking-[0.15em] text-m-accent">
+                    {node.label}
                   </p>
                 </div>
-                {i < FLYWHEEL_STEPS.length - 1 && (
-                  <div className="flex justify-center py-1">
-                    <svg className="w-4 h-5 text-m-accent" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 16 20">
-                      <path d="M8 0v16M2 12l6 6 6-6" />
+              ))}
+            </div>
+
+            {/* Arrow indicators: top row → */}
+            <div className="absolute top-[28px] left-1/2 -translate-x-1/2">
+              <svg
+                className="w-12 h-5 text-m-accent"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 48 20"
+              >
+                <path d="M0 10h40M36 4l6 6-6 6" />
+              </svg>
+            </div>
+
+            {/* Arrow: right column down */}
+            <div className="absolute right-[120px] top-1/2 -translate-y-1/2">
+              <svg
+                className="w-5 h-8 text-m-accent"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 20 32"
+              >
+                <path d="M10 0v24M4 20l6 6 6-6" />
+              </svg>
+            </div>
+
+            {/* Arrow: bottom row ← */}
+            <div className="absolute bottom-[28px] left-1/2 -translate-x-1/2">
+              <svg
+                className="w-12 h-5 text-m-accent"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 48 20"
+              >
+                <path d="M48 10H8M12 4l-6 6 6 6" />
+              </svg>
+            </div>
+
+            {/* Arrow: left column up */}
+            <div className="absolute left-[120px] top-1/2 -translate-y-1/2">
+              <svg
+                className="w-5 h-8 text-m-accent"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 20 32"
+              >
+                <path d="M10 32V8M4 12l6-6 6 6" />
+              </svg>
+            </div>
+
+            {/* Center label */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                Next project is faster
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Flywheel — Mobile vertical flow */}
+        <div className="md:hidden mb-16">
+          <div className="flex flex-col items-center gap-3">
+            {FLYWHEEL_NODES.map((node, i) => (
+              <div key={node.label} className="w-full max-w-xs">
+                <div className="border border-m-line-dark bg-m-near-black px-5 py-4 text-center">
+                  <p className="font-mono text-xs font-bold tracking-[0.15em] text-m-accent">
+                    {node.label}
+                  </p>
+                </div>
+                {i < FLYWHEEL_NODES.length - 1 && (
+                  <div className="flex justify-center py-2">
+                    <svg
+                      className="w-4 h-5 text-m-accent"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                      viewBox="0 0 16 20"
+                    >
+                      <path d="M8 0v16M3 12l5 5 5-5" />
                     </svg>
                   </div>
                 )}
               </div>
             ))}
+            {/* Loop-back arrow */}
+            <div className="flex justify-center py-1">
+              <svg
+                className="w-4 h-5 text-m-accent"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 16 20"
+              >
+                <path d="M8 20V4M3 8l5-5 5 5" />
+              </svg>
+            </div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-500">
+              Next project is faster
+            </p>
           </div>
-
-          {/* Center text */}
-          <p className="text-center font-mono text-xs text-m-muted mt-6">
-            More projects = wider surface = faster delivery = lower marginal cost
-          </p>
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-m-line-light border border-m-line-light">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-m-line-dark border border-m-line-dark">
           {STATS.map((stat) => (
-            <div key={stat.label} className="bg-white p-6 text-center">
-              <div className="font-mono text-4xl lg:text-5xl font-bold text-m-ink">
+            <div key={stat.label} className="bg-m-near-black p-8 text-center">
+              <div className="font-mono text-5xl lg:text-6xl font-bold text-white">
                 {stat.value}
               </div>
-              <div className="font-mono text-xs uppercase tracking-wider text-m-muted mt-2">
+              <div className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-500 mt-3">
                 {stat.label}
               </div>
             </div>

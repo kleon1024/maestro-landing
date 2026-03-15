@@ -1,22 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap");
 @import "tailwindcss";
 
 /*
- * Maestro Design System v3.0
- * Theme: Dark hero, light body — "A pitch deck that scrolls"
- * Color: Neutral + Cyan accent (#22D3EE)
- * Typography: Georgia (serif) + Inter (sans) + JetBrains Mono (mono)
+ * Maestro Design System v4.0
+ * Theme: Dark/Light alternating rhythm — Palantir-inspired, academic-scaled
+ * Typography: Fraunces (serif) + Inter (sans) + JetBrains Mono (mono)
+ * Color: Near-black + white alternation, cyan accent
  */
 
 @theme {
-  --font-family-serif: Georgia, 'Playfair Display', serif;
-  --font-family-sans: 'Inter', system-ui, sans-serif;
-  --font-family-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  --font-family-serif: var(--font-fraunces), Georgia, serif;
+  --font-family-sans: var(--font-inter), system-ui, sans-serif;
+  --font-family-mono: var(--font-jetbrains), 'SF Mono', ui-monospace, monospace;
 
   --color-m-black: #0A0A0A;
   --color-m-near-black: #111111;
   --color-m-dark-surface: #1A1A1A;
-  --color-m-offwhite: #FAFAFA;
+  --color-m-offwhite: #F8FAFC;
+  --color-m-white: #FFFFFF;
   --color-m-ink: #0F172A;
   --color-m-body: #475569;
   --color-m-body-dark: #A1A1AA;
@@ -25,6 +25,7 @@
   --color-m-line-light: #E4E4E7;
   --color-m-accent: #22D3EE;
   --color-m-accent-dim: #0891B2;
+  --color-m-accent-sky: #0EA5E9;
   --color-m-green: #4ADE80;
   --color-m-blue: #60A5FA;
 }
@@ -38,7 +39,7 @@ html {
 }
 
 body {
-  background: #FFFFFF;
+  background: var(--color-m-black);
   color: var(--color-m-ink);
   font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
@@ -55,16 +56,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAFAFA;
+  background: #0A0A0A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #A1A1AA;
+  background: #333;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #71717A;
+  background: #555;
 }
 
 /* Selection */
@@ -77,6 +78,57 @@ h1, h2, h3, h4, h5, h6 {
 :focus-visible {
   outline: 2px solid var(--color-m-accent);
   outline-offset: 2px;
+}
+
+/* ─── Animations ─── */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-slow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes chevron-pulse {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(6px); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out both;
+}
+
+.animate-fade-in-d1 {
+  animation: fade-in 0.8s ease-out 0.1s both;
+}
+
+.animate-fade-in-d2 {
+  animation: fade-in 0.8s ease-out 0.2s both;
+}
+
+.animate-fade-in-d3 {
+  animation: fade-in 0.8s ease-out 0.35s both;
+}
+
+.animate-fade-in-d4 {
+  animation: fade-in 0.8s ease-out 0.5s both;
+}
+
+.animate-fade-in-slow {
+  animation: fade-in-slow 1.2s ease-out 0.6s both;
+}
+
+.animate-chevron {
+  animation: chevron-pulse 2.4s ease-in-out infinite;
 }
 
 /* Blog prose: heading anchors get IDs for TOC scroll targeting */

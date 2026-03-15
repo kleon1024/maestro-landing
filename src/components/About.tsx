@@ -1,24 +1,38 @@
 ////////////////////////////////////////////////////////////////////////////////
-// [About] S7: Company — minimal, 3 sentences, narrow column
+// [About] S7: Company — LIGHT, minimal, 3 core facts
 //
-// Design: bg-white, max-w-3xl centered, colophon feel
-// Copy: CMO v2 "About" verbatim
+// Design: bg-white, max-w-2xl centered, minimal text
+// Rhythm: LIGHT
 ////////////////////////////////////////////////////////////////////////////////
 
 export function About() {
   return (
-    <section id="about" className="bg-white py-20 lg:py-28">
-      <div className="max-w-3xl mx-auto px-6">
+    <section
+      id="about"
+      data-theme="light"
+      className="bg-white min-h-[60vh] flex items-center py-24 lg:py-32"
+    >
+      <div className="max-w-2xl mx-auto px-8">
         {/* Label */}
-        <p className="font-mono text-xs font-bold tracking-widest uppercase text-m-accent-dim mb-6">
+        <p className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-m-accent-sky mb-8">
           COMPANY
         </p>
 
-        {/* Body */}
-        <p className="text-lg text-m-body leading-relaxed mb-4">
-          Maestro AI Pte. Ltd. Singapore-registered. AI-native team.
-        </p>
-        <p className="text-lg text-m-body leading-relaxed">
+        {/* Three facts */}
+        <div className="space-y-4">
+          <p className="font-serif text-2xl md:text-3xl font-bold text-m-ink leading-snug">
+            Singapore.
+          </p>
+          <p className="font-serif text-2xl md:text-3xl font-bold text-m-ink leading-snug">
+            AI-native.
+          </p>
+          <p className="font-serif text-2xl md:text-3xl font-bold text-m-ink leading-snug">
+            Every project compounds.
+          </p>
+        </div>
+
+        {/* Founder line */}
+        <p className="text-base text-m-body leading-relaxed mt-10 max-w-xl">
           Founded by Li Ding — data engineer, former ByteDance tech lead,
           economics research background. Built from the conviction that data
           engineering should compound, not restart.

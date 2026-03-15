@@ -1,7 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// [Footer] Minimal footer — company name + email + site links
-//
-// Design: bg-m-black border-top, single row
+// [Footer] Minimal footer — copyright only, dark continuation
 ////////////////////////////////////////////////////////////////////////////////
 
 import { CONTACT } from "@/lib/constants";
@@ -11,9 +9,9 @@ export function Footer() {
 
   return (
     <footer className="bg-m-black border-t border-m-line-dark">
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-8 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-zinc-600">
             &copy; {currentYear} Maestro AI Pte. Ltd. Singapore
           </p>
           <div className="flex items-center gap-6">
@@ -21,19 +19,19 @@ export function Footer() {
               href="https://ra.maestro.onl"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
             >
               ra.maestro.onl
             </a>
             <a
               href="/blog"
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
             >
               Blog
             </a>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
             >
               {CONTACT.email}
             </a>
