@@ -66,14 +66,14 @@ export function Navigation() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-sm transition-colors duration-300 cursor-pointer ${textColor}`}
+                className={`text-sm transition-all duration-300 cursor-pointer underline-offset-4 decoration-transparent hover:decoration-current ${textColor}`}
               >
                 {link.label}
               </a>
             ))}
             <a
               href={`mailto:${CONTACT.email}`}
-              className={`text-sm font-medium transition-colors duration-300 cursor-pointer ${ctaColor}`}
+              className={`text-sm font-medium transition-all duration-300 cursor-pointer underline-offset-4 decoration-transparent hover:decoration-current ${ctaColor}`}
             >
               Get in touch
             </a>

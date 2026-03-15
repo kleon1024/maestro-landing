@@ -28,7 +28,7 @@ function StatusBadge({
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-wider px-2.5 py-1 border ${styles[status]}`}
+      className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 border ${styles[status]}`}
     >
       <span
         className={`w-1.5 h-1.5 rounded-full ${dotStyles[status]}`}
@@ -58,20 +58,26 @@ export function BusinessLines() {
 
         {/* Card grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {BUSINESS_LINES.map((line) => (
+          {BUSINESS_LINES.map((line, i) => (
             <div
               key={line.name}
-              className="border border-m-line-light p-8 md:p-10"
+              className="relative border border-m-line-light p-8 md:p-10 overflow-hidden"
             >
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <h3 className="font-serif text-xl lg:text-2xl font-bold text-m-ink">
-                  {line.name}
-                </h3>
-                <StatusBadge status={line.status} label={line.statusLabel} />
+              {/* Decorative number */}
+              <span className="absolute top-4 right-6 font-mono text-5xl font-bold text-slate-200/60 leading-none select-none pointer-events-none">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="relative">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <h3 className="font-serif text-xl lg:text-2xl font-bold text-m-ink">
+                    {line.name}
+                  </h3>
+                  <StatusBadge status={line.status} label={line.statusLabel} />
+                </div>
+                <p className="text-base text-m-body leading-relaxed">
+                  {line.description}
+                </p>
               </div>
-              <p className="text-base text-m-body leading-relaxed">
-                {line.description}
-              </p>
             </div>
           ))}
         </div>

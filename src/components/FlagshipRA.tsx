@@ -21,7 +21,7 @@ export function FlagshipRA() {
     >
       <div className="max-w-7xl mx-auto px-8">
         {/* Label */}
-        <p className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-m-accent mb-8">
+        <p className="font-mono text-[11px] font-bold tracking-widest uppercase text-cyan-400 mb-8">
           FIRST VERTICAL — PROVEN
         </p>
 

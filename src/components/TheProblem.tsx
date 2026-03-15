@@ -18,7 +18,7 @@ export function TheProblem() {
         </p>
 
         {/* Big number */}
-        <p className="font-mono text-6xl md:text-8xl font-bold text-m-ink mb-6 leading-none">
+        <p className="font-mono text-6xl md:text-8xl font-light text-m-ink mb-6 leading-none">
           $1.8T
         </p>
         <p className="font-mono text-sm uppercase tracking-wider text-m-muted mb-10">
@@ -42,7 +42,7 @@ export function TheProblem() {
         </div>
 
         {/* Punchline */}
-        <p className="font-serif text-2xl lg:text-3xl font-bold text-m-ink mt-12 leading-tight">
+        <p className="font-serif text-2xl lg:text-3xl font-semibold text-m-ink mt-12 leading-tight">
           The operations repeat.
           <br />
           The implementations never compound.

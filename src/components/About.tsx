@@ -20,13 +20,13 @@ export function About() {
 
         {/* Three facts */}
         <div className="space-y-4">
-          <p className="font-serif text-2xl md:text-3xl font-bold text-m-ink leading-snug">
+          <p className="font-serif text-3xl md:text-4xl font-bold text-m-ink leading-snug">
             Singapore.
           </p>
-          <p className="font-serif text-2xl md:text-3xl font-bold text-m-ink leading-snug">
+          <p className="font-serif text-3xl md:text-4xl font-bold text-m-ink leading-snug">
             AI-native.
           </p>
-          <p className="font-serif text-2xl md:text-3xl font-bold text-m-ink leading-snug">
+          <p className="font-serif text-3xl md:text-4xl font-bold text-m-ink leading-snug">
             Every project compounds.
           </p>
         </div>

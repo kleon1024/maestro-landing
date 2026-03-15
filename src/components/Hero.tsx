@@ -27,14 +27,14 @@ export function Hero() {
         </p>
 
         {/* H1 — each line breathes */}
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight mb-10 max-w-5xl animate-fade-in-d1">
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.05] tracking-tight mb-10 max-w-5xl animate-fade-in-d1">
           We turn complex engineering
           <br className="hidden md:block" /> into compounding
           <br className="hidden md:block" /> AI infrastructure.
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-m-body-dark leading-relaxed max-w-2xl mb-14 animate-fade-in-d2">
+        <p className="text-lg md:text-xl text-m-body-dark leading-relaxed max-w-lg mb-14 animate-fade-in-d2">
           Every project we deliver produces two things: the client&apos;s
           result, and a reusable AI module that makes the next project faster.
           Data engineering was first. It won&apos;t be last.

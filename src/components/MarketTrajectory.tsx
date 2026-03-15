@@ -63,7 +63,7 @@ export function MarketTrajectory() {
               key={tier.name}
               className={`border-t border-m-line-dark py-8 md:py-10 ${
                 i === TIERS.length - 1 ? "border-b" : ""
-              }`}
+              } ${!tier.active ? "opacity-60" : ""}`}
             >
               <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-12">
                 {/* Timeline badge */}

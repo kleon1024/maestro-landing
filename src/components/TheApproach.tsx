@@ -61,7 +61,7 @@ export function TheApproach() {
               {FLYWHEEL_NODES.map((node) => (
                 <div
                   key={node.label}
-                  className="border border-m-line-dark bg-m-near-black px-6 py-5 text-center"
+                  className="border border-zinc-700 bg-zinc-800/50 px-6 py-5 text-center"
                 >
                   <p className="font-mono text-xs font-bold tracking-[0.15em] text-m-accent">
                     {node.label}
@@ -136,7 +136,7 @@ export function TheApproach() {
           <div className="flex flex-col items-center gap-3">
             {FLYWHEEL_NODES.map((node, i) => (
               <div key={node.label} className="w-full max-w-xs">
-                <div className="border border-m-line-dark bg-m-near-black px-5 py-4 text-center">
+                <div className="border border-zinc-700 bg-zinc-800/50 px-5 py-4 text-center">
                   <p className="font-mono text-xs font-bold tracking-[0.15em] text-m-accent">
                     {node.label}
                   </p>
@@ -181,7 +181,7 @@ export function TheApproach() {
               <div className="font-mono text-5xl lg:text-6xl font-bold text-white">
                 {stat.value}
               </div>
-              <div className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-500 mt-3">
+              <div className="font-mono text-[11px] uppercase tracking-widest text-cyan-400 mt-3">
                 {stat.label}
               </div>
             </div>
