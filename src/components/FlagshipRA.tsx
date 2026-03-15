@@ -1,115 +1,81 @@
 ////////////////////////////////////////////////////////////////////////////////
-// [FlagshipRA] Responsibility: Showcase RA Suite as the flagship product
+// [FlagshipRA] Responsibility: Showcase RA Data as the flagship product
 //
-// Design: Three-part layout
-//   Part 1: Left-right split (col-4 label+stats | col-8 services)
-//   Part 2: Geographic coverage — 4 SVG map cards
-//   Part 3: Full-width dark terminal mockup + delivery specs
-// Invariants: RA Suite only — 3 sub-services (Data, Website, Paper)
+// Design: Two-part layout
+//   Part 1: Left label+stats | Right simplified ontology (4 operations)
+//   Part 2: Key metrics bar + CTA
+//
+// Positioning: RA Data proves Maestro AI's infrastructure works.
+// Simplified ontology framework + key numbers + deep-dive CTA.
 ////////////////////////////////////////////////////////////////////////////////
 
-import Image from "next/image";
-
 const RA_STATS = [
-  { value: "50+", label: "Labs Supported" },
-  { value: "2M+", label: "Rows Delivered" },
-  { value: "100%", label: "Replication Rate" },
-  { value: "5", label: "Regions Covered" },
+  { value: "8", label: "Atomic Capabilities" },
+  { value: "3,232", label: "Prospects Identified" },
+  { value: "70M+", label: "Data Rows Processed" },
+  { value: "8", label: "Projects Delivered" },
 ];
 
-const RA_SERVICES = [
+const OPERATIONS = [
   {
-    id: "data",
-    number: "01",
-    title: "RA Data",
-    subtitle: "Research Data Engineering",
-    description: "Turn scanned PDFs, government Excel files, shapefiles, and public APIs into regression-ready panels with full audit trails.",
-    specs: ["Stata / R / Python", "Complex Merges", "GIS & Spatial", "OCR Pipeline", "Multi-Source", "Replication Pkg"],
-    accent: "border-blue-400",
+    name: "Acquisition",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+      </svg>
+    ),
+    examples: ["OCR", "Scraping", "API"],
+    color: "text-emerald-600",
+    bg: "bg-emerald-50",
   },
   {
-    id: "website",
-    number: "02",
-    title: "RA Website",
-    subtitle: "Research Platform Engineering",
-    description: "Experiment interfaces, lab management systems, and research platforms built for academic workflows.",
-    specs: ["oTree / Qualtrics", "Lab CMS", "Participant Mgmt", "Multi-language", "Interactive Viz", "Server Ops"],
-    accent: "border-teal-400",
+    name: "Alignment",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <polygon points="12,3 20,8 20,16 12,21 4,16 4,8" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+    examples: ["Spatial Join", "Crosswalk", "Entity Match"],
+    color: "text-blue-600",
+    bg: "bg-blue-50",
   },
   {
-    id: "paper",
-    number: "03",
-    title: "RA Paper",
-    subtitle: "Academic Writing Infrastructure",
-    description: "Collaborative LaTeX editing with real-time compilation, AI proofreading, and journal-ready templates.",
-    specs: ["Real-time LaTeX", "Git Integration", "AI Proofreader", "Journal Templates", "Reference Mgmt", "Figure Control"],
-    accent: "border-indigo-400",
+    name: "Transformation",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" d="M4 6h7M4 10h7M4 14h7" />
+        <path strokeLinecap="round" d="M13 6h7M13 10h7M13 14h7" />
+        <path d="M11 8L13 8M11 12L13 12" strokeDasharray="1.5 1.5" />
+      </svg>
+    ),
+    examples: ["Concordance", "Index Calc", "Imputation"],
+    color: "text-amber-600",
+    bg: "bg-amber-50",
+  },
+  {
+    name: "Computation",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" d="M4 20V4M4 20h16" />
+        <circle cx="8" cy="16" r="1.2" fill="currentColor" stroke="none" />
+        <circle cx="11" cy="12" r="1.2" fill="currentColor" stroke="none" />
+        <circle cx="14" cy="9" r="1.2" fill="currentColor" stroke="none" />
+        <circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none" />
+        <line x1="6" y1="18" x2="19" y2="5" strokeWidth={1} strokeDasharray="2 1.5" />
+      </svg>
+    ),
+    examples: ["GPU Accel", "Bootstrap", "Causal Inference"],
+    color: "text-rose-600",
+    bg: "bg-rose-50",
   },
 ] as const;
-
-const GEO_REGIONS = [
-  {
-    name: "United States",
-    src: "/images/maps/us-map.svg",
-    sources: "EPA WQP, NOAA CDO, USGS, TIGER/Line",
-    example: "County-month panels, 33K+ grid cells",
-    scale: "20M+ rows",
-  },
-  {
-    name: "Japan",
-    src: "/images/maps/japan-map.svg",
-    sources: "MAFF, e-Stat, land survey, trade",
-    example: "47 prefectures, prefecture-month",
-    scale: "5M+ rows",
-  },
-  {
-    name: "S.E. Asia",
-    src: "/images/maps/sea-map.svg",
-    sources: "Property, air quality, census",
-    example: "Planning area / district panels",
-    scale: "3M+ rows",
-  },
-  {
-    name: "Europe",
-    src: "/images/maps/europe-map.svg",
-    sources: "Eurostat, ECB, NUTS, OECD",
-    example: "38 economies, country-quarter",
-    scale: "2M+ rows",
-  },
-];
-
-// Delivery file tree — CSS mockup, no images
-function DeliveryTree() {
-  return (
-    <div className="bg-slate-900 p-6 font-mono text-sm text-slate-300 h-full flex flex-col justify-center">
-      <div className="flex items-center gap-2 mb-4 border-b border-slate-700 pb-3">
-        <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-        <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
-        <span className="ml-2 text-[11px] text-slate-500">project_delivery.zip</span>
-      </div>
-      <div className="space-y-1.5 text-[13px]">
-        <p className="text-blue-400">-- 01_raw_data/</p>
-        <p className="text-blue-400">-- 02_scripts/</p>
-        <p className="pl-5 text-slate-400">-- 01_clean_survey.do</p>
-        <p className="pl-5 text-slate-400">-- 02_merge_panels.do</p>
-        <p className="pl-5 text-slate-400">-- 03_spatial_joins.py</p>
-        <p className="text-blue-400">-- 03_output/</p>
-        <p className="pl-5 text-slate-400">-- panel_county_month.csv</p>
-        <p className="pl-5 text-slate-400">-- table1_summary.tex</p>
-        <p className="pl-5 text-slate-400">-- figure2_coverage.pdf</p>
-        <p className="text-white mt-2">-- README.pdf <span className="text-green-400">validated</span></p>
-        <p className="text-white">-- audit_report.pdf <span className="text-green-400">100% complete</span></p>
-      </div>
-    </div>
-  );
-}
 
 export function FlagshipRA() {
   return (
     <section id="ra-suite" className="bg-white border-t border-b border-slate-200">
 
-      {/* Part 1: Left-right split */}
+      {/* Part 1: Left label+stats | Right ontology */}
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0">
 
         {/* Left: label + heading + stats */}
@@ -120,13 +86,15 @@ export function FlagshipRA() {
               <span className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.2em]">FLAGSHIP PRODUCT</span>
             </div>
             <h2 className="font-serif text-4xl lg:text-5xl font-medium text-slate-900 leading-[0.95] tracking-tight mb-4">
-              RA Suite
+              RA Data
             </h2>
             <p className="font-mono text-[11px] text-blue-600 uppercase tracking-wider mb-6">
-              Research Infrastructure Platform
+              Research Data Engineering at Scale
             </p>
             <p className="text-base text-slate-600 leading-relaxed mb-8">
-              Our most complex production system. Full research infrastructure for economists and social scientists — from raw data to published output.
+              Our most battle-tested product. Eight specialized pipelines
+              covering the full research data lifecycle — from scanned archives
+              to publication-ready panels.
             </p>
             <a
               href="https://ra.maestro.onl"
@@ -134,7 +102,7 @@ export function FlagshipRA() {
               rel="noopener noreferrer"
               className="inline-flex items-center h-11 rounded-none bg-slate-900 hover:bg-blue-600 text-white font-medium px-7 text-sm transition-colors"
             >
-              Explore RA Suite
+              Deep Dive into RA Data
               <svg className="ml-2.5 w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
               </svg>
@@ -152,111 +120,68 @@ export function FlagshipRA() {
           </div>
         </div>
 
-        {/* Right: 3 service cards */}
+        {/* Right: Simplified ontology — 4 operations */}
         <div className="lg:col-span-8 p-8 lg:p-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 h-full">
-            {RA_SERVICES.map((service) => (
+          <div className="mb-6">
+            <p className="font-mono text-[11px] text-slate-400 uppercase tracking-widest mb-2">
+              Data Engineering Ontology
+            </p>
+            <p className="text-sm text-slate-600">
+              Every research data project maps to four fundamental operations.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {OPERATIONS.map((op, idx) => (
               <div
-                key={service.id}
-                className={`group bg-white border border-slate-200 border-t-4 ${service.accent} p-6 hover:shadow-lg transition-all duration-300 flex flex-col`}
+                key={op.name}
+                className="group bg-white border border-slate-200 p-5 hover:shadow-lg transition-all duration-300 flex flex-col"
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest">{service.number}</span>
+                {/* Step number + icon */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className={`${op.color}`}>{op.icon}</span>
+                  <span className="font-mono text-[10px] text-slate-300 font-bold">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
                 </div>
-                <h3 className="font-serif text-xl font-semibold text-slate-900 mb-1">{service.title}</h3>
-                <p className="font-mono text-[11px] text-blue-600 uppercase tracking-wider mb-3">{service.subtitle}</p>
-                <p className="text-sm text-slate-600 leading-relaxed mb-5 flex-1">{service.description}</p>
-                <div className="grid grid-cols-2 gap-1.5">
-                  {service.specs.map((spec) => (
-                    <span key={spec} className="font-mono text-[10px] text-slate-500 border border-slate-100 px-1.5 py-0.5 truncate">
-                      {spec}
-                    </span>
+
+                <h3 className="font-serif text-lg font-semibold text-slate-900 mb-3">
+                  {op.name}
+                </h3>
+
+                {/* Example capabilities */}
+                <div className="space-y-1 mt-auto">
+                  {op.examples.map((ex) => (
+                    <div
+                      key={ex}
+                      className={`font-mono text-[10px] ${op.bg} ${op.color} px-2 py-0.5`}
+                    >
+                      {ex}
+                    </div>
                   ))}
                 </div>
               </div>
             ))}
           </div>
-        </div>
 
-      </div>
-
-      {/* Part 2: Geographic coverage map cards */}
-      <div className="border-t border-slate-200 bg-slate-50">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 py-10 lg:py-14">
-          <p className="font-mono text-[11px] text-slate-400 uppercase tracking-widest mb-6">
-            Geographic Coverage · Shapefile Processing at Scale
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {GEO_REGIONS.map((region) => (
-              <div
-                key={region.name}
-                className="group border border-slate-200 bg-white hover:shadow-lg hover:border-blue-300 transition-all duration-300"
-              >
-                {/* Map SVG */}
-                <div className="aspect-[4/3] relative overflow-hidden bg-slate-50 border-b border-slate-100">
-                  <Image
-                    src={region.src}
-                    alt={`${region.name} shapefile boundaries`}
-                    fill
-                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                {/* Info */}
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-serif text-base font-semibold text-slate-900">
-                      {region.name}
-                    </h3>
-                    <span className="font-mono text-[11px] font-bold text-blue-600">
-                      {region.scale}
-                    </span>
-                  </div>
-                  <p className="font-mono text-[10px] text-slate-400 mb-1 leading-relaxed">
-                    {region.sources}
-                  </p>
-                  <p className="text-xs text-slate-500">{region.example}</p>
-                </div>
+          {/* Arrow flow indicator */}
+          <div className="hidden lg:flex items-center justify-center mt-4 gap-2">
+            <span className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
+              Raw Data
+            </span>
+            <div className="flex-1 h-px bg-slate-200 relative">
+              <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                <svg className="w-3 h-3 text-slate-300" fill="currentColor" viewBox="0 0 12 12">
+                  <path d="M2 1l8 5-8 5V1z" />
+                </svg>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Part 3: Dark delivery specs row */}
-      <div className="border-t border-slate-200 bg-[#F9F9F9]">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0">
-
-          {/* Left: delivery specs */}
-          <div className="lg:col-span-7 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-slate-200">
-            <p className="font-mono text-[11px] text-slate-400 uppercase tracking-widest mb-6">Every Delivery Includes</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                { title: "Panel-Ready Dataset", desc: "Entity x time structure, labeled, deduplicated, validated" },
-                { title: "Reproducible Scripts", desc: "Stata / R / Python code with inline comments" },
-                { title: "QA Diagnostic Report", desc: "Completeness heatmap, Benford test, coverage chart" },
-                { title: "Variable Dictionary", desc: "Sources, transformations, and unit definitions for every variable" },
-                { title: "Audit Trail", desc: "Full log of processing steps and decisions" },
-                { title: "< 7-Day Turnaround", desc: "Standard timeline; rush 48h available on request" },
-              ].map((item) => (
-                <div key={item.title} className="flex items-start gap-2.5 border-t border-slate-200 pt-3">
-                  <svg className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">{item.title}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
             </div>
+            <span className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
+              Publication-Ready Panel
+            </span>
           </div>
-
-          {/* Right: file tree terminal */}
-          <div className="lg:col-span-5">
-            <DeliveryTree />
-          </div>
-
         </div>
+
       </div>
 
     </section>

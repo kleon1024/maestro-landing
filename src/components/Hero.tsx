@@ -2,106 +2,41 @@
 // [Hero] Responsibility: Landing page hero section
 //
 // Design: Split 12-col grid - left text (col-span-7) + right panel (col-span-5)
-// Right panel: RA Suite stats + abstract capability icon grid + flagship link
+// Right panel: Key stats + infrastructure layer diagram + flagship link
 // Container: max-w-[1400px]
+//
+// Positioning: AI Infrastructure Company — RA Data is the flagship proof point
 ////////////////////////////////////////////////////////////////////////////////
 
 const STATS = [
-  { value: "50+", label: "Labs Supported" },
-  { value: "2M+", label: "Rows Delivered" },
-  { value: "100%", label: "Replication Rate" },
+  { value: "8", label: "Atomic Capabilities" },
+  { value: "70M+", label: "Data Rows Processed" },
+  { value: "8", label: "Projects Delivered" },
 ];
 
-const TAGS = ["AI Product Dev", "Research Data", "RA Suite", "AI Strategy"];
+const TAGS = [
+  "AI Product Development",
+  "Data & Research Infrastructure",
+  "AI Strategy & Training",
+];
 
-// Abstract capability icons for RA Suite
-function IconShapefile() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      <polygon points="12,3 20,8 20,16 12,21 4,16 4,8" strokeLinejoin="round" />
-      <circle cx="12" cy="3" r="1" fill="currentColor" stroke="none" />
-      <circle cx="20" cy="8" r="1" fill="currentColor" stroke="none" />
-      <circle cx="20" cy="16" r="1" fill="currentColor" stroke="none" />
-      <circle cx="12" cy="21" r="1" fill="currentColor" stroke="none" />
-      <circle cx="4" cy="16" r="1" fill="currentColor" stroke="none" />
-      <circle cx="4" cy="8" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function IconPdfOcr() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-      <line x1="7.5" y1="13" x2="16.5" y2="13" strokeLinecap="round" />
-      <line x1="7.5" y1="15.5" x2="16.5" y2="15.5" strokeLinecap="round" />
-      <line x1="7.5" y1="18" x2="13" y2="18" strokeLinecap="round" />
-      {/* scan line */}
-      <line x1="5" y1="10.5" x2="19" y2="10.5" strokeLinecap="round" strokeDasharray="2 1.5" strokeWidth={1} />
-    </svg>
-  );
-}
-
-function IconRegression() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      {/* axes */}
-      <path strokeLinecap="round" d="M4 20V4M4 20h16" />
-      {/* scatter dots */}
-      <circle cx="7" cy="17" r="1.2" fill="currentColor" stroke="none" />
-      <circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none" />
-      <circle cx="11" cy="13" r="1.2" fill="currentColor" stroke="none" />
-      <circle cx="14" cy="10" r="1.2" fill="currentColor" stroke="none" />
-      <circle cx="16" cy="8" r="1.2" fill="currentColor" stroke="none" />
-      <circle cx="19" cy="6" r="1.2" fill="currentColor" stroke="none" />
-      {/* trend line */}
-      <line x1="5" y1="19" x2="20" y2="5" strokeWidth={1} strokeDasharray="2 1.5" />
-    </svg>
-  );
-}
-
-function IconReplication() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      {/* folder */}
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
-      {/* checkmark */}
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 14.25l2 2 4-4" strokeWidth={1.5} />
-    </svg>
-  );
-}
-
-function IconMultimodal() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      {/* stacked layers */}
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L2 7l10 5 10-5-10-5z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2 12l10 5 10-5" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2 17l10 5 10-5" />
-    </svg>
-  );
-}
-
-function IconPanel() {
-  return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      {/* table grid */}
-      <rect x="2.25" y="3" width="19.5" height="18" strokeLinecap="round" strokeLinejoin="round" />
-      <line x1="2.25" y1="8.25" x2="21.75" y2="8.25" />
-      <line x1="2.25" y1="13.5" x2="21.75" y2="13.5" />
-      <line x1="8.25" y1="3" x2="8.25" y2="21" />
-      <line x1="15.75" y1="8.25" x2="15.75" y2="21" />
-    </svg>
-  );
-}
-
-const RA_CAPABILITY_ICONS = [
-  { label: "Shapefile / GIS", Icon: IconShapefile },
-  { label: "PDF / OCR", Icon: IconPdfOcr },
-  { label: "Regression", Icon: IconRegression },
-  { label: "Replication Pkg", Icon: IconReplication },
-  { label: "Multimodal", Icon: IconMultimodal },
-  { label: "Panel Data", Icon: IconPanel },
+// Infrastructure stack layers for right panel visualization
+const INFRA_LAYERS = [
+  {
+    label: "Vertical Applications",
+    items: ["RA Data", "RA Analysis", "RA Paper"],
+    color: "bg-blue-50 border-blue-200 text-blue-700",
+  },
+  {
+    label: "AI Agent Orchestration",
+    items: ["Maestro Skills", "Agent Teams", "Quality Gates"],
+    color: "bg-slate-50 border-slate-200 text-slate-600",
+  },
+  {
+    label: "Composable Data Operations",
+    items: ["Acquisition", "Alignment", "Transformation", "Computation"],
+    color: "bg-slate-100 border-slate-300 text-slate-700",
+  },
 ];
 
 export function Hero() {
@@ -123,17 +58,19 @@ export function Hero() {
 
             {/* H1 */}
             <h1 className="font-serif text-5xl md:text-6xl lg:text-[3.75rem] font-medium text-slate-900 leading-[0.95] tracking-tight mb-6">
-              Enterprise AI.<br />
-              Built to<br />
-              Specification.
+              AI Infrastructure<br />
+              for Research<br />
+              &amp; Enterprise.
             </h1>
 
             {/* Subhead */}
             <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
-              We design and ship custom AI systems — anchored by RA Suite, our research infrastructure platform serving 50+ labs worldwide.
+              We orchestrate AI agents to solve data engineering at scale.
+              RA Data is our flagship — serving researchers across 5 regions
+              with 8 specialized data pipelines.
             </p>
 
-            {/* Capability tags */}
+            {/* Service line tags */}
             <div className="flex flex-wrap gap-2 mb-10">
               {TAGS.map((tag) => (
                 <span
@@ -153,7 +90,7 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center h-12 rounded-none bg-slate-900 text-white font-medium px-8 text-sm hover:bg-blue-600 transition-colors"
               >
-                Explore RA Suite
+                Explore RA Data
                 <svg className="ml-3 w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>
@@ -162,7 +99,7 @@ export function Hero() {
                 href="#contact"
                 className="inline-flex items-center justify-center h-12 rounded-none border-2 border-slate-300 bg-white text-slate-900 font-medium px-8 text-sm hover:border-blue-600 hover:text-blue-600 transition-colors"
               >
-                Start a Project
+                Contact Us
               </a>
             </div>
           </div>
@@ -180,29 +117,36 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Capability icon grid */}
+            {/* Infrastructure stack diagram */}
             <div>
               <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-3">
-                RA Suite Capabilities
+                Infrastructure Stack
               </div>
-              <div className="grid grid-cols-3 gap-2">
-                {RA_CAPABILITY_ICONS.map(({ label, Icon }) => (
+              <div className="flex flex-col gap-2">
+                {INFRA_LAYERS.map((layer) => (
                   <div
-                    key={label}
-                    className="border border-slate-100 bg-slate-50 p-3 flex flex-col items-center gap-2 hover:border-blue-200 hover:bg-blue-50 transition-colors group"
+                    key={layer.label}
+                    className={`border ${layer.color} p-3`}
                   >
-                    <span className="text-slate-400 group-hover:text-blue-500 transition-colors">
-                      <Icon />
-                    </span>
-                    <span className="font-mono text-[9px] text-slate-400 uppercase tracking-wide text-center leading-tight">
-                      {label}
-                    </span>
+                    <div className="font-mono text-[9px] uppercase tracking-wider mb-1.5 opacity-70">
+                      {layer.label}
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {layer.items.map((item) => (
+                        <span
+                          key={item}
+                          className="font-mono text-[10px] bg-white/60 border border-current/10 px-2 py-0.5"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* RA Suite flagship link */}
+            {/* RA Data flagship link */}
             <a
               href="https://ra.maestro.onl"
               target="_blank"
@@ -210,9 +154,9 @@ export function Hero() {
               className="border border-blue-200 bg-blue-50 p-4 flex items-center justify-between hover:border-blue-400 hover:bg-blue-100 transition-colors group"
             >
               <div>
-                <div className="font-medium text-sm text-blue-700">RA Suite</div>
+                <div className="font-medium text-sm text-blue-700">RA Data — Flagship Product</div>
                 <div className="font-mono text-[10px] text-blue-400 mt-0.5">
-                  Flagship · Research Infrastructure · ra.maestro.onl
+                  Research Data Engineering at Scale · ra.maestro.onl
                 </div>
               </div>
               <svg
