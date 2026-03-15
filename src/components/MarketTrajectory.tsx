@@ -10,7 +10,7 @@ const TIERS = [
     timeline: "NOW",
     name: "Research",
     description:
-      "Individual professors, PhD students, research assistants. Relationship-driven, project-scoped. Our core market and Skill-building engine.",
+      "Individual professors, PhD students, research assistants. Relationship-driven, project-scoped. Our core market, Skill-building engine, and proof that the flywheel works.",
     active: true,
     link: "https://ra.maestro.onl",
   },
@@ -18,7 +18,7 @@ const TIERS = [
     timeline: "H2 2026",
     name: "SMB + Institutional",
     description:
-      "Research institutions, think tanks, policy departments with recurring data needs. Standardized products, volume licensing.",
+      "Research institutions, think tanks, policy departments. Standardized products, volume licensing — and the first expansion beyond data into document intelligence and compliance workflows.",
     active: false,
     link: `mailto:hello@maestro.onl`,
   },
@@ -26,14 +26,14 @@ const TIERS = [
     timeline: "12\u201318 MONTHS",
     name: "Enterprise",
     description:
-      "Corporate data departments, consulting firms, government agencies. SLA-backed, integration-ready, compliance-grade.",
+      "Corporate departments, consulting firms, government agencies. SLA-backed, integration-ready. Multiple engineering verticals served from a single module library.",
     active: false,
   },
   {
     timeline: "18\u201336 MONTHS",
     name: "Corporate",
     description:
-      "Large-scale institutional deployments. Multi-year contracts, dedicated infrastructure, custom governance frameworks.",
+      "Large-scale institutional deployments. Multi-year contracts, dedicated infrastructure, custom governance. The platform becomes the operating layer for complex automation.",
     active: false,
   },
 ];

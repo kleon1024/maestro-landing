@@ -19,25 +19,25 @@ export function TheProblem() {
 
         {/* Big number */}
         <p className="font-mono text-6xl md:text-8xl font-bold text-m-ink mb-6 leading-none">
-          $200B
+          $1.8T
         </p>
         <p className="font-mono text-sm uppercase tracking-wider text-m-muted mb-10">
-          Spent annually on data engineering
+          Global enterprise automation spend by 2030
         </p>
 
         {/* Body */}
         <div className="space-y-6 text-lg text-m-body leading-relaxed">
           <p>
-            Most of that spend is labor: engineers writing bespoke (custom-built)
-            code for each project, each client, each dataset. The code ships,
-            the project closes, and the next project starts from zero.
+            Complex engineering tasks — data pipelines, document processing,
+            compliance checks, workflow orchestration — share a structural
+            problem: they are repetitive, expensive, expert-dependent, and
+            knowledge never accumulates.
           </p>
           <p>
-            This is structurally inefficient. A county-level spatial join in
-            climate research uses the same logic as a zip-code mapping in
-            insurance analytics. A boundary crosswalk for Chinese administrative
-            changes is the same class of problem as a product code concordance
-            (standardized mapping) in trade data.
+            A county-level spatial join in climate research uses the same logic
+            as a zip-code mapping in insurance analytics. An invoice extraction
+            pipeline for a law firm follows the same pattern as a medical record
+            parser. The domains differ. The engineering does not.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ export function TheProblem() {
         <p className="font-serif text-2xl lg:text-3xl font-bold text-m-ink mt-12 leading-tight">
           The operations repeat.
           <br />
-          The implementations do not get reused.
+          The implementations never compound.
         </p>
       </div>
     </section>

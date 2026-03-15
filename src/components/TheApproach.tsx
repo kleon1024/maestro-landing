@@ -7,7 +7,7 @@
 
 const STATS = [
   { value: "12", label: "Skills in production" },
-  { value: "8", label: "Atomic capabilities" },
+  { value: "8", label: "Atomic modules" },
   { value: "5+", label: "Projects delivered" },
   { value: "\u2193", label: "Decreasing cost" },
 ];
@@ -41,9 +41,11 @@ export function TheApproach() {
         {/* Body */}
         <div className="max-w-2xl text-lg text-m-body-dark leading-relaxed mb-16 space-y-4">
           <p>
-            When we deliver a data engineering project, we produce two outputs:
-            the client deliverable, and a Skill — a tested, versioned, reusable
-            pipeline module extracted from the project.
+            When we deliver an engineering project, we produce two outputs: the
+            client deliverable, and a Skill — a tested, versioned, reusable AI
+            module extracted from the work. The method is domain-agnostic.
+            Academic data was our first domain. Document intelligence,
+            compliance, and workflow automation are next.
           </p>
           <p>
             More projects = wider surface = faster delivery = lower marginal

@@ -16,32 +16,32 @@ export interface BusinessLine {
 
 export const BUSINESS_LINES: BusinessLine[] = [
   {
-    name: "Data Products",
+    name: "AI Automation Products",
     status: "live",
     statusLabel: "LIVE",
     description:
-      "Pre-built research datasets. China county boundary crosswalks, weather panels, satellite-derived climate variables. Self-service via Stripe. Gross margin >90%.",
+      "Pre-built AI modules for recurring engineering tasks. RA Data research datasets are the first product line — self-service, high margin, proven demand.",
   },
   {
-    name: "Data Engineering",
+    name: "Custom Engineering",
     status: "live",
     statusLabel: "LIVE",
     description:
-      "Custom pipelines scoped by complexity (L1-L4). Every deliverable is a reproducible pipeline, not a one-off file. Each project deposits at least one new Skill into the library.",
+      "We build AI-powered pipelines for your specific workflow. Data engineering, document processing, compliance checks. Every project deposits a new module into the library.",
   },
   {
-    name: "Data Infrastructure",
+    name: "Platform API",
     status: "roadmap",
     statusLabel: "Q3 2026",
     description:
-      "Platform APIs for programmatic data access. Conversational data procurement: describe what you need, get matched to datasets and processing pipelines, purchase in one step.",
+      "Programmatic access to our automation modules. Describe what you need, get structured output. One interface to the full skill library.",
   },
   {
     name: "Advisory",
     status: "on-demand",
     statusLabel: "ON DEMAND",
     description:
-      "Data strategy consulting for research institutions and policy organizations. Architecture reviews, pipeline audits, data governance design.",
+      "Strategic consulting for organizations planning AI adoption. Architecture review, feasibility assessment, pilot design.",
   },
 ];
 

@@ -33,9 +33,10 @@ export function About() {
 
         {/* Founder line */}
         <p className="text-base text-m-body leading-relaxed mt-10 max-w-xl">
-          Founded by Li Ding — data engineer, former ByteDance tech lead,
-          economics research background. Built from the conviction that data
-          engineering should compound, not restart.
+          Founded by Li Ding — engineer, former ByteDance tech lead, economics
+          research background. Built from the conviction that complex engineering
+          should compound, not restart. Data was the first domain. The
+          infrastructure is designed for many more.
         </p>
       </div>
     </section>

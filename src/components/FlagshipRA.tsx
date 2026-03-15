@@ -22,18 +22,19 @@ export function FlagshipRA() {
       <div className="max-w-7xl mx-auto px-8">
         {/* Label */}
         <p className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-m-accent mb-8">
-          PROOF OF CONCEPT
+          FIRST VERTICAL — PROVEN
         </p>
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4 max-w-4xl">
           Academic research data —
-          <br className="hidden md:block" /> our first vertical.
+          <br className="hidden md:block" /> where we proved the model.
         </h2>
         <p className="text-lg text-m-body-dark mb-12 max-w-2xl leading-relaxed">
           RA Data serves economists, political scientists, and social science
           researchers who need research-grade panel data but cannot build it
-          themselves. Live and revenue-generating.
+          themselves. Live, revenue-generating, and the foundation our AI module
+          library was built on.
         </p>
 
         {/* Metrics — oversized monospace numbers */}
