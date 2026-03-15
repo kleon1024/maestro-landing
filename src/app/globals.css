@@ -1,42 +1,32 @@
-@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Atkinson+Hyperlegible+Next:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap");
 @import "tailwindcss";
 
 /*
- * Maestro Design System v2.0
- * Theme: Institutional Enterprise
- * Color Palette: Corporate Navy + Warm White
- * Typography: Crimson Pro + Atkinson Hyperlegible
+ * Maestro Design System v3.0
+ * Theme: Dark hero, light body — "A pitch deck that scrolls"
+ * Color: Neutral + Cyan accent (#22D3EE)
+ * Typography: Georgia (serif) + Inter (sans) + JetBrains Mono (mono)
  */
 
-:root {
-  /* Background */
-  --bg-primary: #F9FAFB;
-  --bg-surface: #FFFFFF;
-  --bg-elevated: #F1F5F9;
-
-  /* Text */
-  --text-primary: #1A2744;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
-
-  /* Accent */
-  --accent-primary: #1A3A6B;
-  --accent-hover: #2563EB;
-
-  /* Gold */
-  --gold: #B8860B;
-  --gold-bg: #FFFBEB;
-  --gold-border: #FCD34D;
-
-  /* Border */
-  --border-default: #E2E8F0;
-  --border-subtle: #F1F5F9;
-}
-
 @theme {
-  --font-family-serif: 'Crimson Pro', Georgia, serif;
-  --font-family-sans: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, sans-serif;
-  --font-family-mono: ui-monospace, 'SFMono-Regular', 'Consolas', monospace;
+  --font-family-serif: Georgia, 'Playfair Display', serif;
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+
+  --color-m-black: #0A0A0A;
+  --color-m-near-black: #111111;
+  --color-m-dark-surface: #1A1A1A;
+  --color-m-offwhite: #FAFAFA;
+  --color-m-ink: #0F172A;
+  --color-m-body: #475569;
+  --color-m-body-dark: #A1A1AA;
+  --color-m-muted: #71717A;
+  --color-m-line-dark: #27272A;
+  --color-m-line-light: #E4E4E7;
+  --color-m-accent: #22D3EE;
+  --color-m-accent-dim: #0891B2;
+  --color-m-green: #4ADE80;
+  --color-m-blue: #60A5FA;
 }
 
 * {
@@ -48,8 +38,8 @@ html {
 }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: #FFFFFF;
+  color: var(--color-m-ink);
   font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -65,48 +55,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-elevated);
+  background: #FAFAFA;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #A1A1AA;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
+  background: #71717A;
 }
 
 /* Selection */
 ::selection {
-  background: #DBEAFE;
-  color: var(--text-primary);
+  background: #22D3EE33;
+  color: inherit;
 }
 
 /* Focus styles for accessibility */
 :focus-visible {
-  outline: 2px solid var(--accent-primary);
+  outline: 2px solid var(--color-m-accent);
   outline-offset: 2px;
-}
-
-/* Utility: Section padding */
-.section-padding {
-  padding-top: 140px;
-  padding-bottom: 140px;
-}
-
-@media (max-width: 1024px) {
-  .section-padding {
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-padding {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
 }
 
 /* Blog prose: heading anchors get IDs for TOC scroll targeting */
@@ -117,6 +87,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Blog prose: image styling */
 .prose-maestro img {
-  border-radius: 8px;
-  border: 1px solid var(--border-default);
+  border-radius: 0;
+  border: 1px solid var(--color-m-line-light);
 }

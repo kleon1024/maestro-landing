@@ -1,12 +1,13 @@
 import {
   Navigation,
   Hero,
+  TheProblem,
+  TheApproach,
   FlagshipRA,
-  Services,
-  ProcessWorkflow,
-  Products,
+  BusinessLines,
+  MarketTrajectory,
   About,
-  Contact,
+  BottomCTA,
   Footer,
 } from "@/components";
 import { OrganizationJsonLd } from "@/components/OrganizationJsonLd";
@@ -18,12 +19,13 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
+        <TheProblem />
+        <TheApproach />
         <FlagshipRA />
-        <Services />
-        <ProcessWorkflow />
-        <Products />
+        <BusinessLines />
+        <MarketTrajectory />
         <About />
-        <Contact />
+        <BottomCTA />
       </main>
       <Footer />
     </>

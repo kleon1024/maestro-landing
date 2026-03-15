@@ -1,9 +1,10 @@
 export { Navigation } from "./Navigation";
 export { Hero } from "./Hero";
+export { TheProblem } from "./TheProblem";
+export { TheApproach } from "./TheApproach";
 export { FlagshipRA } from "./FlagshipRA";
-export { Products } from "./Products";
-export { Services } from "./Services";
-export { ProcessWorkflow } from "./ProcessWorkflow";
+export { BusinessLines } from "./BusinessLines";
+export { MarketTrajectory } from "./MarketTrajectory";
 export { About } from "./About";
-export { Contact } from "./Contact";
+export { BottomCTA } from "./BottomCTA";
 export { Footer } from "./Footer";
