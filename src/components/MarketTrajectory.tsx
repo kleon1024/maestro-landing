@@ -8,32 +8,32 @@
 const TIERS = [
   {
     timeline: "NOW",
-    name: "Research",
+    name: "Research Data",
     description:
-      "Individual professors, PhD students, research assistants. Relationship-driven, project-scoped. Our core market, Skill-building engine, and proof that the flywheel works.",
+      "The cash wedge: dataset construction, source acquisition, cleaning, joins, QA, codebooks, and replication-ready delivery for academic teams.",
     active: true,
     link: "https://ra.maestro.onl",
   },
   {
     timeline: "H2 2026",
-    name: "SMB + Institutional",
+    name: "Research Infrastructure",
     description:
-      "Research institutions, think tanks, policy departments. Standardized products, volume licensing — and the first expansion beyond data into document intelligence and compliance workflows.",
+      "Datasets, compute, experiment deployment, evidence packages, and lab workflow tooling under one research-native operating layer.",
     active: false,
     link: `mailto:hello@maestro.onl`,
   },
   {
-    timeline: "12\u201318 MONTHS",
-    name: "Enterprise",
+    timeline: "AFTER PROOF",
+    name: "Enterprise Data Operations",
     description:
-      "Corporate departments, consulting firms, government agencies. SLA-backed, integration-ready. Multiple engineering verticals served from a single module library.",
+      "Data-driven work for firms, consultants, and institutions: collection, transformation, validation, reporting, and operational workflows served by the same agent substrate.",
     active: false,
   },
   {
-    timeline: "18\u201336 MONTHS",
-    name: "Corporate",
+    timeline: "LONG TERM",
+    name: "Agent Platform",
     description:
-      "Large-scale institutional deployments. Multi-year contracts, dedicated infrastructure, custom governance. The platform becomes the operating layer for complex automation.",
+      "Programmatic access to reusable agents, source connectors, compute runs, QA contracts, and deliverable generation across research and enterprise workflows.",
     active: false,
   },
 ];
@@ -52,8 +52,8 @@ export function MarketTrajectory() {
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-16 max-w-4xl">
-          Research today.
-          <br /> Enterprise tomorrow.
+          Research infra first.
+          <br /> Agent platform later.
         </h2>
 
         {/* Tier list */}

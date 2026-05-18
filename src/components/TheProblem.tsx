@@ -17,35 +17,34 @@ export function TheProblem() {
           THE PROBLEM
         </p>
 
-        {/* Big number */}
-        <p className="font-mono text-6xl md:text-8xl font-light text-m-ink mb-6 leading-none">
-          $1.8T
+        {/* Anchor */}
+        <p className="font-mono text-5xl md:text-7xl font-light text-m-ink mb-6 leading-none">
+          DATA
         </p>
         <p className="font-mono text-sm uppercase tracking-wider text-m-muted mb-10">
-          Global enterprise automation spend by 2030
+          Compute / datasets / experiments / evidence
         </p>
 
         {/* Body */}
         <div className="space-y-6 text-lg text-m-body leading-relaxed">
           <p>
-            Complex engineering tasks — data pipelines, document processing,
-            compliance checks, workflow orchestration — share a structural
-            problem: they are repetitive, expensive, expert-dependent, and
-            knowledge never accumulates.
+            Research teams run on fragile infrastructure: scraped sources,
+            panel datasets, code notebooks, experiments, model runs, and
+            replication packages held together by ad hoc labor.
           </p>
           <p>
-            A county-level spatial join in climate research uses the same logic
-            as a zip-code mapping in insurance analytics. An invoice extraction
-            pipeline for a law firm follows the same pattern as a medical record
-            parser. The domains differ. The engineering does not.
+            The same pattern appears in enterprise data operations: real-world
+            data must be collected, cleaned, checked, computed, packaged, and
+            explained. The domain changes. The operating layer should not start
+            from zero each time.
           </p>
         </div>
 
         {/* Punchline */}
         <p className="font-serif text-2xl lg:text-3xl font-semibold text-m-ink mt-12 leading-tight">
-          The operations repeat.
+          Research is the first wedge.
           <br />
-          The implementations never compound.
+          Data-driven operations are the platform.
         </p>
       </div>
     </section>

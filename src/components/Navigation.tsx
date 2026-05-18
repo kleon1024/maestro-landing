@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { NAV_LINKS, CONTACT } from "@/lib/constants";
 
@@ -52,24 +53,34 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="/" className="cursor-pointer">
+          <Link href="/" className="cursor-pointer">
             <span
               className={`font-mono text-xs font-bold tracking-[0.2em] uppercase transition-colors duration-500 ${logoColor}`}
             >
               MAESTRO AI
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`text-sm transition-all duration-300 cursor-pointer underline-offset-4 decoration-transparent hover:decoration-current ${textColor}`}
-              >
-                {link.label}
-              </a>
+              link.href.startsWith("/") ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm transition-all duration-300 cursor-pointer underline-offset-4 decoration-transparent hover:decoration-current ${textColor}`}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm transition-all duration-300 cursor-pointer underline-offset-4 decoration-transparent hover:decoration-current ${textColor}`}
+                >
+                  {link.label}
+                </a>
+              )
             ))}
             <a
               href={`mailto:${CONTACT.email}`}
@@ -130,18 +141,33 @@ export function Navigation() {
           >
             <div className="flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`px-4 py-2.5 text-sm transition-colors cursor-pointer ${
-                    inDark
-                      ? "text-zinc-400 hover:text-white"
-                      : "text-m-body hover:text-m-ink"
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </a>
+                link.href.startsWith("/") ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-4 py-2.5 text-sm transition-colors cursor-pointer ${
+                      inDark
+                        ? "text-zinc-400 hover:text-white"
+                        : "text-m-body hover:text-m-ink"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`px-4 py-2.5 text-sm transition-colors cursor-pointer ${
+                      inDark
+                        ? "text-zinc-400 hover:text-white"
+                        : "text-m-body hover:text-m-ink"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
               <a
                 href={`mailto:${CONTACT.email}`}

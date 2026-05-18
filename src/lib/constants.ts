@@ -16,32 +16,32 @@ export interface BusinessLine {
 
 export const BUSINESS_LINES: BusinessLine[] = [
   {
-    name: "AI Automation Products",
+    name: "Research Data",
     status: "live",
     statusLabel: "LIVE",
     description:
-      "Pre-built AI modules for recurring engineering tasks. RA Data research datasets are the first product line — self-service, high margin, proven demand.",
+      "RA Data turns messy public, spatial, survey, and administrative sources into research-ready datasets with QA, documentation, and reproducible delivery.",
   },
   {
-    name: "Custom Engineering",
+    name: "Research Compute",
     status: "live",
     statusLabel: "LIVE",
     description:
-      "We build AI-powered pipelines for your specific workflow. Data engineering, document processing, compliance checks. Every project deposits a new module into the library.",
+      "Agent-assisted compute workflows for extraction, simulation, model runs, replication packages, and result validation across Python, R, Stata, and cloud runtimes.",
   },
   {
-    name: "Platform API",
+    name: "Experiment Infrastructure",
     status: "roadmap",
     statusLabel: "Q3 2026",
     description:
-      "Programmatic access to our automation modules. Describe what you need, get structured output. One interface to the full skill library.",
+      "From plain-language experiment design to participant-ready interfaces, deployment, data capture, and analysis pipelines for behavioral research.",
   },
   {
-    name: "Advisory",
+    name: "Enterprise Data Operations",
     status: "on-demand",
     statusLabel: "ON DEMAND",
     description:
-      "Strategic consulting for organizations planning AI adoption. Architecture review, feasibility assessment, pilot design.",
+      "The expansion path: agent infrastructure for data-driven enterprise work where sources, computation, QA, and deliverables must be repeatable.",
   },
 ];
 

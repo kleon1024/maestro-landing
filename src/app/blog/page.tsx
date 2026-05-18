@@ -49,7 +49,7 @@ export default function BlogIndexPage() {
           {/* Hero */}
           <div className="mb-16">
             <p className="text-xs font-mono tracking-wider text-zinc-600 uppercase mb-4">
-              /// Maestro Insights ///
+              {"/// Maestro Insights ///"}
             </p>
             <h1 className="text-4xl font-bold text-zinc-50 sm:text-5xl">
               Ideas on AI Orchestration
@@ -64,7 +64,7 @@ export default function BlogIndexPage() {
           {featured.length > 0 && (
             <section className="mb-12">
               <h2 className="text-xs font-mono tracking-wider text-zinc-600 uppercase mb-6">
-                /// Featured ///
+                {"/// Featured ///"}
               </h2>
               <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-1">
                 {featured.map((post) => (
@@ -78,7 +78,7 @@ export default function BlogIndexPage() {
           <section>
             {featured.length > 0 && (
               <h2 className="text-xs font-mono tracking-wider text-zinc-600 uppercase mb-6">
-                /// All Posts ///
+                {"/// All Posts ///"}
               </h2>
             )}
             <div className="grid gap-6 sm:grid-cols-2">

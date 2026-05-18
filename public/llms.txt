@@ -1,18 +1,19 @@
 # Maestro
 
-> AI company building tools that amplify human expertise.
+> AI-agent infrastructure for research work.
 
-Maestro builds AI-powered products across research infrastructure, behavioral economics, creative automation, and productivity. Based in Singapore, globally delivered. Website at maestro.onl.
+Maestro builds agent infrastructure for research teams that need reliable datasets, compute, experiments, QA, and reproducible delivery. RA Data is the first live wedge. The same substrate later expands into enterprise data-driven operations. Based in Singapore, globally delivered. Website at maestro.onl.
 
-## Flagship Product
+## Research Infrastructure
 
 ### RA Suite
 Professional research infrastructure for quantitative research. Trusted by 50+ research labs worldwide.
 
 Three integrated services:
 - **RA Data**: Turn messy public data sources into paper-ready datasets. Automated cleaning, merging, and visualization pipelines. Supports Stata, R, Python, complex merges, regression output, GIS and spatial analysis, multi-source integration, and replication package audits.
-- **RA Website**: Research platforms, experiment interfaces, and lab management systems built for academic workflows. Supports oTree and Qualtrics integration, lab CMS and dashboards, participant management, multi-language support, and interactive data visualization.
-- **RA Paper**: Collaborative LaTeX editing with real-time compilation, AI proofreading, Git integration, journal-ready templates, reference management, and figure control.
+- **Research Compute**: Agent-assisted compute workflows for extraction, simulation, model runs, replication packages, and result validation across Python, R, Stata, and cloud runtimes.
+- **Experiment Infrastructure**: Research platforms, experiment interfaces, and lab management systems built for academic workflows. Supports oTree and Qualtrics integration, participant management, deployment, and data capture.
+- **Research Evidence**: Reproducible packages, codebooks, source appendices, QA logs, and publication-ready artifacts.
 
 Stats: 50+ labs supported, 2M+ lines delivered, 100% replication rate.
 - URL: https://ra.maestro.onl
@@ -43,11 +44,10 @@ Creator content toolkit. Convert Markdown to WeChat-ready HTML with multiple the
 Multimodal practice and presentation rehearsal platform. Record, review, and refine talks with AI-powered feedback.
 - URL: https://rehearse.maestro.onl
 
-## Enterprise Services
+## Enterprise Expansion
 
-- Custom AI Solutions: end-to-end AI product development, requirements analysis, ML integration, full-stack development, deployment and support.
-- AI Tools and Integration: workflow automation, data pipelines, API integration, analytics dashboards.
-- AI Training and Upskilling: hands-on workshops, AI literacy programs, custom curriculum, certification support.
+- Enterprise Data Operations: agent infrastructure for data-driven enterprise workflows where sources, computation, validation, reporting, and deliverables must be repeatable.
+- Platform API: future programmatic access to reusable research and data-operation agents, source connectors, compute runs, QA contracts, and deliverable generation.
 
 ## Blog Articles
 

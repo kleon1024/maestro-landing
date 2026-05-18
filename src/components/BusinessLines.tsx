@@ -48,12 +48,13 @@ export function BusinessLines() {
       <div className="max-w-7xl mx-auto px-8">
         {/* Label */}
         <p className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-m-accent-sky mb-8">
-          BUSINESS STRUCTURE
+          PRODUCT SURFACES
         </p>
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-m-ink leading-[1.1] mb-14">
-          Four lines. One infrastructure.
+          One agent layer.
+          <br className="hidden md:block" /> Four surfaces.
         </h2>
 
         {/* Card grid */}

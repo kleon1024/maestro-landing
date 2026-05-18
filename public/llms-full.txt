@@ -1,14 +1,14 @@
 # Maestro -- Full Documentation for AI Systems
 
-> AI company building tools that amplify human expertise. Singapore-based, globally delivered.
+> AI-agent infrastructure for research work. Singapore-based, globally delivered.
 
 ## Company Overview
 
-Maestro is a Singapore-based AI company operating across two pillars: enterprise AI solutions and consumer AI products. The company builds AI-powered tools for research infrastructure, behavioral economics, creative automation, and productivity. Maestro partners with businesses to create custom AI solutions and develops consumer products that empower individuals.
+Maestro is a Singapore-based AI company building agent infrastructure for research teams. The first wedge is research infrastructure: datasets, compute, experiments, QA, and reproducible delivery. RA Data is the first live product surface; the same substrate later expands into enterprise data-driven operations where sources, computation, validation, reporting, and deliverables must be repeatable.
 
 ### Mission and Vision
 
-Maestro's mission is to amplify human capability through precision AI. The company operates on four core values:
+Maestro's mission is to make research work reproducible, computable, and easier to operate through AI agents. The company operates on four core values:
 
 - **Precision**: AI that delivers accurate, reliable results rather than guesses.
 - **Harmony**: AI and humans working in concert, not conflict.
@@ -24,11 +24,11 @@ Maestro's mission is to amplify human capability through precision AI. The compa
 
 ---
 
-## Flagship Product: RA Suite
+## Research Infrastructure: RA Suite
 
 URL: https://ra.maestro.onl
 
-RA Suite is a professional research infrastructure platform serving quantitative researchers in economics, psychology, and social sciences. It provides technical infrastructure that researchers typically need from a research assistant, delivered as a managed service.
+RA Suite is a professional research infrastructure platform serving quantitative researchers in economics, psychology, and social sciences. It provides the infrastructure researchers need around data, compute, experiments, QA, and reproducible delivery.
 
 ### RA Data (Data Processing Service)
 

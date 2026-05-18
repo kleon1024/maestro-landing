@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// [FlagshipRA] S4: Proof of Concept — DARK, big monospace metrics
+// [FlagshipRA] S4: First Wedge — DARK, big monospace metrics
 //
 // Design: bg-m-black, 4 metrics with oversized numbers, cyan CTA
 // Rhythm: DARK (continues from S3 — but separated by visual weight)
@@ -22,19 +22,19 @@ export function FlagshipRA() {
       <div className="max-w-7xl mx-auto px-8">
         {/* Label */}
         <p className="font-mono text-[11px] font-bold tracking-widest uppercase text-cyan-400 mb-8">
-          FIRST VERTICAL — PROVEN
+          FIRST WEDGE — LIVE
         </p>
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4 max-w-4xl">
-          Academic research data —
-          <br className="hidden md:block" /> where we proved the model.
+          RA Data is the entry point,
+          <br className="hidden md:block" /> not the whole company.
         </h2>
         <p className="text-lg text-m-body-dark mb-12 max-w-2xl leading-relaxed">
-          RA Data serves economists, political scientists, and social science
-          researchers who need research-grade panel data but cannot build it
-          themselves. Live, revenue-generating, and the foundation our AI module
-          library was built on.
+          We start where the pain is immediate: researchers need paper-ready
+          datasets, transparent QA, and reproducible delivery. That work gives
+          Maestro the contracts and agent modules for the broader research
+          infrastructure layer.
         </p>
 
         {/* Metrics — oversized monospace numbers */}

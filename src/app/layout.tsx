@@ -24,38 +24,38 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://maestro.onl"),
-  title: "Maestro AI — Complex Engineering into Compounding AI Infrastructure",
+  title: "Maestro AI — AI-Agent Infrastructure for Research Work",
   description:
-    "Maestro turns complex engineering into compounding AI infrastructure. Every project produces a reusable AI module. Data engineering was first. Document intelligence, compliance, and workflow automation are next.",
+    "Maestro builds AI-agent infrastructure for research teams: datasets, compute, experiments, QA, and reproducible delivery. RA Data is the first live wedge; enterprise data operations come next.",
   keywords: [
     "Maestro AI",
-    "AI automation infrastructure",
-    "AI engineering modules",
+    "AI agent infrastructure",
+    "research infrastructure",
     "RA data service",
+    "research compute",
+    "experiment infrastructure",
+    "dataset infrastructure",
     "research data processing",
     "AI tools for researchers",
-    "AI custom development Singapore",
-    "enterprise AI automation",
-    "document intelligence",
-    "compliance automation",
-    "workflow automation",
+    "enterprise data operations",
+    "data-driven engineering",
   ],
   authors: [{ name: "Maestro" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "https://maestro.onl" },
   openGraph: {
-    title: "Maestro AI — Complex Engineering into Compounding AI Infrastructure",
+    title: "Maestro AI — AI-Agent Infrastructure for Research Work",
     description:
-      "Maestro turns complex engineering into compounding AI infrastructure. Every project produces a reusable AI module. Data engineering was first. Document intelligence, compliance, and workflow automation are next.",
+      "Maestro builds AI-agent infrastructure for research teams: datasets, compute, experiments, QA, and reproducible delivery. RA Data is the first live wedge; enterprise data operations come next.",
     url: "https://maestro.onl",
     siteName: "Maestro",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maestro AI — Complex Engineering into Compounding AI Infrastructure",
+    title: "Maestro AI — AI-Agent Infrastructure for Research Work",
     description:
-      "Maestro turns complex engineering into compounding AI infrastructure. Every project produces a reusable AI module. Data engineering was first. Document intelligence, compliance, and workflow automation are next.",
+      "Maestro builds AI-agent infrastructure for research teams: datasets, compute, experiments, QA, and reproducible delivery. RA Data is the first live wedge; enterprise data operations come next.",
   },
 };
 

@@ -20,29 +20,31 @@ export function Hero() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-8 py-32 md:py-40">
+      <div className="relative w-full max-w-7xl mx-auto px-8 py-32 md:py-40">
         {/* Label */}
         <p className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-m-muted mb-10 animate-fade-in">
           MAESTRO AI
         </p>
 
         {/* H1 — each line breathes */}
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.05] tracking-tight mb-10 max-w-5xl animate-fade-in-d1">
-          We turn data engineering projects
-          <br className="hidden md:block" /> into compounding
-          <br className="hidden md:block" /> infrastructure.
+        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.05] tracking-tight mb-10 max-w-xs sm:max-w-lg md:max-w-5xl animate-fade-in-d1">
+          AI-agent
+          <span className="hidden md:inline"> </span>
+          <br className="md:hidden" />
+          infrastructure
+          <br /> for research work.
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-m-body-dark leading-relaxed max-w-lg mb-14 animate-fade-in-d2">
-          Maestro AI orchestrates AI agents to solve data engineering problems.
-          Every project we deliver produces two things: the client&apos;s result,
-          and a reusable pipeline module that makes the next project faster.
-          Five projects in, our marginal cost per project is already declining.
+        <p className="text-lg md:text-xl text-m-body-dark leading-relaxed max-w-xs sm:max-w-lg md:max-w-2xl mb-14 animate-fade-in-d2">
+          Maestro helps research teams turn messy data, computation, and
+          experiment workflows into reproducible systems. RA Data is the first
+          live wedge; the same agent layer expands into research compute,
+          datasets, experiments, and later enterprise data operations.
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-d3">
+        <div className="flex flex-col sm:flex-row gap-4 max-w-xs sm:max-w-none animate-fade-in-d3">
           <a
             href="https://ra.maestro.onl"
             target="_blank"

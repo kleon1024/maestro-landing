@@ -40,7 +40,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <nav className="hidden lg:block sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
       <p className="mb-3 text-xs font-mono uppercase tracking-wider text-zinc-600">
-        /// On This Page ///
+        {"/// On This Page ///"}
       </p>
       <ul className="space-y-1 border-l border-zinc-800">
         {headings.map((heading) => (

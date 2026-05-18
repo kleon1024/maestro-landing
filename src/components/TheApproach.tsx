@@ -6,17 +6,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 const STATS = [
-  { value: "12", label: "Skills in production" },
-  { value: "8", label: "Atomic modules" },
-  { value: "5+", label: "Projects delivered" },
-  { value: "\u2193", label: "Decreasing cost" },
+  { value: "12", label: "Agent skills" },
+  { value: "8", label: "Reusable modules" },
+  { value: "5+", label: "Delivered projects" },
+  { value: "4", label: "Research surfaces" },
 ];
 
 const FLYWHEEL_NODES = [
-  { label: "CLIENT REQUEST", position: "top-left" },
-  { label: "PROJECT DELIVERY", position: "top-right" },
-  { label: "SKILL CREATED", position: "bottom-right" },
-  { label: "SKILL LIBRARY", position: "bottom-left" },
+  { label: "RESEARCH WORKFLOW", position: "top-left" },
+  { label: "DELIVERED SYSTEM", position: "top-right" },
+  { label: "AGENT MODULE", position: "bottom-right" },
+  { label: "SHARED INFRA", position: "bottom-left" },
 ];
 
 export function TheApproach() {
@@ -34,22 +34,22 @@ export function TheApproach() {
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 max-w-4xl">
-          Every project leaves behind
-          <br className="hidden md:block" /> a building block.
+          Agents for the work
+          <br className="hidden md:block" /> around the paper.
         </h2>
 
         {/* Body */}
         <div className="max-w-2xl text-lg text-m-body-dark leading-relaxed mb-16 space-y-4">
           <p>
-            When we deliver an engineering project, we produce two outputs: the
-            client deliverable, and a Skill — a tested, versioned, reusable AI
-            module extracted from the work. The method is domain-agnostic.
-            Academic data was our first domain. Document intelligence,
-            compliance, and workflow automation are next.
+            A research workflow is not only a dataset. It is source discovery,
+            acquisition, cleaning, compute, experiment deployment, QA, evidence,
+            and a package another researcher can trust.
           </p>
           <p>
-            More projects = wider surface = faster delivery = lower marginal
-            cost.
+            We use agents to perform those steps under reusable contracts. RA
+            Data is live first; the same substrate supports research compute,
+            dataset products, experiment infrastructure, and enterprise data
+            operations when the pattern is proven.
           </p>
         </div>
 
@@ -125,7 +125,7 @@ export function TheApproach() {
             {/* Center label */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-                Next project is faster
+                One substrate, many workflows
               </p>
             </div>
           </div>
@@ -169,7 +169,7 @@ export function TheApproach() {
               </svg>
             </div>
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-500">
-              Next project is faster
+              One substrate, many workflows
             </p>
           </div>
         </div>

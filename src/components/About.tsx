@@ -34,9 +34,10 @@ export function About() {
         {/* Founder line */}
         <p className="text-base text-m-body leading-relaxed mt-10 max-w-xl">
           Founded by Li Ding — engineer, former ByteDance tech lead, economics
-          research background. Built from the conviction that complex engineering
-          should compound, not restart. Data was the first domain. The
-          infrastructure is designed for many more.
+          research background. Built from the conviction that research work
+          needs durable infrastructure around data, compute, experiments, and
+          evidence. The same agent substrate can later serve data-driven
+          enterprise operations.
         </p>
       </div>
     </section>

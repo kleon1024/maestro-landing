@@ -2,6 +2,7 @@
 // [Footer] Minimal footer — copyright only, dark continuation
 ////////////////////////////////////////////////////////////////////////////////
 
+import Link from "next/link";
 import { CONTACT } from "@/lib/constants";
 
 export function Footer() {
@@ -23,12 +24,12 @@ export function Footer() {
             >
               ra.maestro.onl
             </a>
-            <a
+            <Link
               href="/blog"
               className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
             >
               Blog
-            </a>
+            </Link>
             <a
               href={`mailto:${CONTACT.email}`}
               className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
