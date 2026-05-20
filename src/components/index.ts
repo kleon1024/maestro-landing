@@ -6,5 +6,5 @@ export { FlagshipRA } from "./FlagshipRA";
 export { BusinessLines } from "./BusinessLines";
 export { MarketTrajectory } from "./MarketTrajectory";
 export { About } from "./About";
-export { BottomCTA } from "./BottomCTA";
+export { BookDemo } from "./BookDemo";
 export { Footer } from "./Footer";

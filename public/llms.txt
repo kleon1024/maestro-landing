@@ -23,6 +23,13 @@ For paperwork-heavy operations: PMO, accounting prep, procurement, onboarding, c
 ### Market Intelligence
 For sales and marketing teams: lead discovery, buyer maps, prospect dossiers, account briefs, competitor scans, CRM evidence trails, and evidence-backed outreach.
 
+## System Capabilities
+
+- Communication Intelligence: voice workflows, email operations, customer support, and call-note conversion into structured cases and follow-ups.
+- Document Operations: OCR, file intake, form completion, multimodal evidence extraction, and evidence packet assembly.
+- Business Systems: client portals, CRM workflows, ERP handoffs, internal tools, and case tracking.
+- Finance and Records: bookkeeping preparation, invoice evidence, record matching, reconciliation support, and audit trails.
+
 ## Consumer Products
 
 ### Econ

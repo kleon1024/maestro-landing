@@ -20,7 +20,7 @@ const TIERS = [
     description:
       "Paperwork-heavy operations: PMO, accounting prep, procurement, onboarding, compliance packets, and document-heavy delivery workflows.",
     active: false,
-    link: `mailto:hello@maestro.onl`,
+    link: "#book-demo",
   },
   {
     timeline: "NEXT",
@@ -100,7 +100,7 @@ export function MarketTrajectory() {
                     >
                       {tier.link.startsWith("http")
                         ? "ra.maestro.onl"
-                        : "Get in touch"}
+                        : "Book a demo"}
                       <svg
                         className="ml-1 w-3.5 h-3.5"
                         fill="none"

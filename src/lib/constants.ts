@@ -14,6 +14,12 @@ export interface BusinessLine {
   description: string;
 }
 
+export interface CapabilityGroup {
+  name: string;
+  description: string;
+  examples: string[];
+}
+
 export const BUSINESS_LINES: BusinessLine[] = [
   {
     name: "Research Infrastructure",
@@ -35,6 +41,33 @@ export const BUSINESS_LINES: BusinessLine[] = [
     statusLabel: "Q3 2026",
     description:
       "For sales and marketing teams: lead discovery, buyer maps, prospect dossiers, account briefs, competitor scans, CRM evidence trails, and evidence-backed outreach.",
+  },
+];
+
+export const CAPABILITY_GROUPS: CapabilityGroup[] = [
+  {
+    name: "Communication Intelligence",
+    description:
+      "Voice, email, chat, and customer conversations converted into structured cases, follow-ups, and decisions.",
+    examples: ["Voice workflows", "Email operations", "Customer support", "Call notes"],
+  },
+  {
+    name: "Document Operations",
+    description:
+      "Files, forms, scanned records, and multimodal evidence extracted, checked, and assembled into usable work products.",
+    examples: ["OCR", "File intake", "Form completion", "Evidence packets"],
+  },
+  {
+    name: "Business Systems",
+    description:
+      "AI workflows connected to the operating systems where teams already work: portals, CRM, ERP, and internal tools.",
+    examples: ["Client portals", "CRM workflows", "ERP handoffs", "Case tracking"],
+  },
+  {
+    name: "Finance & Records",
+    description:
+      "Bookkeeping preparation, invoice evidence, reconciliations, and record organization for review-ready operations.",
+    examples: ["Bookkeeping prep", "Invoice evidence", "Record matching", "Audit trails"],
   },
 ];
 

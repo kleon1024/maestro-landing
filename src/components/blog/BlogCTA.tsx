@@ -3,7 +3,7 @@
 //
 // Two variants:
 // - "research": links to RA Suite for research-related articles
-// - "enterprise": links to contact section for enterprise/business articles
+// - "enterprise": links to demo request section for enterprise/business articles
 //
 // Invariants: variant must be "research" | "enterprise"
 // Placed after article content, before share buttons
@@ -24,12 +24,12 @@ const CTA_CONFIG = {
     external: true,
   },
   enterprise: {
-    label: "/// Enterprise ///",
-    heading: "Transform Your Business with AI",
+    label: "/// Systems ///",
+    heading: "Build AI Infrastructure for Evidence-Heavy Work",
     description:
-      "Custom AI solutions, workflow automation, and team upskilling. Let us build the right AI stack for your business.",
-    buttonText: "Get in Touch",
-    href: "/#contact",
+      "Research, business automation, and market intelligence systems built around sources, evidence, workflows, and reviewed deliverables.",
+    buttonText: "Book a Demo",
+    href: "/#book-demo",
     external: false,
   },
 } as const;

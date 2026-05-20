@@ -63,10 +63,10 @@ export function Hero() {
             </svg>
           </a>
           <a
-            href="#contact"
+            href="#book-demo"
             className="inline-flex items-center justify-center h-13 border border-zinc-700 text-zinc-300 font-medium px-8 hover:border-zinc-400 hover:text-white transition-colors"
           >
-            Get in touch
+            Book a demo
             <svg
               className="ml-2 w-4 h-4"
               fill="none"

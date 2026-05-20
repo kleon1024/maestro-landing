@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { NAV_LINKS, CONTACT } from "@/lib/constants";
+import { NAV_LINKS } from "@/lib/constants";
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -83,10 +83,10 @@ export function Navigation() {
               )
             ))}
             <a
-              href={`mailto:${CONTACT.email}`}
+              href="#book-demo"
               className={`text-sm font-medium transition-all duration-300 cursor-pointer underline-offset-4 decoration-transparent hover:decoration-current ${ctaColor}`}
             >
-              Get in touch
+              Book a demo
             </a>
           </div>
 
@@ -170,13 +170,13 @@ export function Navigation() {
                 )
               ))}
               <a
-                href={`mailto:${CONTACT.email}`}
+                href="#book-demo"
                 className={`px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
                   inDark ? "text-white" : "text-m-ink"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Get in touch
+                Book a demo
               </a>
             </div>
           </div>

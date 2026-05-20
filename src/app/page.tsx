@@ -7,7 +7,7 @@ import {
   BusinessLines,
   MarketTrajectory,
   About,
-  BottomCTA,
+  BookDemo,
   Footer,
 } from "@/components";
 import { OrganizationJsonLd } from "@/components/OrganizationJsonLd";
@@ -25,7 +25,7 @@ export default function Home() {
         <BusinessLines />
         <MarketTrajectory />
         <About />
-        <BottomCTA />
+        <BookDemo />
       </main>
       <Footer />
     </>
