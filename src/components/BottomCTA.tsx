@@ -22,8 +22,8 @@ export function BottomCTA() {
 
         {/* Body */}
         <p className="text-lg text-m-body-dark leading-relaxed mb-12">
-          RA Data is live. Explore the datasets, read the case studies, download
-          a sample.
+          Start with research infrastructure, business automation, or market
+          intelligence. RA Data is the live proof point.
         </p>
 
         {/* CTAs */}

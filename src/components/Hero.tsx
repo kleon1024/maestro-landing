@@ -28,19 +28,15 @@ export function Hero() {
 
         {/* H1 — each line breathes */}
         <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.05] tracking-tight mb-10 max-w-xs sm:max-w-lg md:max-w-5xl animate-fade-in-d1">
-          AI-agent
-          <span className="hidden md:inline"> </span>
-          <br className="md:hidden" />
-          infrastructure
-          <br /> for research work.
+          AI infrastructure
+          <br /> for evidence-heavy work.
         </h1>
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-m-body-dark leading-relaxed max-w-xs sm:max-w-lg md:max-w-2xl mb-14 animate-fade-in-d2">
-          Maestro helps research teams turn messy data, computation, and
-          experiment workflows into reproducible systems. RA Data is the first
-          live wedge; the same agent layer expands into research compute,
-          datasets, experiments, and later enterprise data operations.
+          Maestro builds reusable AI systems for research, business automation,
+          and market intelligence — turning scattered sources into verified
+          workflows, deliverables, and institutional memory.
         </p>
 
         {/* CTAs */}

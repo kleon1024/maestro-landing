@@ -10,7 +10,7 @@ export function OrganizationJsonLd() {
     name: "Maestro",
     url: "https://maestro.onl",
     description:
-      "AI-agent infrastructure company for research work: datasets, compute, experiments, QA, and reproducible delivery.",
+      "AI infrastructure company for evidence-heavy work across research, business automation, and market intelligence.",
     contactPoint: {
       "@type": "ContactPoint",
       email: "sales@maestro.onl",

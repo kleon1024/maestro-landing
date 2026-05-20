@@ -19,32 +19,31 @@ export function TheProblem() {
 
         {/* Anchor */}
         <p className="font-mono text-5xl md:text-7xl font-light text-m-ink mb-6 leading-none">
-          DATA
+          WORK
         </p>
         <p className="font-mono text-sm uppercase tracking-wider text-m-muted mb-10">
-          Compute / datasets / experiments / evidence
+          Sources / evidence / workflow / deliverable
         </p>
 
         {/* Body */}
         <div className="space-y-6 text-lg text-m-body leading-relaxed">
           <p>
-            Research teams run on fragile infrastructure: scraped sources,
-            panel datasets, code notebooks, experiments, model runs, and
-            replication packages held together by ad hoc labor.
+            The valuable work is not a chat prompt. It is buried in source
+            documents, datasets, emails, websites, forms, spreadsheets, and
+            domain judgment.
           </p>
           <p>
-            The same pattern appears in enterprise data operations: real-world
-            data must be collected, cleaned, checked, computed, packaged, and
-            explained. The domain changes. The operating layer should not start
-            from zero each time.
+            Research, operations, and go-to-market teams share the same failure
+            mode: evidence is scattered, workflows are manual, and every project
+            starts without memory from the last one.
           </p>
         </div>
 
         {/* Punchline */}
         <p className="font-serif text-2xl lg:text-3xl font-semibold text-m-ink mt-12 leading-tight">
-          Research is the first wedge.
+          AI only matters when it can own a workflow.
           <br />
-          Data-driven operations are the platform.
+          The workflow starts with evidence.
         </p>
       </div>
     </section>

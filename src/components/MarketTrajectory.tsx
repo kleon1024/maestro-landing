@@ -8,32 +8,32 @@
 const TIERS = [
   {
     timeline: "NOW",
-    name: "Research Data",
+    name: "Research Infrastructure",
     description:
-      "The cash wedge: dataset construction, source acquisition, cleaning, joins, QA, codebooks, and replication-ready delivery for academic teams.",
+      "Exploration and research production: datasets, compute, experiments, source discovery, replication, and evidence packages.",
     active: true,
     link: "https://ra.maestro.onl",
   },
   {
-    timeline: "H2 2026",
-    name: "Research Infrastructure",
+    timeline: "NEXT",
+    name: "Business Automation",
     description:
-      "Datasets, compute, experiment deployment, evidence packages, and lab workflow tooling under one research-native operating layer.",
+      "Paperwork-heavy operations: PMO, accounting prep, procurement, onboarding, compliance packets, and document-heavy delivery workflows.",
     active: false,
     link: `mailto:hello@maestro.onl`,
   },
   {
-    timeline: "AFTER PROOF",
-    name: "Enterprise Data Operations",
+    timeline: "NEXT",
+    name: "Market Intelligence",
     description:
-      "Data-driven work for firms, consultants, and institutions: collection, transformation, validation, reporting, and operational workflows served by the same agent substrate.",
+      "Sales and marketing intelligence: lead discovery, buyer maps, prospect dossiers, account briefs, competitor scans, and evidence-backed outreach.",
     active: false,
   },
   {
     timeline: "LONG TERM",
-    name: "Agent Platform",
+    name: "Shared Evidence Substrate",
     description:
-      "Programmatic access to reusable agents, source connectors, compute runs, QA contracts, and deliverable generation across research and enterprise workflows.",
+      "One kernel for source collection, evidence extraction, structured memory, workflow execution, human review, and reusable deliverables.",
     active: false,
   },
 ];
@@ -52,8 +52,8 @@ export function MarketTrajectory() {
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-16 max-w-4xl">
-          Research infra first.
-          <br /> Agent platform later.
+          Research, operations,
+          <br /> and revenue discovery.
         </h2>
 
         {/* Tier list */}

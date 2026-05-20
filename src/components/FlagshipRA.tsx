@@ -27,14 +27,13 @@ export function FlagshipRA() {
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4 max-w-4xl">
-          RA Data is the entry point,
-          <br className="hidden md:block" /> not the whole company.
+          Research infrastructure
+          <br className="hidden md:block" /> is the first wedge.
         </h2>
         <p className="text-lg text-m-body-dark mb-12 max-w-2xl leading-relaxed">
-          We start where the pain is immediate: researchers need paper-ready
-          datasets, transparent QA, and reproducible delivery. That work gives
-          Maestro the contracts and agent modules for the broader research
-          infrastructure layer.
+          We start where the pain is already concrete: researchers need
+          paper-ready datasets, compute, experiments, QA, and reproducible
+          delivery. RA Data is live, but the system is broader than data.
         </p>
 
         {/* Metrics — oversized monospace numbers */}

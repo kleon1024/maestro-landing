@@ -1,15 +1,14 @@
 # Maestro
 
-> AI-agent infrastructure for research work.
+> AI infrastructure for evidence-heavy work.
 
-Maestro builds agent infrastructure for research teams that need reliable datasets, compute, experiments, QA, and reproducible delivery. RA Data is the first live wedge. The same substrate later expands into enterprise data-driven operations. Based in Singapore, globally delivered. Website at maestro.onl.
+Maestro builds reusable AI systems for research, business automation, and market intelligence. The company turns scattered sources into verified workflows, deliverables, and institutional memory. Based in Singapore, globally delivered. Website at maestro.onl.
 
-## Research Infrastructure
+## Product Lines
 
-### RA Suite
-Professional research infrastructure for quantitative research. Trusted by 50+ research labs worldwide.
+### Research Infrastructure
+For exploration and research production: datasets, compute runs, experiments, literature and source discovery, replication packages, and evidence-backed research deliverables.
 
-Three integrated services:
 - **RA Data**: Turn messy public data sources into paper-ready datasets. Automated cleaning, merging, and visualization pipelines. Supports Stata, R, Python, complex merges, regression output, GIS and spatial analysis, multi-source integration, and replication package audits.
 - **Research Compute**: Agent-assisted compute workflows for extraction, simulation, model runs, replication packages, and result validation across Python, R, Stata, and cloud runtimes.
 - **Experiment Infrastructure**: Research platforms, experiment interfaces, and lab management systems built for academic workflows. Supports oTree and Qualtrics integration, participant management, deployment, and data capture.
@@ -17,6 +16,12 @@ Three integrated services:
 
 Stats: 50+ labs supported, 2M+ lines delivered, 100% replication rate.
 - URL: https://ra.maestro.onl
+
+### Business Automation
+For paperwork-heavy operations: PMO, accounting prep, procurement, onboarding, compliance packets, admin forms, client delivery ops, and document-heavy workflows.
+
+### Market Intelligence
+For sales and marketing teams: lead discovery, buyer maps, prospect dossiers, account briefs, competitor scans, CRM evidence trails, and evidence-backed outreach.
 
 ## Consumer Products
 
@@ -44,10 +49,9 @@ Creator content toolkit. Convert Markdown to WeChat-ready HTML with multiple the
 Multimodal practice and presentation rehearsal platform. Record, review, and refine talks with AI-powered feedback.
 - URL: https://rehearse.maestro.onl
 
-## Enterprise Expansion
+## Shared Substrate
 
-- Enterprise Data Operations: agent infrastructure for data-driven enterprise workflows where sources, computation, validation, reporting, and deliverables must be repeatable.
-- Platform API: future programmatic access to reusable research and data-operation agents, source connectors, compute runs, QA contracts, and deliverable generation.
+One kernel connects all product lines: source collection, evidence extraction, structured memory, workflow execution, human review, and reusable deliverables.
 
 ## Blog Articles
 

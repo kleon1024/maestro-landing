@@ -16,32 +16,25 @@ export interface BusinessLine {
 
 export const BUSINESS_LINES: BusinessLine[] = [
   {
-    name: "Research Data",
+    name: "Research Infrastructure",
     status: "live",
     statusLabel: "LIVE",
     description:
-      "RA Data turns messy public, spatial, survey, and administrative sources into research-ready datasets with QA, documentation, and reproducible delivery.",
+      "For exploration and research production: datasets, compute runs, experiments, literature and source discovery, replication packages, and evidence-backed research deliverables.",
   },
   {
-    name: "Research Compute",
+    name: "Business Automation",
     status: "live",
     statusLabel: "LIVE",
     description:
-      "Agent-assisted compute workflows for extraction, simulation, model runs, replication packages, and result validation across Python, R, Stata, and cloud runtimes.",
+      "For paperwork-heavy operations: PMO, accounting prep, procurement, onboarding, compliance packets, admin forms, client delivery ops, and document-heavy workflows.",
   },
   {
-    name: "Experiment Infrastructure",
+    name: "Market Intelligence",
     status: "roadmap",
     statusLabel: "Q3 2026",
     description:
-      "From plain-language experiment design to participant-ready interfaces, deployment, data capture, and analysis pipelines for behavioral research.",
-  },
-  {
-    name: "Enterprise Data Operations",
-    status: "on-demand",
-    statusLabel: "ON DEMAND",
-    description:
-      "The expansion path: agent infrastructure for data-driven enterprise work where sources, computation, QA, and deliverables must be repeatable.",
+      "For sales and marketing teams: lead discovery, buyer maps, prospect dossiers, account briefs, competitor scans, CRM evidence trails, and evidence-backed outreach.",
   },
 ];
 
@@ -51,8 +44,8 @@ export const CONTACT = {
 
 export const NAV_LINKS = [
   { href: "#approach", label: "Approach" },
-  { href: "#proof", label: "RA Data" },
-  { href: "#services", label: "Services" },
+  { href: "#proof", label: "Research" },
+  { href: "#services", label: "Systems" },
   { href: "#about", label: "About" },
   { href: "/blog", label: "Blog" },
 ];

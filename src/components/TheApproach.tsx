@@ -6,17 +6,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 const STATS = [
+  { value: "3", label: "Product lines" },
   { value: "12", label: "Agent skills" },
   { value: "8", label: "Reusable modules" },
   { value: "5+", label: "Delivered projects" },
-  { value: "4", label: "Research surfaces" },
 ];
 
 const FLYWHEEL_NODES = [
-  { label: "RESEARCH WORKFLOW", position: "top-left" },
+  { label: "SOURCE EVIDENCE", position: "top-left" },
   { label: "DELIVERED SYSTEM", position: "top-right" },
   { label: "AGENT MODULE", position: "bottom-right" },
-  { label: "SHARED INFRA", position: "bottom-left" },
+  { label: "WORKFLOW MEMORY", position: "bottom-left" },
 ];
 
 export function TheApproach() {
@@ -34,22 +34,21 @@ export function TheApproach() {
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 max-w-4xl">
-          Agents for the work
-          <br className="hidden md:block" /> around the paper.
+          One substrate.
+          <br className="hidden md:block" /> Three work domains.
         </h2>
 
         {/* Body */}
         <div className="max-w-2xl text-lg text-m-body-dark leading-relaxed mb-16 space-y-4">
           <p>
-            A research workflow is not only a dataset. It is source discovery,
-            acquisition, cleaning, compute, experiment deployment, QA, evidence,
-            and a package another researcher can trust.
+            Research infrastructure produces knowledge artifacts. Business
+            automation runs paperwork-heavy operations. Market intelligence
+            finds and qualifies revenue opportunities.
           </p>
           <p>
-            We use agents to perform those steps under reusable contracts. RA
-            Data is live first; the same substrate supports research compute,
-            dataset products, experiment infrastructure, and enterprise data
-            operations when the pattern is proven.
+            The shared substrate is stable: sources become evidence, evidence
+            becomes memory, memory drives tools and workflows, and the output is
+            a reviewed deliverable that makes the next run faster.
           </p>
         </div>
 

@@ -53,8 +53,8 @@ export function BusinessLines() {
 
         {/* Heading */}
         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-m-ink leading-[1.1] mb-14">
-          One agent layer.
-          <br className="hidden md:block" /> Four surfaces.
+          Three systems for
+          <br className="hidden md:block" /> evidence-heavy teams.
         </h2>
 
         {/* Card grid */}

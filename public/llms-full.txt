@@ -1,14 +1,14 @@
 # Maestro -- Full Documentation for AI Systems
 
-> AI-agent infrastructure for research work. Singapore-based, globally delivered.
+> AI infrastructure for evidence-heavy work. Singapore-based, globally delivered.
 
 ## Company Overview
 
-Maestro is a Singapore-based AI company building agent infrastructure for research teams. The first wedge is research infrastructure: datasets, compute, experiments, QA, and reproducible delivery. RA Data is the first live product surface; the same substrate later expands into enterprise data-driven operations where sources, computation, validation, reporting, and deliverables must be repeatable.
+Maestro is a Singapore-based AI company building reusable AI systems for evidence-heavy work. The company serves three domains: research infrastructure, business automation, and market intelligence. The shared substrate turns scattered sources into verified workflows, deliverables, and institutional memory.
 
 ### Mission and Vision
 
-Maestro's mission is to make research work reproducible, computable, and easier to operate through AI agents. The company operates on four core values:
+Maestro's mission is to make expert work more reproducible, computable, and easier to operate through AI infrastructure. The company operates on four core values:
 
 - **Precision**: AI that delivers accurate, reliable results rather than guesses.
 - **Harmony**: AI and humans working in concert, not conflict.
@@ -24,11 +24,11 @@ Maestro's mission is to make research work reproducible, computable, and easier 
 
 ---
 
-## Research Infrastructure: RA Suite
+## Product Line 1: Research Infrastructure
 
 URL: https://ra.maestro.onl
 
-RA Suite is a professional research infrastructure platform serving quantitative researchers in economics, psychology, and social sciences. It provides the infrastructure researchers need around data, compute, experiments, QA, and reproducible delivery.
+Research Infrastructure serves quantitative researchers in economics, psychology, policy, and social sciences. It provides the infrastructure researchers need around data, compute, experiments, QA, and reproducible delivery. RA Data is the first live surface.
 
 ### RA Data (Data Processing Service)
 
@@ -173,36 +173,42 @@ Multimodal practice and presentation rehearsal platform. Supports recording, rev
 
 ---
 
-## Enterprise Services
+## Product Line 2: Business Automation
 
-Maestro provides enterprise AI solutions from strategy to deployment. Services are available to businesses in Singapore and globally, with eligibility for Singapore government AI incentives.
+Business Automation serves companies with paperwork-heavy operations. It focuses on PMO, accounting preparation, procurement, onboarding, compliance packets, admin forms, client delivery operations, and document-heavy workflows.
 
-### Custom AI Solutions
+**Typical workflows:**
+- KYC and bank due diligence packets
+- Vendor registration and procurement packages
+- Accounting preparation and invoice evidence organization
+- Grant, compliance, and partner application packets
+- Client delivery operations and project evidence tracking
 
-End-to-end AI product development tailored to specific business needs.
+**Core value:** turn scattered company documents, emails, screenshots, forms, and evidence into reusable operational workflows and submission-ready deliverables.
 
-- Requirements analysis and AI feasibility assessment
-- AI/ML model selection, training, and integration
-- Full-stack application development
-- Production deployment, monitoring, and ongoing support
+## Product Line 3: Market Intelligence
 
-### AI Tools and Integration
+Market Intelligence serves sales and marketing teams that need reliable evidence before outreach. It focuses on lead discovery, buyer maps, prospect dossiers, account briefs, competitor scans, CRM evidence trails, and evidence-backed outreach.
 
-Pre-built AI tools and custom integrations for existing business workflows.
+**Typical workflows:**
+- Lead list discovery and qualification
+- Prospect and account research dossiers
+- Buyer map and market segmentation
+- Competitor and category scans
+- Outreach briefs grounded in source evidence
 
-- Workflow automation using AI agents
-- Data pipeline construction and optimization
-- Third-party API integration
-- Analytics dashboard development
+**Core value:** turn open web, CRM, company, and market sources into actionable sales and marketing intelligence.
 
-### AI Training and Upskilling
+## Shared Evidence Substrate
 
-Team capability building for the AI-driven economy.
+All product lines share one operating substrate:
 
-- Hands-on workshops with practical exercises
-- AI literacy programs for non-technical staff
-- Custom curriculum aligned to industry needs
-- Certification preparation and support
+- Source collection
+- Evidence extraction
+- Structured memory
+- Workflow execution
+- Human review
+- Reusable deliverables
 
 ### Singapore Government Incentives
 
@@ -216,11 +222,11 @@ Maestro helps businesses leverage Singapore's AI incentive programs:
 
 ## Competitive Advantages
 
-1. **Domain depth in research infrastructure**: RA Suite is built by people who understand academic research workflows, not generic SaaS tooling applied to academia.
-2. **Full-stack AI capability**: From data pipelines to user-facing products, Maestro handles the entire stack rather than just one layer.
-3. **Proven replication record**: 100% replication rate across delivered data packages, critical for academic credibility.
-4. **Singapore government alignment**: Positioned to help enterprises access AI incentive programs under Budget 2026.
-5. **Dual-pillar model**: Enterprise consulting revenue funds consumer product development, creating a sustainable product portfolio.
+1. **Evidence-first workflow model**: Maestro starts from source evidence and reviewed deliverables, not generic chatbot interaction.
+2. **Clear domain wedges**: Research Infrastructure, Business Automation, and Market Intelligence are distinct buyer workflows with shared technical primitives.
+3. **Reusable substrate**: Source collection, extraction, memory, workflow execution, QA, and deliverable generation compound across projects.
+4. **Proven research wedge**: RA Data and adjacent research workflows provide live proof around datasets, compute, experiments, QA, and reproducible delivery.
+5. **Singapore operating base**: Positioned for Singapore companies and global expert-work teams that need AI systems with practical deliverables.
 
 ---
 
