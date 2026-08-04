@@ -12,19 +12,20 @@ import { BlogCard } from "@/components/blog/BlogCard";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
+import { SITE_URL, absoluteSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   title: "Maestro Insights | AI Orchestration, Research & Strategy",
   description:
     "Deep dives into AI orchestration, multi-agent systems, behavioral economics, and autonomous task management from the Maestro team.",
   alternates: {
-    canonical: "https://maestro.onl/blog",
+    canonical: absoluteSiteUrl("/blog"),
   },
   openGraph: {
     title: "Maestro Insights",
     description:
       "Deep dives into AI orchestration, multi-agent systems, behavioral economics, and autonomous task management.",
-    url: "https://maestro.onl/blog",
+    url: absoluteSiteUrl("/blog"),
     siteName: "Maestro",
     type: "website",
   },
@@ -40,8 +41,8 @@ export default function BlogIndexPage() {
       <Navigation />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://maestro.onl" },
-          { name: "Blog", url: "https://maestro.onl/blog" },
+          { name: "Home", url: SITE_URL },
+          { name: "Blog", url: absoluteSiteUrl("/blog") },
         ]}
       />
       <main className="min-h-screen pt-32 pb-20">

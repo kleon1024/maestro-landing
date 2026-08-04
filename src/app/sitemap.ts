@@ -3,24 +3,23 @@
 //
 // Static routes + product subdomain URLs + dynamic blog posts from MDX files
 // Next.js App Router calls this at build time, outputs /sitemap.xml
-// Invariants: all URLs use https://maestro.onl as base
+// Invariant: every canonical site URL uses the shared final-response host.
 ////////////////////////////////////////////////////////////////////////////////
 
 import type { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/lib/blog";
-
-const BASE_URL = "https://maestro.onl";
+import { SITE_URL } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: BASE_URL,
+      url: SITE_URL,
       lastModified: "2026-02-15",
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
-      url: `${BASE_URL}/blog`,
+      url: `${SITE_URL}/blog`,
       lastModified: "2026-02-15",
       changeFrequency: "weekly",
       priority: 0.8,
@@ -56,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogPosts = getAllBlogPosts();
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
+    url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: new Date(
       post.frontmatter.updatedAt || post.frontmatter.publishedAt
     ),

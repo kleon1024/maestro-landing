@@ -1,4 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
+
+import { absoluteSiteUrl } from "@/lib/site-url";
 // [ShareButtons] Social sharing links
 // Server component - generates share URLs
 ////////////////////////////////////////////////////////////////////////////////
@@ -8,10 +10,8 @@ interface ShareButtonsProps {
   slug: string;
 }
 
-const BASE_URL = "https://maestro.onl";
-
 export function ShareButtons({ title, slug }: ShareButtonsProps) {
-  const url = `${BASE_URL}/blog/${slug}`;
+  const url = absoluteSiteUrl(`/blog/${slug}`);
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 

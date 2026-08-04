@@ -1,4 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
+
+import { SITE_URL, absoluteSiteUrl } from "@/lib/site-url";
 // [OrganizationJsonLd] Schema.org Organization + WebSite JSON-LD for SEO
 // Server component -- renders structured data in head
 ////////////////////////////////////////////////////////////////////////////////
@@ -8,7 +10,7 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Maestro",
-    url: "https://maestro.onl",
+    url: SITE_URL,
     description:
       "AI infrastructure company for evidence-heavy work across research, business automation, and market intelligence.",
     contactPoint: {
@@ -22,12 +24,12 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Maestro",
-    url: "https://maestro.onl",
+    url: SITE_URL,
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://maestro.onl/blog?q={search_term_string}",
+        urlTemplate: `${absoluteSiteUrl("/blog")}?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },

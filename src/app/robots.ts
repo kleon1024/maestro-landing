@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site-url";
 
 // Robots configuration for search engine crawlers.
 // Allows all user agents except internal API and framework routes.
@@ -11,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/"],
       },
     ],
-    sitemap: "https://maestro.onl/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

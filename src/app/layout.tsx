@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL } from "@/lib/site-url";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -23,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://maestro.onl"),
+  metadataBase: new URL(SITE_URL),
   title: "Maestro AI — AI Infrastructure for Evidence-Heavy Work",
   description:
     "Maestro builds reusable AI systems for research, business automation, and market intelligence -- turning scattered sources into verified workflows, deliverables, and institutional memory.",
@@ -44,12 +45,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Maestro" }],
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://maestro.onl" },
+  alternates: { canonical: SITE_URL },
   openGraph: {
     title: "Maestro AI — AI Infrastructure for Evidence-Heavy Work",
     description:
       "Maestro builds reusable AI systems for research, business automation, and market intelligence -- turning scattered sources into verified workflows, deliverables, and institutional memory.",
-    url: "https://maestro.onl",
+    url: SITE_URL,
     siteName: "Maestro",
     type: "website",
   },

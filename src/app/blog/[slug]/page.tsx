@@ -25,6 +25,7 @@ import { BlogCTA } from "@/components/blog/BlogCTA";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
+import { SITE_URL, absoluteSiteUrl } from "@/lib/site-url";
 
 // Keywords that indicate research-related content
 const RESEARCH_KEYWORDS = [
@@ -56,7 +57,7 @@ export async function generateMetadata({
       openGraph: {
         title: post.frontmatter.title,
         description: post.frontmatter.description,
-        url: `https://maestro.onl/blog/${slug}`,
+        url: absoluteSiteUrl(`/blog/${slug}`),
         siteName: "Maestro",
         type: "article",
         publishedTime: post.frontmatter.publishedAt,
@@ -72,7 +73,7 @@ export async function generateMetadata({
         description: post.frontmatter.description,
       },
       alternates: {
-        canonical: `https://maestro.onl/blog/${slug}`,
+        canonical: absoluteSiteUrl(`/blog/${slug}`),
       },
     };
   } catch {
@@ -127,9 +128,9 @@ export default async function BlogPostPage({
       <Navigation />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://maestro.onl" },
-          { name: "Blog", url: "https://maestro.onl/blog" },
-          { name: post.frontmatter.title, url: `https://maestro.onl/blog/${slug}` },
+          { name: "Home", url: SITE_URL },
+          { name: "Blog", url: absoluteSiteUrl("/blog") },
+          { name: post.frontmatter.title, url: absoluteSiteUrl(`/blog/${slug}`) },
         ]}
       />
       <BlogJsonLd frontmatter={post.frontmatter} slug={slug} />
