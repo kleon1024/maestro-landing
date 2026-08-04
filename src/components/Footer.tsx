@@ -17,6 +17,12 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <a
+              href="https://rehearse.maestro.onl"
+              className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+            >
+              Rehearse
+            </a>
+            <a
               href="https://ra.maestro.onl"
               target="_blank"
               rel="noopener noreferrer"
