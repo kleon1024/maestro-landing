@@ -116,17 +116,6 @@ AI-powered behavioral economics experiment platform. Researchers describe experi
 
 **Key capability:** Natural language to functional experiment interface conversion.
 
-### PrintPic
-
-URL: https://printpic.maestro.onl
-Category: Photo
-
-Professional passport photo and portrait editing suite. Produces perfect ID photos in seconds with automated compliance checking for 195+ countries. Handles background removal, face positioning, size compliance, and print-ready output.
-
-**Target audience:** Individuals needing passport and ID photos, photography studios, visa agencies, and HR departments processing employee credentials.
-
-**Key capability:** Automated compliance verification against country-specific ID photo standards.
-
 ### Kairos
 
 URL: https://kairos.maestro.onl
@@ -137,17 +126,6 @@ Personal assistant for the right moment. An intelligent agent calendar system th
 **Target audience:** Professionals managing complex schedules, knowledge workers seeking to automate routine planning, and teams coordinating across time zones.
 
 **Key capability:** Natural language task planning and execution through an agent-based calendar interface.
-
-### Growth Foundry
-
-URL: https://growth.maestro.onl
-Category: Marketing
-
-Growth marketing content platform providing data-driven articles on customer acquisition, retention, SEO, and creator economy strategies. Serves as a knowledge base for growth-oriented teams and individual creators.
-
-**Target audience:** Marketing teams, startup founders, content creators, and growth practitioners.
-
-**Key capability:** Data-driven growth marketing content and strategy frameworks.
 
 ### Layout
 

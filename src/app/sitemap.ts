@@ -34,19 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: "https://growth.maestro.onl",
-      lastModified: "2026-02-15",
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
       url: "https://econ.maestro.onl",
-      lastModified: "2026-02-15",
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: "https://printpic.maestro.onl",
       lastModified: "2026-02-15",
       changeFrequency: "monthly",
       priority: 0.7,

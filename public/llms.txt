@@ -36,17 +36,9 @@ For sales and marketing teams: lead discovery, buyer maps, prospect dossiers, ac
 AI-powered behavioral economics experiment platform. Describe experiments in plain language, get fully functional participant-ready websites.
 - URL: https://econ.maestro.onl
 
-### PrintPic
-Professional passport photo and portrait editing suite. Perfect ID photos in seconds, with automated compliance for 195+ countries.
-- URL: https://printpic.maestro.onl
-
 ### Kairos
 Personal assistant for the right moment. Intelligent agent calendar system that plans and executes tasks through natural language.
 - URL: https://kairos.maestro.onl
-
-### Growth Foundry
-Growth marketing content platform. Data-driven articles on customer acquisition, retention, SEO, and creator economy strategies.
-- URL: https://growth.maestro.onl
 
 ### Layout
 Creator content toolkit. Convert Markdown to WeChat-ready HTML with multiple themes, auto-save, and inline styling.
