@@ -30,6 +30,12 @@ export function Footer() {
             >
               ra.maestro.onl
             </a>
+            <a
+              href="https://talea.maestro.onl"
+              className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+            >
+              Talea — AI bookkeeping
+            </a>
             <Link
               href="/blog"
               className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"

@@ -28,6 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes: MetadataRoute.Sitemap = [
     {
+      url: "https://talea.maestro.onl",
+      lastModified: "2026-10-16",
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: "https://ra.maestro.onl",
       lastModified: "2026-02-15",
       changeFrequency: "weekly",
