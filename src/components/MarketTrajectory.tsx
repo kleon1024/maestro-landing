@@ -15,12 +15,12 @@ const TIERS = [
     link: "https://ra.maestro.onl",
   },
   {
-    timeline: "NEXT",
+    timeline: "NOW",
     name: "Business Automation",
     description:
       "Paperwork-heavy operations: PMO, accounting prep, procurement, onboarding, compliance packets, and document-heavy delivery workflows.",
-    active: false,
-    link: "#book-demo",
+    active: true,
+    link: "https://talea.maestro.onl",
   },
   {
     timeline: "NEXT",
@@ -99,7 +99,7 @@ export function MarketTrajectory() {
                       className="inline-flex items-center text-sm font-medium text-m-accent hover:text-cyan-300 transition-colors mt-3"
                     >
                       {tier.link.startsWith("http")
-                        ? "ra.maestro.onl"
+                        ? new URL(tier.link).hostname
                         : "Book a demo"}
                       <svg
                         className="ml-1 w-3.5 h-3.5"
